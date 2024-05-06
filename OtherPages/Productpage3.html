@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gorilla Product Page</title>
+
+  <link href="../Icons/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+  <link href="../Icons/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+  <link href="../Icons/uicons-regular-straight/css/uicons-regular-straight.css" rel="stylesheet">
+
+  <link rel="icon" href="../img/MONKEY.png">
+  <link rel="stylesheet" href="../Font/font.css">
+  <link rel="stylesheet" href="../ProductPageCss/header.css">
+  <link rel="stylesheet" href="../ProductPageCss/general.css">
+  <link rel="stylesheet" href="../ProductPageCss/footer.css">
+  <link rel="stylesheet" href="../ProductPageCss/productpage.css">
+
+</head>
+<body>
+<!-- HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER -->
+<header class="header">
+  <nav>
+    <div class="container">
+      <div class="logo-div">
+        <a href="../index.html">
+          <p class="LOGO">
+            GO<span class="rilla">RILLA</span>
+          </p>
+        </a>
+      </div>
+      <div class="menu-div">
+          <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
+          <a href="#" class="menu-links">PRODUCTS</a>
+          <a href="AboutUs.html" class="menu-links">ABOUT US</a>
+          <a href="ContactUs.html" class="menu-links">CONTACT</a>
+          <div class="dropdown">
+            <div class="menu-links dropbtn">
+              ACCOUNT
+              <i class="fi fi-rs-angle-down"></i>
+            </div>
+            <div class="dropdown-content">
+              <a href="ProfilePage.html">MY ACCOUNT</a>
+              <a href="loginpage.html">LOG IN</a>
+              <a href="CartPage.html">CART</a>
+            </div>
+          </div>
+          <a href="CartPage.html" class="shopping-cart-container">
+            <p class="total-price">₱0.00</p>
+            <div class="cart-parent-div">
+              <i class="fi fi-rs-shopping-cart"></i>
+              <div class="cart-quantity">2</div>
+            </div>
+          </a>
+      </div>     
+    </div>
+  </nav>
+</header>
+<!--  SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION   -->
+      <main>
+
+        <section class="section1">
+          <div class="title">
+            <h1>
+              PRO<span>DUCTS</span>
+            </h1>
+          </div>
+          <div id="mySidebar" class="sidebar">
+            <div class="sidebar-div">
+              <p>Filter By Price</p>
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+              <div class="filter-price">
+                <input type="range" min="0" max="1000" value="500" class="slider" id="myRange">
+              </div>
+              <div class="price-container">
+                <p class="min-price"> ₱400</p>
+                <p class="max-price"> ₱5000</p>
+              </div>
+              
+              <p>Categories</p>
+              <p class="color-category">Colors</p>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">White</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Black</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Grey</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Pink</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Orange</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Green</p>  
+                <input type="checkbox">
+              </div>
+              <div class="catergory-row" id="categoryRow">
+                <p class="category-name">Biege</p>  
+                <input type="checkbox">
+              </div>
+            </div>
+          </div>
+          <div class="filter-container">
+            <div>
+              <button class="filter-button openbtn" onclick="openNav()">
+                <i class="fi fi-rr-menu-burger"></i>
+                <p class="filter-button-text" id="sidebar-btn">FILTER & SORT</p>
+              </button>
+              
+              <p class="result-num">
+                Showing 1-20 of 60 results
+              </p>
+            </div>
+            <div class="Search-bar-container">
+              <input class="Search-bar" type="text" placeholder="Search">
+              <i class="fi fi-rr-search"></i>
+            </div> 
+        </div>
+          <div class="main-products-container">
+
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture1" src="../ProductPageImg/plain-black-shirt.jpg" alt="">
+                  
+                  <!-- Photo by Anna Nekrashevich from Pexels: https://www.pexels.com/photo/a-black-shirt-hanging-on-the-wall-8532616/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Black Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/pink-shirt.jpg" alt="">
+                  <!-- Photo by MART  PRODUCTION from Pexels: https://www.pexels.com/photo/person-holding-orange-long-sleeve-shirt-9558699/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Pink Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/brown-shirt.jpg" alt="">
+                  <!-- Photo by Vie Studio from Pexels: https://www.pexels.com/photo/a-person-holding-a-clothes-hanger-with-orange-shirt-8148577/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Orange Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/grey-shirt.jpg" alt="">
+                  <!-- Photo by MART  PRODUCTION from Pexels: https://www.pexels.com/photo/woman-in-brown-crew-neck-t-shirt-9558684/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    40% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Grey Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;500.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;299.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/oversized-white-shirt.jpg" alt="">
+                  <!-- Photo by cottonbro studio: https://www.pexels.com/photo/man-in-white-crew-neck-t-shirt-standing-4066288/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    43% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Oversized White Tee
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;700.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;399.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/white-shirt.jpg" alt="">
+                  <!-- Photo by Darina Belonogova: https://www.pexels.com/photo/woman-posing-on-bus-interior-8722127/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    50% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain White Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;400.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;199.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/biege-shirt.jpg" alt="">
+                  <!-- Photo by Marlon Schmeiski: https://www.pexels.com/photo/portrait-of-thinking-man-20186029/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    33% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Biege Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;399.00
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/green-shirt.jpg" alt="">
+                  <!-- Photo by addy  bronzzz: https://www.pexels.com/photo/young-woman-in-sunglasses-and-t-shirt-16048142/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    28% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Green Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;700.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture1" src="../ProductPageImg/plain-black-shirt.jpg" alt="">
+                  
+                  <!-- Photo by Anna Nekrashevich from Pexels: https://www.pexels.com/photo/a-black-shirt-hanging-on-the-wall-8532616/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Black Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/pink-shirt.jpg" alt="">
+                  <!-- Photo by MART  PRODUCTION from Pexels: https://www.pexels.com/photo/person-holding-orange-long-sleeve-shirt-9558699/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Pink Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/brown-shirt.jpg" alt="">
+                  <!-- Photo by Vie Studio from Pexels: https://www.pexels.com/photo/a-person-holding-a-clothes-hanger-with-orange-shirt-8148577/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Orange Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/grey-shirt.jpg" alt="">
+                  <!-- Photo by MART  PRODUCTION from Pexels: https://www.pexels.com/photo/woman-in-brown-crew-neck-t-shirt-9558684/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    40% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Grey Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;500.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;299.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/oversized-white-shirt.jpg" alt="">
+                  <!-- Photo by cottonbro studio: https://www.pexels.com/photo/man-in-white-crew-neck-t-shirt-standing-4066288/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    43% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Oversized White Tee
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;700.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;399.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/white-shirt.jpg" alt="">
+                  <!-- Photo by Darina Belonogova: https://www.pexels.com/photo/woman-posing-on-bus-interior-8722127/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    50% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain White Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;400.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;199.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/biege-shirt.jpg" alt="">
+                  <!-- Photo by Marlon Schmeiski: https://www.pexels.com/photo/portrait-of-thinking-man-20186029/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    33% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Biege Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;399.00
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/green-shirt.jpg" alt="">
+                  <!-- Photo by addy  bronzzz: https://www.pexels.com/photo/young-woman-in-sunglasses-and-t-shirt-16048142/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    28% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Green Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;700.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/brown-shirt.jpg" alt="">
+                  <!-- Photo by Vie Studio from Pexels: https://www.pexels.com/photo/a-person-holding-a-clothes-hanger-with-orange-shirt-8148577/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    17% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Orange Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;600.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;499.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/grey-shirt.jpg" alt="">
+                  <!-- Photo by MART  PRODUCTION from Pexels: https://www.pexels.com/photo/woman-in-brown-crew-neck-t-shirt-9558684/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    40% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain Grey Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;500.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;299.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/oversized-white-shirt.jpg" alt="">
+                  <!-- Photo by cottonbro studio: https://www.pexels.com/photo/man-in-white-crew-neck-t-shirt-standing-4066288/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    43% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Oversized White Tee
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;700.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;399.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+  
+            <a href="PreviewPage.html">
+              <div class="product-container">
+                <div class="product-picture-container">
+                  <img class="product-picture" src="../ProductPageImg/white-shirt.jpg" alt="">
+                  <!-- Photo by Darina Belonogova: https://www.pexels.com/photo/woman-posing-on-bus-interior-8722127/ -->
+                  <div class="tooltip">
+                    Quick View
+                  </div>
+                  <div class="sale-percent">
+                    50% OFF
+                  </div>
+                </div>
+              
+                <div class="Tshirts-tag-container">
+                  <p class="Tshirts-tag">
+                    Tshirts
+                  </p>
+                </div>
+              
+                <div class="tshirt-name-container">
+                  <p class="tshirt-name">
+                    Plain White Tshirt
+                  </p>
+                </div>
+              
+                <div class="tshirt-price-container">
+              
+                  <div class="original-price-container">
+                    <p class="original-price">
+                      &#8369;400.00
+                    </p>
+                  </div>
+              
+                  <div class="sale-price-container">
+                    <p class="sale-price">
+                      &#8369;199.00
+                    </p>
+                  </div>
+                  
+                </div>
+              
+              </div>
+            </a>
+          </div>
+        </div>
+
+          <div class="pages">
+            <a href="Productpage2.html" class="page-nav arrows">
+              <i class="fi fi-rr-angle-left"></i>
+              Back
+            </a>
+            <a href="Productpage.html" class="page-nav una">1</a>
+            <a href="Productpage2.html" class="page-nav una">2</a>
+            <a href="#" class="page-nav act">3</a>
+            <a href="#" class="page-nav arrows">
+              Next
+              <i class="fi fi-rr-angle-right"></i>
+            </a>
+          </div>
+          
+        </section>
+      </main>
+
+  <!-- FOOOOOOOOOOOOOTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+  <footer>
+    <div class="footer-container">
+      <div class="link-container-parent">
+        <div class="link-container">
+          <a href="../index.html">Home</a>
+          <a href="AboutUs.html">About Us</a>
+          <a href="loginpage.html">My Account</a>
+        </div>
+        <div class="link-container">
+          <a href="#">Products</a>
+          <a href="ContactUs.html">Contact</a>
+          <a href="SignUpPage.html">Sign Up</a>
+        </div>
+        
+      </div>
+      <div class="soc-med-links-container">
+        <a href="https://www.facebook.com" class="soc-med-links">
+          <i class="fi fi-brands-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com" class="soc-med-links">
+          <i class="fi fi-brands-instagram"></i>
+        </a>
+        <a href="https://www.twitter.com" class="soc-med-links">
+          <i class="fi fi-brands-twitter"></i>
+        </a>
+        <a href="https://www.pinterest.com" class="soc-med-links">
+          <i class="fi fi-brands-pinterest"></i>
+        </a>
+        <a href=https://www.youtube.com" class="soc-med-links">
+          <i class="fi fi-brands-youtube"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "40dvh";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+    }
+  </script>
+</body>
+</html>

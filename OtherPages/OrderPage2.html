@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gorilla Order Page</title>
+
+  <link href="../Icons/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+  <link href="../Icons/uicons-regular-rounded/css/uicons-regular-rounded.css" rel="stylesheet">
+  <link href="../Icons/uicons-regular-straight/css/uicons-regular-straight.css" rel="stylesheet">
+
+  <link rel="icon" href="../img/MONKEY.png">
+  <link rel="stylesheet" href="../Font/font.css">
+  <link rel="stylesheet" href="../OrderPageCss/header.css">
+  <link rel="stylesheet" href="../OrderPageCss/general.css">
+  <link rel="stylesheet" href="../OrderPageCss/footer.css">
+  <link rel="stylesheet" href="../OrderPageCss/orderpage.css">
+
+
+</head>
+<body>
+<!-- HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER -->
+<header class="header">
+  <nav>
+    <div class="container">
+      <div class="logo-div">
+        <a href="../index.html">
+          <p class="LOGO">
+            GO<span class="rilla">RILLA</span>
+          </p>
+        </a>
+      </div>
+      <div class="menu-div">
+          <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
+          <a href="Productpage.html" class="menu-links">PRODUCTS</a>
+          <a href="AboutUs.html" class="menu-links">ABOUT US</a>
+          <a href="ContactUs.html" class="menu-links">CONTACT</a>
+          <div class="dropdown">
+            <div class="menu-links dropbtn">
+              ACCOUNT
+              <i class="fi fi-rs-angle-down"></i>
+            </div>
+            <div class="dropdown-content">
+              <a href="ProfilePage.html">MY ACCOUNT</a>
+              <a href="loginpage.html">LOG IN</a>
+              <a href="CartPage.html">CART</a>
+            </div>
+          </div>
+          <a href="CartPage.html" class="shopping-cart-container">
+            <p class="total-price">₱0.00</p>
+            <div class="cart-parent-div">
+              <i class="fi fi-rs-shopping-cart"></i>
+              <div class="cart-quantity">2</div>
+            </div>
+          </a>
+      </div>     
+    </div>
+  </nav>
+</header>
+<!--  SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION   -->
+      <main>
+
+        <section class="section1">
+
+          <section class="sidebar-container">
+            <div class="profile-pic-container">
+              <img src="../ProfilePageImg/ProfilePic.jpg" alt="pp">
+              <p class="name">Art Michael Cadiz</p>
+              <p class="location">Tokyo, Japan</p>
+            </div>
+            <div class="sidebar-links-container">
+              <a href="ProfilePage.html" class="sidebar-links-una">
+                <div>
+                  <i class="fi fi-rs-user"></i>
+                  <p>Profile </p>
+                </div>
+              </a>
+
+              <a href="#" class="sidebar-links-act">
+                <div>
+                  <i class="fi fi-rr-shopping-basket"></i>
+                  <p>My orders</p>
+                </div>
+              </a>
+
+              
+              <br><br>
+              <a href="loginpage.html" class="sidebar-links-out">
+                <div>
+                  <i class="fi fi-rr-arrow-left"></i>
+                  <p>Log out </p>
+                </div>
+              </a>
+
+            </div>
+          </section>
+
+          <section class="info-container">
+            <div class="my-order-container">
+              <input class="search-bar" type="text" placeholder="Search">
+              <div class="title">MY ORDER LIST</div>
+              <div class="right-part">
+                  <button>
+                    Filters
+                    <i class="fi fi-rr-settings-sliders"></i>
+                  </button>
+                  <button>
+                    Sort
+                    <i class="fi fi-rr-sort-amount-down-alt"></i>
+                  </button>
+              </div>
+            </div>
+            
+            <div class="table-content">
+              
+              <div class="table-top">
+                <p>#</p>
+                <p>Order ID</p>
+                <p>Product Name</p>
+                <p>Items</p>
+                <p>Price</p>
+                <p>Paid</p>
+                <p>Date</p>
+                <p>Status</p>
+                <p>Action</p>
+              </div>
+              
+              <div class="table-row">
+                <p class="num">11</p>
+                <p>23412</p>
+                <p class="product">Plain Biege Tshirts</p>
+                <p>19</p>
+                <p>₱3,123</p>
+                <p class="green">Yes</p>
+                <p>Aug 9, 2023</p>
+                <p class="orange">Pending</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">12</p>
+                <p>69234</p>
+                <p class="product">Plain Orange Tshirts</p>
+                <p>6</p>
+                <p>₱3,123</p>
+                <p class="red">No</p>
+                <p>Aug 10, 2023</p>
+                <p class="orange">Pending</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">13</p>
+                <p>14245</p>
+                <p class="product">Plain White Tshirts</p>
+                <p>8</p>
+                <p>₱2,532</p>
+                <p class="green">Yes</p>
+                <p>Aug 7, 2023</p>
+                <p class="green">Completed</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">14</p>
+                <p>12334</p>
+                <p class="product">Plain Orange Tshirts</p>
+                <p>6</p>
+                <p>₱2,532</p>
+                <p class="green">Yes</p>
+                <p>Aug 7, 2023</p>
+                <p class="green">Completed</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">15</p>
+                <p>12334</p>
+                <p class="product">Plain Black Tshirts</p>
+                <p>6</p>
+                <p>₱2,532</p>
+                <p class="green">Yes</p>
+                <p>Aug 7, 2023</p>
+                <p class="red">Cancelled</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <div class="num">16</div>
+                <p>69420</p>
+                <p class="product">Plain Pink Tshirt</p>
+                <p>6</p>
+                <p>₱1,500</p>
+                <p class="green">Yes</p>
+                <p>Jan 5 2024</p>
+                <p class="green">Complete</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+              <div class="table-row">
+                <p class="num">17</p>
+                <p>69442</p>
+                <p class="product">Plain Black Tshirt</p>
+                <p>5</p>
+                <p>₱2,435</p>
+                <p class="red">No</p>
+                <!-- <p>Zone 3, Ayala</p> -->
+                <p>Feb 4 2024</p>
+                <p class="orange">Pending</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">18</p>
+                <p>69432</p>
+                <p class="product">Plain Orange Tshirts</p>
+                <p>6</p>
+                <p>₱6,423</p>
+                <p class="red">No</p>
+                <p>Jun 23, 2023</p>
+                <p class="red">Cancelled</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">19</p>
+                <p>65461</p>
+                <p class="product">Plain Grey Tshirts</p>
+                <p>11</p>
+                <p>₱1,954</p>
+                <p class="green">Yes</p>
+                <p>Jun 23, 2023</p>
+                <p class="green">Completed</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+
+              <div class="table-row">
+                <p class="num">20</p>
+                <p>24124</p>
+                <p class="product">Plain White Tshirts</p>
+                <p>10</p>
+                <p>₱3,123</p>
+                <p class="green">Yes</p>
+                <p>Aug 6, 2023</p>
+                <p class="green">Completed</p>
+                <a class="link" href="orderdetailpage.html">View Details</a>
+              </div>
+              
+              
+            </div>
+
+            <nav class="buttom-nav-container">
+              <p class="entries">Showing 1 to 10 of 30 entries</p>
+              <div class="nav-div">
+
+                <a href="OrderPage.html" class="arrows navnav">
+                  <i class="fi fi-rr-angle-left"></i>
+                  <p>Back</p>
+                </a>
+
+                <a class="navnav navnum" href="OrderPage.html">1</a>
+                <a class="navnav navnum acti" href="#">2</a>
+                <a class="navnav navnum" href="OrderPage3.html">3</a>
+
+                <a href="OrderPage3.html" class="arrows navnav">
+                  <p>Next</p>
+                  <i class="fi fi-rr-angle-right"></i>
+                </a>
+
+              </div>
+            </nav>
+          </section>
+
+        </section>
+      </main>
+
+  <!-- FOOOOOOOOOOOOOTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRR -->
+  <footer class="footer-container">
+    <div class="link-container-parent">
+      <div class="link-container">
+        <a href="../index.html">Home</a>
+        <a href="AboutUs.html">About Us</a>
+        <a href="loginpage.html">My Account</a>
+      </div>
+      <div class="link-container">
+        <a href="Productpage.html">Products</a>
+        <a href="ContactUs.html">Contact</a>
+        <a href="SignUpPage.html">Sign Up</a>
+      </div>
+      
+    </div>
+    <div class="soc-med-links-container">
+      <a href="https://www.facebook.com" class="soc-med-links">
+        <i class="fi fi-brands-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com" class="soc-med-links">
+        <i class="fi fi-brands-instagram"></i>
+      </a>
+      <a href="https://www.twitter.com" class="soc-med-links">
+        <i class="fi fi-brands-twitter"></i>
+      </a>
+      <a href="https://www.pinterest.com" class="soc-med-links">
+        <i class="fi fi-brands-pinterest"></i>
+      </a>
+      <a href=https://www.youtube.com" class="soc-med-links">
+        <i class="fi fi-brands-youtube"></i>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>

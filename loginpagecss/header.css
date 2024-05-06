@@ -1,0 +1,148 @@
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1dvh 19.3dvh;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: white;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 7.5dvh;
+  /* height: 50px; */
+  z-index: 100;
+}
+
+.logo-div {
+  width: 172px;
+} 
+
+.LOGO {
+  font-family: Playfair Display-italic;
+  color: #0F0F0F;
+  font-size: 4.5dvh;
+  /* font-size: 30px; */
+  font-weight: 700;
+  /* font-style: italic; */
+  cursor: pointer;
+
+}
+.rilla {
+  font-family: Playfair Display-italic;
+  color: #005B41;
+}
+
+
+.menu-div {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  /* width: 300px; */
+  text-wrap: nowrap;
+}
+
+.menu-links {
+  margin: 0 2dvh;
+  /* margin: 10px 15px 10px 15px; */
+  cursor: pointer;
+  transition: 0.15s;
+  font-size: 1.5dvh;
+  /* font-size: 12px; */
+  text-align: center;
+}
+
+.menu-links:hover {
+  color: #005B41;
+}
+
+.menu-links:active {
+  opacity: 0.5;
+}
+
+.fi-rs-angle-down {
+  font-size: 1.3dvh;
+  margin-left: 5px;
+}
+
+
+.shopping-cart-container {
+  display: flex;
+  color: #005B41;
+  margin-right: 10px;
+  margin-left: 20px;
+  align-items: center;
+}
+.shopping-cart-container:hover, .shopping-cart-container:active, .shopping-cart-container:focus, .shopping-cart-container:visited, .shopping-cart-container:link {
+  color: #005B41;
+}
+.total-price {
+  font-style: italic;
+  font-size: 3dvh;
+  cursor: pointer;
+}
+.fi-rs-shopping-cart {
+  font-size: 3.5dvh;
+  margin-left: 1dvh;
+  cursor: pointer;
+}
+
+.cart-parent-div {
+  position: relative;
+}
+
+.cart-quantity{
+  position: absolute;
+  top: -1dvh;
+  right: -1dvh;
+  background-color: rgba(161, 6, 6, 0.849);
+  color: white;
+  border-radius: 50%;
+  padding: 0.3dvh 0.7dvh;
+  font-size: 1.3dvh;
+}
+
+
+
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,1);
+  z-index: 1;
+  border-radius: 2px;
+
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 11px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+

@@ -1,0 +1,347 @@
+.section1 {
+  
+  margin: 0 10%;
+  
+  display: flex;
+  /* background-color: lightseagreen; */
+}
+/* parents */
+.sidebar-container {
+  /* background-color: lightblue; */
+  width: 30%;
+}
+
+.profile-pic-container {
+  background-color: white;
+  margin: 5% 0;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.profile-pic-container img {
+  background-color: black;
+  padding: 1%;
+  width: 20dvh;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10%;
+}
+
+.profile-pic-container .name  {
+  font-weight: 500;
+  margin-bottom: 5%;
+}
+
+.profile-pic-container .location {
+  color: gray;
+  font-size: 15px;
+} 
+
+.sidebar-links-act div {
+  background-color: white;
+  width: 90.4%;
+  padding: 5% 10%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 3%;
+  border: 2px solid #005B41;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+   color: #005B41;
+}
+
+.sidebar-links-una div {
+  background-color: white;
+  width: 90.4%;
+  padding: 5% 10%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 3%;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  
+}
+
+.sidebar-links-una div:hover {
+  background-color: white;
+  width: 90.3%;
+  padding: 5% 10%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 2%;
+  
+  box-sizing: border-box;
+  border:  2px dashed #005B41;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.sidebar-links-una div:active {
+  background-color: white;
+  width: 90.3%;
+  padding: 5% 10%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 2%;
+  
+  box-sizing: border-box;
+  border:  2px solid #005B41;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.sidebar-links-out div {
+  background-color: #005B41;
+  width: 90.4%;
+  padding: 5% 10%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.sidebar-links-out div:hover {
+  background-color: #084433;
+  width: 90.4%;
+  padding: 5% 10%;
+  box-shadow: 0 2 10px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.sidebar-links-out div:active {
+  background-color: #006649;
+  width: 90.4%;
+  padding: 5% 10%;
+  box-shadow: 0 2 10px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+
+/* parents */
+.info-container {
+  background-color: White;
+  flex: 1;
+  margin-top: 1.5%;
+  /* padding: 3% 3% 0 3%; */
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.my-order-container {
+  padding: 2dvh 2dvh 0 2dvh;
+  /* height: 3dvh; */
+  /* background-color: grey; */
+  display: flex;
+  align-items: center;
+  gap: 2dvh;
+  justify-content: space-between;
+  margin-bottom: 2dvh;
+}
+
+.search-bar {
+  border: 0;
+  background-color: rgb(243, 243, 243);
+  /* background-color: rgb(182, 182, 182); */
+  border-radius: 5px;
+  
+  width: 25%;
+  padding: 1dvh 1.5dvh;
+  font-weight: 600;
+  font-size: 1.5dvh;
+}
+
+.search-bar:focus {
+  /* border: 0; */
+  outline: none;
+
+  padding: 1.1dvh 1.4dvh;
+  border: inset 0.2dvh #005B41;
+  border-style:  dashed;
+}
+
+.title {
+  font-size: 2dvh;
+  font-weight: 700;
+  margin-right: 5.5dvh;
+}
+
+.right-part {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  /* margin-top: 2dvh; */
+  gap: 2dvh;
+}
+.right-part button {
+  
+  font-weight: 600;
+  padding: 0.7dvh 2dvh;
+  border: 0;
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 1dvh;
+  color: grey;
+  font-size: 1.5dvh;
+}
+
+.right-part button:hover {
+  padding: 0.5dvh 1.9dvh;
+  border: inset 0.2dvh #005B41;
+  border-style:  dashed;
+}
+
+
+
+.right-part button .fi {
+  
+  margin-top: 0.7dvh;
+  font-size: 1.5dvh;
+}
+
+
+
+
+.table-top {
+  background-color: rgb(243, 243, 243);
+  box-shadow: 0 -0.1dvh 1px 0 rgba(0, 0, 0, 0.2);
+  border-bottom: 0.1dvh solid rgba(0, 0, 0, 0.1);
+  font-size: 1.7dvh;
+  display: grid;
+  grid-template-columns: 4dvh 1fr 2fr 1fr 1fr 0.5fr 2fr 1.5fr 1.5fr;
+  padding: 2dvh 2dvh;
+  border-radius: 5px 5px 0 0;
+  gap: 2dvh;
+  font-weight: 500;
+  color: grey;
+}
+
+.table-row {
+
+  font-size: 1.5dvh;
+  display: grid;
+  grid-template-columns: 4dvh 1fr 2fr 1fr 1fr 0.5fr 2fr 1.5fr 1.5fr;
+  padding: 2dvh 2dvh;
+  border-radius:0 0 6px 6px;
+  font-weight: 600;
+  gap: 2dvh;
+  border-bottom: 0.1dvh solid rgba(0, 0, 0, 0.15);
+  align-items: center;
+}
+
+.table-row:hover {
+  background-color: rgb(243, 243, 243);
+}
+
+.table-row .product {
+  font-size: 1.5dvh;
+}
+
+.table-row .link {
+  font-size: 1.5dvh;
+  font-weight: 400;
+  text-wrap: nowrap;
+  color: grey;
+  text-decoration: underline;
+}
+.num {
+  color: grey; 
+  font-weight: 400;
+}
+
+.green {
+  color: lightgreen;
+}
+
+.red {
+  color: rgb(253, 105, 105);
+}
+.orange {
+  color: rgb(243, 197, 112);
+}
+
+.buttom-nav-container {
+  padding: 3dvh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.entries {
+  font-size: 1.4dvh;
+  color: grey;
+}
+
+.nav-div {
+  font-size: 1.6dvh;
+  font-weight: 700;
+  display: flex;
+  gap: 2dvh;
+  align-items: center;
+}
+
+.arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.5dvh;
+  font-weight: 500;
+  background-color: 0;
+  border: none;
+  cursor: pointer;
+} 
+.arrows .fi {
+  font-size: 1.3dvh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5dvh;
+  cursor: pointer;
+  
+  
+}
+
+.buttom-nav-container .navnav {
+  color: grey;
+  font-size: 1.6dvh;
+}
+
+.buttom-nav-container .navnav p {
+  font-size: 1.6dvh;
+}
+.buttom-nav-container .acti {
+  color: rgb(75, 75, 75);
+  font-weight: 700;
+  text-decoration: underline;
+}

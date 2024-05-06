@@ -1,0 +1,35 @@
+.section3 {
+  font-family: Archivo;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 20px;
+  place-items: center;
+  text-align: center;
+  /* padding-top: 20px;
+  padding-bottom: 70px; */
+  padding: 0 6.5% 5% 5.5%;
+}
+
+.section3 h1 {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.section3 p {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+@media screen and (max-width: 800px) {
+  .section3 p {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .section3 p {
+    font-size: 19px;
+  }
+  
+}
+

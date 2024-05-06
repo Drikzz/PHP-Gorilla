@@ -1,0 +1,267 @@
+* {
+  font-family: Archivo, Roboto, Arial;
+}
+
+.main-section2-container {
+  display: flex;
+  justify-content: center;
+}
+
+.section2-container {
+  display: flex;
+  flex-direction: column;
+  
+  flex: 1;
+  padding: 100px 10%;
+  justify-content: center;
+  align-items: center;
+}
+
+.featured-products-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.featured-products {
+  font-size: 30px;
+  font-family: Archivo;
+  font-weight: bold;
+}
+
+.PRODUCTS {
+  color: #005B41;
+}
+
+.selection-type-container {
+  display: flex;
+}
+
+.tshirt-button {
+  background-color: transparent;
+  
+  padding: 20px 25px;
+  border: none;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: background-color 0.15s, color 0.15s, text-decoration 0.15s;
+}
+
+.tshirt-button:hover {
+  background-color: #005B41;
+  color: white;
+
+  text-decoration: underline;
+}
+
+.polos-button {
+  background-color: transparent;
+  
+  padding: 20px 25px;
+  border: none;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: background-color 0.15s, color 0.15s, text-decoration 0.15s;
+}
+
+.polos-button:hover {
+  background-color: #005B41;
+  color: white;
+
+  text-decoration: underline;
+}
+
+
+.main-products-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: auto;
+  padding: 20px 0 20px 0;
+  gap: 20px;
+  row-gap: 50px;
+  margin: 0  5%;
+  align-items: center;
+  justify-items: center;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
+  
+  transition: box-shadow 0.7s, transform 0.7s;
+  padding-bottom: 20px;
+  
+  cursor: pointer;
+}
+
+
+
+
+.product-container:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-container:hover .product-picture1,
+.product-container:hover .product-picture {
+  transform: scale(1.2);
+}
+
+.product-picture-container {
+  display: flex;
+  justify-content: center;
+  width: 240px;
+  height: 300px;
+  overflow: hidden;
+  
+  position: relative;
+}
+
+.product-picture-container .sale-percent {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  background-color: rgba(0, 0, 0, 0.678);
+  color: white;
+
+  font-size: 12px;
+  padding: 5px;
+}
+
+.product-picture-container .tooltip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 12px;
+
+  background-color: rgba(0, 0, 0, 0.678);
+  color: white;
+
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.product-container:hover .tooltip {
+  opacity: 1;
+}
+
+
+.product-picture,.product-picture1 {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 60%;
+  cursor: pointer;
+  
+  transition: transform 0.7s;
+}
+
+.product-picture1 {
+  object-position: 50%;
+}
+
+
+.Tshirts-tag-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.Tshirts-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: grey;
+  cursor: pointer;
+}
+
+.tshirt-name-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+}
+
+.tshirt-name {
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+
+}
+
+.tshirt-price-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+
+.original-price {
+  color: rgba(128, 128, 128, 0.8);
+  text-decoration: line-through;
+}
+
+.sale-price {
+  color: grey;
+}
+
+.view-more-link {
+  margin-top: 5dvh;
+  font-size: 2dvh;
+  font-weight: 400;
+  color: #005B41;
+  cursor: pointer;
+  border-bottom: 1.5px solid #005B41;
+  padding-bottom: 1.5px;
+}
+
+
+@media (max-width: 599px) {
+  .section1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-products-container {
+    grid-template-columns: 1fr;
+    width: 270px;
+  }
+  .product-container {
+    justify-content: center;
+  }
+}
+
+
+
+
+@media (min-width:600px) and (max-width: 899px) {
+  .main-products-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1300px) {
+  .main-products-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+@media (min-width: 1300px) and (max-width: 1800px) {
+  .main-products-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1801px) {
+  .main-products-container {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
