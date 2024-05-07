@@ -1,13 +1,15 @@
 name_of_product
 desc_of_product
+
 size_of_product
 gender_of_product
+
 baseprice_of_product
+
 quantity_of_products
 discount_of_products
-discount_type 
+color_of_product
 
 picture
-category_of_product
 
 submit_btn
