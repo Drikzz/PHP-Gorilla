@@ -1,49 +1,42 @@
 <?php
-session_start();
 include("database.php");
 
-if (isset($_POST["fname"]) && isset($_POST["lname"]) && isset($_POST["user_email"]) && isset($_POST["user_phone"])) {
-  $fname = filter_input(INPUT_POST, "fname", FILTER_SANITIZE_SPECIAL_CHARS);
-  $lname = filter_input(INPUT_POST, "lname", FILTER_SANITIZE_SPECIAL_CHARS);
-  $email = filter_input(INPUT_POST, "user_email", FILTER_SANITIZE_EMAIL);
-  $phone = filter_input(INPUT_POST, "user_phone", FILTER_SANITIZE_NUMBER_INT);
+// Define the starting product ID (replace with logic if needed)
+$product_id = 1;
 
-  $insert_query = "INSERT INTO customers (first_name, last_name, email, phone_number)
-                    VALUES ('$fname', '$lname', '$email', '$phone')";
+// SQL query to fetch products with ID greater than the starting ID (assuming IDs are sequential)
+$sql = "SELECT * FROM t_shirts WHERE tshirt_id > $product_id ORDER BY tshirt_id ASC";
+$result = mysqli_query($conn, $sql);
 
-  $result = mysqli_query($conn, $insert_query);
+// Check if products are found
+if ($conn) {
+  if (mysqli_num_rows($result) > 0) {
+    echo '<script>';
 
-  if ($result) {
-    echo "Registration successful!";
+    // Loop through each product in the result set
+    while ($product = mysqli_fetch_assoc($result)) {
+      // Create a new div for each product
+      echo 'const productDiv = document.createElement("div");';
+      echo 'productDiv.classList.add("table"); // Add the same class for styling';
+      
+      // Set the inner content using string concatenation
+      productDiv.innerHTML = `
+  <div class="tshirt_name">${product['name']}</div>
+  <div class="tshirt_description">${product['description']}</div>
+  <div class="tshirt_price">$`  + number_format($product['price'], 2) + `</div>`;
+
+    }
+
+    echo '</script>';
+
   } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "No products found after ID: $product_id";
   }
+
 } else {
-  echo "Please fill out all required fields.";
+  echo "Database connection error!";
 }
 
 mysqli_close($conn);
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <form action="index.php" method="post">
-    <label for="fname">First Name</label><br>
-    <input type="text" name="fname"><br>
-    <label for="lname">Last Name</label><br>
-    <input type="text" name="lname"><br>
-    <label for="user_email">Email</label><br>
-    <input type="email" name="user_email"><br>
-    <label for="user_phone">Phone Number</label><br>
-    <input type="text" name="user_phone"><br>
-    <input type="submit" value="Submit">
-  </form>
-</body>
-</html>

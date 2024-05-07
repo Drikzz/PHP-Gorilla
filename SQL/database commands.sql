@@ -7,7 +7,7 @@ CREATE TABLE customers
 	email VARCHAR(255) NOT NULL,
 	phone_number VARCHAR(13) NOT NULL);
 	
-CREATE TABLE Addresses (
+CREATE TABLE addresses (
   address_id INT PRIMARY KEY AUTO_INCREMENT,
   customer_id INT NOT NULL,
   street_address VARCHAR(255) NOT NULL,
@@ -18,13 +18,20 @@ CREATE TABLE Addresses (
   FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
-CREATE TABLE T_Shirts (
+CREATE TABLE t_shirts (
   tshirt_id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   description TEXT,
   price DECIMAL(10,2) NOT NULL,
   image_url VARCHAR(255) NOT NULL
 );
+
+ALTER TABLE t_shirts
+ADD size VARCHAR(2) NOT NULL,
+ADD gender VARCHAR(6) NOT NULL,
+ADD quantity INT NOT NULL,
+ADD discount INT NOT NULL,
+ADD category VARCHAR(255) NOT NULL;
 
 CREATE TABLE Inventory (
   tshirt_id INT NOT NULL,
