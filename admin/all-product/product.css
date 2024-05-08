@@ -243,3 +243,18 @@
   text-decoration: none;
   color: black;
 }
+
+.header-notif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  
+  /* background-color: red; */
+}
+
+.header-notif p {
+  font-size: 30px;
+  font-weight: 600;
+}

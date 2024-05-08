@@ -54,7 +54,7 @@
   <link rel="stylesheet" href="../../Icons/uicons-regular-straight/css/uicons-regular-straight.css">
 
   <link rel="stylesheet" href="../../Font/font.css">
-  <link rel="stylesheet" href="../individual-product/individual-product.css">
+  <link rel="stylesheet" href="../individual-product/individual-product.css?v=<?php echo time(); ?>">
   <link rel="stylesheet" href="../individual-product/general.css">
   <link rel="stylesheet" href="../individual-product/header.css">
   <link rel="stylesheet" href="../individual-product/sidebar.css">
@@ -176,7 +176,7 @@
             </div>
           </a>
   
-          <a href="../all-product/products.html" class="sidebar-button-anchor">
+          <a href="../all-product/products.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>
@@ -276,25 +276,7 @@
       <div class="edit-product-btn-container">
 
         <a href="../all-product/products.html" class="edit-product-link">
-          
-          <!-- <div class="edit-product-btn">
-            <p class="save-draft">
-              Save Draft
-            </p>
-    
-            <i class="fi fi-rr-disk"></i>
-    
-          </div> -->
-    
           <input type="submit" class="edit-product-btn" name="submit_btn" value="Add item">
-          <!-- <div class="edit-product-btn">
-            <p class="save-draft">
-              Add Product
-            </p>
-    
-            <i class="fi fi-rr-plus-small"></i>
-          </div> -->
-
         </a>
       </div>
 
@@ -317,10 +299,7 @@
               Name of Product
             </p>
 
-            <input type="text" class="edit-form" name="name_of_product" placeholder="Oversized White Shirt" required>
-            <!-- <div class="edit-form">
-              Oversized White Shirt
-            </div> -->
+            <input type="text" class="edit-form" name="name_of_product" required>
           </div>
 
           <div class="form-and-label-container">
@@ -328,11 +307,7 @@
               Description of Product
             </p>
 
-            <input type="text" class="edit-form" required name="desc_of_product" placeholder="A classic with a loose fit.  An oversized white shirt is a comfy and versatile piece.  Imagine a crisp white button-up, but roomy and relaxed. It drapes effortlessly, creating a cool and casual silhouette.">
-            <!-- <div class="description-form">
-              A classic with a loose fit.  An oversized white shirt is a comfy and versatile piece.  Imagine a crisp white button-up, but roomy and relaxed. It drapes effortlessly, creating a cool and casual silhouette. 
-            </div> -->
-            <!-- <input type="text" class="description-form" placeholder="Lorem ipsum dolor sit amet consectetur,  adipisicing elit. Ea sunt magnam eum rerum consequatur perspiciatis voluptas cupiditate expedita, error quod fugiat est vel velit fuga quibusdam incidunt? Rerum, quaerat hic."> -->
+            <input type="text" class="edit-form" required name="desc_of_product">
           </div>
 
           <div class="size-and-gender-container">
@@ -348,7 +323,7 @@
               <div class="size-boxes-container">
 
                 <div class="size-box">
-                    <input type="checkbox" class="box" name="size_of_product" value="XS">
+                  <input type="checkbox" class="box" name="size_of_product" value="XS">
                     <p>
                       XS
                     </p>
@@ -381,27 +356,6 @@
                       XL
                     </p>
                   </div>
-
-                <!-- <div class="size-boxes">
-                  XS
-                </div>
-
-                <div class="size-boxes">
-                  S
-                </div>
-
-                <div class="size-boxes">
-                  M
-                </div>
-
-                <div class="size-boxes">
-                  L
-                </div>
-
-                <div class="size-boxes">
-                  XL
-                </div> -->
-              
               </div>
             </div>
 
@@ -436,8 +390,6 @@
                     Unisex
                   </p>
                 </div>
-                
-
               </div>
 
             </div>
@@ -451,10 +403,7 @@
                   Base Pricing
                 </p>
 
-                <input type="text" name="baseprice_of_product" class="edit-form" placeholder="700.00" required>
-                <!-- <div class="edit-form">
-                  Oversized White Shirt
-                </div> -->
+                <input type="text" name="baseprice_of_product" class="edit-form" required>
             </div>
             
             <div class="base-discount-container">
@@ -462,10 +411,7 @@
                 Stock
               </p>
 
-              <input type="number" class="edit-form" name="quantity_of_products" placeholder="1098 pcs" required>
-              <!-- <div class="edit-form">
-                1098 pcs
-              </div> -->
+              <input type="number" class="edit-form" name="quantity_of_products" required>
             </div>
             
             <div class="base-discount-container">
@@ -473,10 +419,7 @@
                 Discount
               </p>
 
-              <input type="text" class="edit-form" name="discount_of_products" placeholder="43%" required>
-              <!-- <div class="edit-form">
-                43%
-              </div> -->
+              <input type="text" class="edit-form" name="discount_of_products" required>
             </div>
 
             <div class="form-and-label-container">
@@ -484,30 +427,11 @@
                 Category
               </p>
 
-              <input type="text" class="edit-form" name="color_of_product" placeholder="Tshirts" required>
-              <!-- <select name="category_of_product" class="edit-form">
-                <option value="Men">Men</option>
-                <option value="Female">Female</option>
-                <option value="Unisex">Unisex</option>
-              </select> -->
-
+              <input type="text" class="edit-form" name="color_of_product" required>
             </div>
-
-            <!-- <div class="base-discount-container">
-              <p class="labels">
-                Discount Type
-              </p>
-
-              <input type="text" class="edit-form" name="discount_type" required placeholder="Anniversary 1st Month">
-              <select name="discount_type" class="edit-form" required>
-                <option value="Men">Men</option>
-              </select>
-
-            </div> -->
 
           </div>
 
-          
         </div>
 
         
@@ -528,11 +452,12 @@
             <img src="../../ProductPageImg/oversized-white-shirt.jpg" class="upload-img">
           </div> -->
 
-          <div class="mini-picture-container">
+          <!-- comment for -->
+          <!-- <div class="mini-picture-container">
             <input type="file" name="picture" class="mini-picture" accept="images/png, images/jpg, images/jpeg">
             <input type="file" name="picture" class="mini-picture" accept="images/png, images/jpg, images/jpeg">
             <input type="file" name="picture" class="mini-picture" accept="images/png, images/jpg, images/jpeg">
-            <input type="file" name="picture" class="mini-picture" accept="images/png, images/jpg, images/jpeg">
+            <input type="file" name="picture" class="mini-picture" accept="images/png, images/jpg, images/jpeg"> -->
 
             <!-- <img src="../../ProductPageImg/oversized-white-shirt.jpg" class="mini-picture">
             <img src="../../ProductPageImg/oversized-white-shirt.jpg" class="mini-picture">
@@ -541,7 +466,7 @@
               <i class="fi fi-rr-plus-small"></i>
             </button> -->
             
-          </div>
+          <!-- </div> -->
 
          </div>
 

@@ -216,25 +216,23 @@
   
   <div class="put-in-middle-container">
 
-    <div class="add-product-container">
+  <div class="add-product-container">
       
-      <div class="product-title-container">
-        <p class="product-title">Product Lists</p>
-      </div>
-
-      <a href="../individual-product/add-product.php" class="add-product-link">
-        <button class="add-product-btn">
-          <p class="add-product">
-            Add new product
-          </p>
-  
-          <i class="fi fi-rr-plus-small"></i>
-        </button>
-      </a>
-
+    <div class="product-title-container">
+      <p class="product-title">Product Lists</p>
     </div>
 
-    <div class="main-product-container">
+    <a href="../individual-product/add-product.php" class="add-product-link">
+      <button class="add-product-btn">
+        <p class="add-product">
+          Add new product
+        </p>
+
+        <i class="fi fi-rr-plus-small"></i>
+      </button>
+    </a>
+
+  </div>
 
   <?php
       
@@ -242,7 +240,10 @@
   $display_product = mysqli_query($conn, $select_query);
 
   if(mysqli_num_rows($display_product) > 0) {
+
+    echo "<div class='main-product-container'>";
     // fetch data from database
+    $num = 1;
 
     while($row=mysqli_fetch_assoc (($display_product))) {
   // echo $row['name'];
@@ -250,7 +251,10 @@
   <!-- display table -->
 
   <div class="product-container">
-    <a href="#">
+
+    <a href="delete.php?delete=<?php echo $row['tshirt_id']?>"
+    onclick="return confirm('Are you sure you want to delete this product?');">
+    
       <div class="trash-icon-container">
         <div class="trash-icon">
           <i class="fi fi-rr-trash"></i>
@@ -271,7 +275,7 @@
       </p>
 
       <p class="tshirts-tag">
-      <?php echo 'Product ID: '.$row['tshirt_id'] ?>
+      <?php echo 'Product ID: '.$num ?>
       </p>
     </div>
   
@@ -296,17 +300,19 @@
     </div>
   
     <div class="edit-product-container">
-      <a href="../individual-product/individual-product.html" class="edit-product">Edit Product</a>
+      <a href="../individual-product/update-product.php?update=<?php echo $row['tshirt_id']?>" class="edit-product">Edit Product</a>
     </div>
   </div>
 
     <?php  
-    // $num++; increment id
+    $num++; //increment id
     } 
   }
 
   else{
-    echo "no products available";
+    echo "<div class='header-notif'>
+    <p class'>No products available!</p>
+    </div>";
   }
   
   ?>

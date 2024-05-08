@@ -1,0 +1,13 @@
+update_id_product
+update_name_of_product
+update_desc_of_product
+update_size_of_product
+update_gender_of_product
+update_baseprice_of_product
+update_quantity_of_products
+update_discount_of_products
+update_color_of_product
+update_product_img
+
+submit_btn
+

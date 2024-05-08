@@ -286,7 +286,7 @@
   height: 250px;
   width: 100%;
   border: 1px solid black;
-  /* object-fit: cover; */
+  object-fit: cover;
   /* overflow: hidden; */
 }
 
@@ -310,7 +310,7 @@
   /* background-color: red; */
   /* object-fit: contain; */
   margin-top: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   
 }
 
@@ -348,4 +348,14 @@
 
 select:hover {
   cursor: pointer;
+}
+
+.separator-picture {
+  margin: 20px 0px;
+}
+
+.picture-cotainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }

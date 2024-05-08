@@ -13,3 +13,5 @@ color_of_product
 picture
 
 submit_btn
+
+id_of_product
