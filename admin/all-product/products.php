@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="../all-product/general.css">
   <link rel="stylesheet" href="../all-product/header.css">
   <link rel="stylesheet" href="../all-product/sidebar.css">
-  <link rel="stylesheet" href="../all-product/product.css">
+  <link rel="stylesheet" href="../all-product/product.css?v=<?php echo time(); ?>">
 
 </head>
 <body>
@@ -236,75 +236,82 @@
 
     <div class="main-product-container">
 
-
-
+  <?php
       
-      <?php
-          
-          $select_query = "SELECT * from t_shirts";
-          $display_product = mysqli_query($conn, $select_query);
-if(mysqli_num_rows($display_product) > 0) {
-  // fetch data from database
+  $select_query = "SELECT * from t_shirts";
+  $display_product = mysqli_query($conn, $select_query);
 
-  while($row=mysqli_fetch_assoc (($display_product))) {
-      // echo $row['name'];
+  if(mysqli_num_rows($display_product) > 0) {
+    // fetch data from database
+
+    while($row=mysqli_fetch_assoc (($display_product))) {
+  // echo $row['name'];
     ?>
   <!-- display table -->
 
   <div class="product-container">
-        <div class="trash-icon-container">
-          <div class="trash-icon">
-            <i class="fi fi-rr-trash"></i>
-          </div>
-        </div>
-        <div class="product-picture-container">
-
-          <img src="../../images/<?php echo$row['image_url']?>" class="shirt-picture" alt="">
-          <div class="sale-percent">
-            <?php echo $row['discount'].'%'?>
-          </div>
-        </div>
-  
-        <div class="tshirts-tag-container">
-          <p class="tshirts-tag">
-          <?php echo $row['category'] ?>
-          </p>
-        </div>
-  
-        <div class="tshirt-name-container">
-          <p class="tshirt-name">
-          <?php echo $row['name'] ?>
-        </p>
-        </div>
-  
-        <div class="tshirt-price-container">
-          <div class="original-price-container">
-            <p class="original-price">
-            <?php echo $row['price'] ?>
-            </p>
-          </div>
-      
-          <div class="sale-price-container">
-            <p class="sale-price">
-            <?php echo $row['price'] ?>
-            </p>
-          </div>
-        </div>
-  
-        <div class="edit-product-container">
-          <a href="../individual-product/individual-product.html" class="edit-product">Edit Product</a>
+    <a href="#">
+      <div class="trash-icon-container">
+        <div class="trash-icon">
+          <i class="fi fi-rr-trash"></i>
         </div>
       </div>
+    </a>
+        
+    <div class="product-picture-container">
+      <img src="../../images/<?php echo$row['image_url']?>" class="shirt-picture" alt="<?php echo $row['name'] ?>">
+      <div class="sale-percent">
+        <?php echo $row['discount'].'%'?>
+      </div>
+    </div>
+  
+    <div class="tshirts-tag-container">
+      <p class="tshirts-tag">
+      <?php echo 'Category: '.$row['category'] ?>
+      </p>
 
-<?php  } 
-}
-else{
-  echo "no products available";
-}
-        ?>
+      <p class="tshirts-tag">
+      <?php echo 'Product ID: '.$row['tshirt_id'] ?>
+      </p>
+    </div>
+  
+    <div class="tshirt-name-container">
+      <p class="tshirt-name">
+      <?php echo $row['name'] ?>
+    </p>
+    </div>
+  
+    <div class="tshirt-price-container">
+      <div class="original-price-container">
+        <p class="original-price">
+        <?php echo $row['price'] ?>
+        </p>
+      </div>
+      
+      <div class="sale-price-container">
+        <p class="sale-price">
+        <?php echo $row['price'] ?>
+        </p>
+      </div>
+    </div>
+  
+    <div class="edit-product-container">
+      <a href="../individual-product/individual-product.html" class="edit-product">Edit Product</a>
+    </div>
+  </div>
+
+    <?php  
+    // $num++; increment id
+    } 
+  }
+
+  else{
+    echo "no products available";
+  }
+  
+  ?>
     
     </div>
-    
 
   </div>
 
