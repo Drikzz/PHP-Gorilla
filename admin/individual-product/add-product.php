@@ -27,7 +27,7 @@
 
       if ($insert) {
         move_uploaded_file($prod_picture_temp_name, $prod_picture_folder);
-        $display_message = "Product inserted successfully!";
+        header('location: ../all-product/products.php');
       } 
       else {
         $display_message = "Product insert failed!";

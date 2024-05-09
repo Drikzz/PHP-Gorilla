@@ -174,7 +174,7 @@
                     Quick View
                   </div>
                   <div class="sale-percent">
-                    <?php echo $row['discount'].'%'?>
+                    <?php echo $row['discount'].'% OFF'?>
                   </div>
                 </div>
               
