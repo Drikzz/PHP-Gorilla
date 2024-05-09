@@ -1,7 +1,5 @@
 <?php 
   include("../../PHP/database.php");
-
-
 ?>
 
 <!DOCTYPE html>
@@ -307,6 +305,7 @@
     <?php  
     $num++; //increment id
     } 
+    echo '</div>';
   }
 
   else{
@@ -316,8 +315,6 @@
   }
   
   ?>
-    
-    </div>
 
   </div>
 

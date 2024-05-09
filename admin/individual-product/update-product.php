@@ -26,10 +26,11 @@
 
       if ($update_result) {
         move_uploaded_file($prod_picture_temp_name, $prod_picture_folder);
-        $display_message = "Product updated successfully!";
+        // $display_message = "Product updated successfully!";
+        header('location: ../all-product/products.php');
       }
       else {
-        $display_message = "Product updated failed!";
+        $display_message = "Product update failed!";
       }
     } else {
       $display_message = "Please select an image file.";
@@ -249,8 +250,7 @@
   </div>
   
   <div class="put-in-middle-container">
-  <!-- message display -->
-  
+
   <?php 
 
     if(isset($display_message)){
@@ -541,13 +541,9 @@
         
         </div>
 
-        <?php
-        
+        <?php 
         }
       }
-      
-      
-    
     ?>
 
   </form>

@@ -28,9 +28,9 @@
       if ($insert) {
         move_uploaded_file($prod_picture_temp_name, $prod_picture_folder);
         $display_message = "Product inserted successfully!";
-      }
+      } 
       else {
-        $display_message = "Product inserted failed!";
+        $display_message = "Product insert failed!";
       }
     } else {
       $display_message = "Please select an image file.";
@@ -275,7 +275,7 @@
 
       <div class="edit-product-btn-container">
 
-        <a href="../all-product/products.html" class="edit-product-link">
+        <a href="../all-product/products.php" class="edit-product-link">
           <input type="submit" class="edit-product-btn" name="submit_btn" value="Add item">
         </a>
       </div>
