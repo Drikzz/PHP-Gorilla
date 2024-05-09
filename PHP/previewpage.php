@@ -1,0 +1,9 @@
+atc_prod_id
+atc_product_img
+atc_name_of_product
+atc_baseprice_of_product
+atc_desc_of_product
+atc_size_of_product
+atc_quantity_of_products
+
+add_to_cart (button)

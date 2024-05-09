@@ -2,8 +2,55 @@
   include("../PHP/database.php");
 
   if (isset($_POST['add_to_cart'])) {
-    $product
+    $prod_id = $_POST['atc_prod_id'];
+    echo $prod_id;
+    $prod_img = $_POST['atc_product_img'];
+    $prod_name = $_POST['atc_name_of_product'];
+    $prod_price = $_POST['atc_baseprice_of_product'];
+    $prod_desc = $_POST['atc_desc_of_product'];
+    $prod_size = $_POST['atc_size_of_product'];
+    $prod_quantity = $_POST['atc_quantity_of_products'];
+    
+    $insert_query = "INSERT INTO cart_items (tshirt_id, image_url, name, size, quantity, price, order_id  )";
+    $insert_result = mysqli_query($conn, $insert_query);
+
   }
+
+  // CHECK HOW TO ADD THIS TO ORDER AND REFERENCE IT TO CART_ITEMS
+
+//   <?php 
+// include("../PHP/database.php");
+
+// if (isset($_POST['add_to_cart'])) {
+//     // Assuming you have already retrieved other necessary details like customer_id, prod_name, prod_quantity, total_price, etc.
+
+//     // Insert order details into Orders table
+//     $insert_order_query = "INSERT INTO Orders (customer_id, prod_name, prod_quantity, total_price, status, city, country, street_address) VALUES ('$customer_id', '$prod_name', '$prod_quantity', '$total_price', 'Pending', '$city', '$country', '$street_address')";
+    
+//     if(mysqli_query($conn, $insert_order_query)) {
+//         // Retrieve the auto-generated order ID
+//         $order_id = mysqli_insert_id($conn);
+        
+//         // Now, you have the order ID, you can use it to insert cart items into Cart_Items table
+//         $prod_id = $_POST['product_id']; // Assuming you have the product ID in the form
+        
+//         // Insert cart item into Cart_Items table
+//         $insert_cart_item_query = "INSERT INTO Cart_Items (tshirt_id, image_url, name, size, quantity, price, order_id) VALUES ('$prod_id', '$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$order_id')";
+        
+//         if(mysqli_query($conn, $insert_cart_item_query)) {
+//             // Cart item inserted successfully
+//             echo "Product added to cart successfully!";
+//         } else {
+//             // Error inserting cart item
+//             echo "Error: " . mysqli_error($conn);
+//         }
+//     } else {
+//         // Error inserting order
+//         echo "Error: " . mysqli_error($conn);
+//     }
+// }
+//
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +87,7 @@
       </div>
       <div class="menu-div">
           <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
-          <a href="Productpage.html" class="menu-links">PRODUCTS</a>
+          <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
@@ -88,19 +135,20 @@
         <form method="post" action="PreviewPage.php">
             <section class="section1">
             <div class="img-div">
-              <img class="product-img-preview" src="../images/<?php echo$fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
+              <input type="hidden" name="atc_prod_id" value="<?php echo $fetch_data['tshirt_id']?>">
+              <img class="product-img-preview" name="update_product_img" src="../images/<?php echo$fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
             </div>
             <div class="product-info">
-              <h1 class="product-name"><?php echo $fetch_data['name'] ?></h1>
-              <p class="product-price">
-                &#8369;<?php echo $fetch_data['price'] ?> <span class="prev-price">&#8369;<?php echo $fetch_data['price'] ?></span>
+              <h1 class="product-name" name="atc_name_of_product"><?php echo $fetch_data['name'] ?></h1>
+              <p class="product-price" name="atc_baseprice_of_product">
+                &#8369;<?php echo $fetch_data['price'] ?> <span class="prev-price" name="atc_baseprice_of_product">&#8369;<?php echo $fetch_data['price'] ?></span>
               </p>
-              <p class="product-description"><?php echo $fetch_data['description'] ?></p>
+              <p class="product-description" name="atc_desc_of_product"><?php echo $fetch_data['description'] ?></p>
               <div class="input-div">
                 <div class="size-container">
                   <p class="size">Size</p>
                   <div class="size-select-container">
-                    <select class="size-select">
+                    <select class="size-select" name="atc_size_of_product">
                       <option value="small">Small</option>
                       <option value="medium">Medium</option>
                       <option value="large">Large</option>
@@ -112,10 +160,12 @@
                 </div>
                 <div class="quantity-container">
                   <p class="quantity">Quantity</p>
-                  <input class="quantity-input" type="number" value="1" min="1" max="10">
+                  <input class="quantity-input" name="atc_quantity_of_products" type="number" value="1" min="1" max="10">
                 </div>
               </div>
-              <input type="submit" value="Add to Cart" name="add_to_cart" class="add-to-cart">
+              <a href="CartPage.html">
+                <input type="submit" value="Add to Cart" name="add_to_cart" class="add-to-cart">  
+              </a>
               <div class="tags-container">
                 <p class="tags-title">Tag/s:</p>
                 <a class="tags-link" href="Productpage.php"><?php echo $fetch_data['category'] ?></a>

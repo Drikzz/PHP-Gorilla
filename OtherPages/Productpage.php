@@ -35,7 +35,7 @@
       </div>
       <div class="menu-div">
           <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
-          <a href="#" class="menu-links">PRODUCTS</a>
+          <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
