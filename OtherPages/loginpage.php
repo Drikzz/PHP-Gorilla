@@ -1,34 +1,37 @@
 <?php
-  session_start();
-  include("../PHP/database.php");
+session_start();
+include("../PHP/database.php");
 
-  $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-  $pass = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+$pass = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
-  if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if(empty($username)){
-      echo '<script>alert("Please type a username!");</script>';
+    if (empty($username)) {
+        echo '<script>alert("Please type a username!");</script>';
+    } elseif (empty($pass)) {
+        echo '<script>alert("Please type a password!");</script>';
+    } else {
+        $sql = "SELECT customer_id, username, password FROM customers WHERE username = '$username' AND password = '$pass'";
+        $result_query = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result_query) > 0) {
+
+            // Fetch the customer data
+            $customer_data = mysqli_fetch_assoc($result_query);
+
+            // Store the customer_id in session
+            $_SESSION['customer_id'] = $customer_data['customer_id'];
+
+            header("Location: ../index.php");
+            exit(); // Exit the script after redirection
+        } else {
+            echo '<script>alert("Wrong username/password!");</script>';
+        }
     }
-    elseif(empty($pass)){
-      echo '<script>alert("Please type a password!");</script>';
-    }
-    else{
-      $sql = "SELECT username, password FROM customers WHERE username = '$username' AND password = '$pass'";
-      $result_query = mysqli_query($conn, $sql);
-
-      if (mysqli_num_rows($result_query) > 0){
-        header("Location: ../index.html");
-        die();
-      }
-      else{
-        echo '<script>alert("Wrong username/password!");</script>';
-      }
-    }
-  }
-
-
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

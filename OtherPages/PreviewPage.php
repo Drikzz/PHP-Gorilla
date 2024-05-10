@@ -1,57 +1,55 @@
 <?php 
-  include("../PHP/database.php");
+include("../PHP/database.php");
+session_start(); // Start the session
 
-  if (isset($_POST['add_to_cart'])) {
-    $prod_id = $_POST['atc_prod_id'];
-    echo $prod_id;
-    $prod_img = $_POST['atc_product_img'];
-    $prod_name = $_POST['atc_name_of_product'];
-    $prod_price = $_POST['atc_baseprice_of_product'];
-    $prod_desc = $_POST['atc_desc_of_product'];
-    $prod_size = $_POST['atc_size_of_product'];
-    $prod_quantity = $_POST['atc_quantity_of_products'];
-    
-    $insert_query = "INSERT INTO cart_items (tshirt_id, image_url, name, size, quantity, price, order_id  )";
-    $insert_result = mysqli_query($conn, $insert_query);
+if (isset($_POST['add_to_cart'])) {
+    // Check if $_SESSION['customer_id'] is set and not empty
+    if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+        $customer_id = $_SESSION['customer_id'];
+    } else {
+        // Handle the case where customer ID is not set in the session
+        echo "Customer ID not found in session!";
+        exit; // Exit the script
+    }
 
-  }
+    // Retrieve form data
+    $prod_id = isset($_POST['atc_prod_id']) ? $_POST['atc_prod_id'] : null;
+    $prod_name = isset($_POST['atc_name_of_product']) ? $_POST['atc_name_of_product'] : null;
+    $prod_quantity = isset($_POST['atc_quantity_of_products']) ? $_POST['atc_quantity_of_products'] : null;
+    $prod_price = isset($_POST['atc_baseprice_of_product']) ? $_POST['atc_baseprice_of_product'] : null;
+    $prod_img = isset($_POST['atc_product_img']) ? $_POST['atc_product_img'] : null;
+    $prod_size = isset($_POST['atc_size_of_product']) ? $_POST['atc_size_of_product'] : null;
+    $order_date = date("Y-m-d H:i:s");
 
-  // CHECK HOW TO ADD THIS TO ORDER AND REFERENCE IT TO CART_ITEMS
+    // Insert order details into Orders table
+    $insert_order_query = "INSERT INTO Orders (customer_id, prod_name, prod_quantity, total_price, order_date) VALUES
+                            ('$customer_id', '$prod_name', '$prod_quantity', '$prod_price', '$order_date')";
 
-//   <?php 
-// include("../PHP/database.php");
-
-// if (isset($_POST['add_to_cart'])) {
-//     // Assuming you have already retrieved other necessary details like customer_id, prod_name, prod_quantity, total_price, etc.
-
-//     // Insert order details into Orders table
-//     $insert_order_query = "INSERT INTO Orders (customer_id, prod_name, prod_quantity, total_price, status, city, country, street_address) VALUES ('$customer_id', '$prod_name', '$prod_quantity', '$total_price', 'Pending', '$city', '$country', '$street_address')";
-    
-//     if(mysqli_query($conn, $insert_order_query)) {
-//         // Retrieve the auto-generated order ID
-//         $order_id = mysqli_insert_id($conn);
+    if(mysqli_query($conn, $insert_order_query)) {
+        // Retrieve the auto-generated order ID
+        $order_id = mysqli_insert_id($conn);
         
-//         // Now, you have the order ID, you can use it to insert cart items into Cart_Items table
-//         $prod_id = $_POST['product_id']; // Assuming you have the product ID in the form
+        // Insert cart item into Cart_Items table
+        $insert_cart_item_query = "INSERT INTO Cart_Items (image_url, name, size, quantity, price, order_id, tshirt_id) VALUES
+                                  ('$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$order_id', '$prod_id')";
         
-//         // Insert cart item into Cart_Items table
-//         $insert_cart_item_query = "INSERT INTO Cart_Items (tshirt_id, image_url, name, size, quantity, price, order_id) VALUES ('$prod_id', '$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$order_id')";
-        
-//         if(mysqli_query($conn, $insert_cart_item_query)) {
-//             // Cart item inserted successfully
-//             echo "Product added to cart successfully!";
-//         } else {
-//             // Error inserting cart item
-//             echo "Error: " . mysqli_error($conn);
-//         }
-//     } else {
-//         // Error inserting order
-//         echo "Error: " . mysqli_error($conn);
-//     }
-// }
-//
-
+        if(mysqli_query($conn, $insert_cart_item_query)) {
+            // Cart item inserted successfully
+            header('location: CartPage.php');
+            exit; // Exit the script after redirection
+        } else {
+            // Error inserting cart item
+            echo "Error inserting cart item: " . mysqli_error($conn);
+        }
+    } else {
+        // Error inserting order
+        echo "Error inserting order: " . mysqli_error($conn);
+    }
+}
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -136,7 +134,7 @@
             <section class="section1">
             <div class="img-div">
               <input type="hidden" name="atc_prod_id" value="<?php echo $fetch_data['tshirt_id']?>">
-              <img class="product-img-preview" name="update_product_img" src="../images/<?php echo$fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
+              <img class="product-img-preview" name="atc_product_img" src="../images/<?php echo$fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
             </div>
             <div class="product-info">
               <h1 class="product-name" name="atc_name_of_product"><?php echo $fetch_data['name'] ?></h1>
@@ -163,7 +161,7 @@
                   <input class="quantity-input" name="atc_quantity_of_products" type="number" value="1" min="1" max="10">
                 </div>
               </div>
-              <a href="CartPage.html">
+              <a href="CartPage.php">
                 <input type="submit" value="Add to Cart" name="add_to_cart" class="add-to-cart">  
               </a>
               <div class="tags-container">

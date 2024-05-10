@@ -1,29 +1,35 @@
 <?php
-  session_start();
-  include("../PHP/database.php");
+session_start();
+include("../PHP/database.php");
 
-  $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-  $pass = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-  $confirm_p = filter_input(INPUT_POST, "confirm_pass", FILTER_SANITIZE_SPECIAL_CHARS);
+$username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+$pass = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+$confirm_p = filter_input(INPUT_POST, "confirm_pass", FILTER_SANITIZE_SPECIAL_CHARS);
 
-  if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if(empty($username)){
-      echo '<script>alert("Please enter a username!");</script>';
-    }
-    elseif(($pass) != ($confirm_p)){
+    if (empty($username)) {
+        echo '<script>alert("Please enter a username!");</script>';
+    } elseif (($pass) != ($confirm_p)) {
         echo '<script>alert("Please re-enter your password!");</script>';
-      }
-      else{
+    } else {
+        // Insert customer data into database
         $sql = "INSERT INTO customers (username, password) VALUES ('$username', '$pass')";
-
-        mysqli_query($conn, $sql);
-
-        header("Location: loginpage.php");
-        die();
-      }
-  }
-
+        
+        if (mysqli_query($conn, $sql)) {
+            // Registration successful, fetch the customer_id
+            $customer_id = mysqli_insert_id($conn);
+            // Store the customer ID in the session
+            $_SESSION['customer_id'] = $customer_id;
+            
+            header("Location: loginpage.php");
+            exit(); // Exit the script after redirection
+        } else {
+            // Error inserting customer data
+            echo '<script>alert("Error: ' . mysqli_error($conn) . '");</script>';
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
