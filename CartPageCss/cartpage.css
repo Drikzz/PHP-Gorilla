@@ -200,3 +200,17 @@ button:active {
   background-color: black;
   
 }
+
+.header-notif{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  /* background-color: red; */
+}
+
+.header-notif p {
+  font-size: 20px;
+  font-weight: 600;
+}

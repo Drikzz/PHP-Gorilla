@@ -19,7 +19,7 @@
       $prod_picture_temp_name = $_FILES['product_img']['tmp_name'];
       $prod_picture_folder = '../../images/'.$prod_picture;
 
-      $insert_query = "INSERT INTO t_shirts (name, description, size, gender, price, quantity, discount, category, image_url)
+      $insert_query = "INSERT INTO Tshirts (name, description, size, gender, price, quantity, discount, category, image_url)
                       VALUES ('$prod_name', '$prod_description', '$prod_size', '$prod_gender', '$prod_baseprice', '$prod_quantity', '$prod_discount',
                       '$prod_category', '$prod_picture')";
 

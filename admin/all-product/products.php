@@ -234,7 +234,7 @@
 
   <?php
       
-  $select_query = "SELECT * from t_shirts";
+  $select_query = "SELECT * from Tshirts";
   $display_product = mysqli_query($conn, $select_query);
 
   if(mysqli_num_rows($display_product) > 0) {

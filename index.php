@@ -1,11 +1,10 @@
 <?php 
   session_start(); // Start the session
-  if(isset($_SESSION['customer_id'])) {
-      echo $_SESSION['customer_id'];
-  } else {
-      echo "Customer ID not set in session";
-  }
-  
+  // if(isset($_SESSION['customer_id'])) {
+  //     echo $_SESSION['customer_id'];
+  // } else {
+  //     echo "Customer ID not set in session";
+  // }
 ?>
 
 <!DOCTYPE html>

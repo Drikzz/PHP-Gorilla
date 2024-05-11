@@ -2,53 +2,64 @@
 include("../PHP/database.php");
 session_start(); // Start the session
 
-if (isset($_POST['add_to_cart'])) {
-    // Check if $_SESSION['customer_id'] is set and not empty
-    if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-        $customer_id = $_SESSION['customer_id'];
-    } else {
-        // Handle the case where customer ID is not set in the session
-        echo "Customer ID not found in session!";
-        exit; // Exit the script
-    }
+// Check if $_SESSION['customer_id'] is set and not empty
+if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+    $customer_id = $_SESSION['customer_id'];
 
-    // Retrieve form data
-    $prod_id = isset($_POST['atc_prod_id']) ? $_POST['atc_prod_id'] : null;
-    $prod_name = isset($_POST['atc_name_of_product']) ? $_POST['atc_name_of_product'] : null;
-    $prod_quantity = isset($_POST['atc_quantity_of_products']) ? $_POST['atc_quantity_of_products'] : null;
-    $prod_price = isset($_POST['atc_baseprice_of_product']) ? $_POST['atc_baseprice_of_product'] : null;
-    $prod_img = isset($_POST['atc_product_img']) ? $_POST['atc_product_img'] : null;
-    $prod_size = isset($_POST['atc_size_of_product']) ? $_POST['atc_size_of_product'] : null;
-    $order_date = date("Y-m-d H:i:s");
-
-    // Insert order details into Orders table
-    $insert_order_query = "INSERT INTO Orders (customer_id, prod_name, prod_quantity, total_price, order_date) VALUES
-                            ('$customer_id', '$prod_name', '$prod_quantity', '$prod_price', '$order_date')";
-
-    if(mysqli_query($conn, $insert_order_query)) {
-        // Retrieve the auto-generated order ID
-        $order_id = mysqli_insert_id($conn);
+    if (isset($_POST['add_to_cart'])) {
+        // Retrieve form data
+        $prod_id = isset($_POST['atc_prod_id']) ? $_POST['atc_prod_id'] : null;
+        $prod_quantity = isset($_POST['atc_quantity_of_products']) ? $_POST['atc_quantity_of_products'] : null;
         
-        // Insert cart item into Cart_Items table
-        $insert_cart_item_query = "INSERT INTO Cart_Items (image_url, name, size, quantity, price, order_id, tshirt_id) VALUES
-                                  ('$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$order_id', '$prod_id')";
-        
-        if(mysqli_query($conn, $insert_cart_item_query)) {
-            // Cart item inserted successfully
-            header('location: CartPage.php');
-            exit; // Exit the script after redirection
+        // Check if the product already exists in the cart
+        $check_duplicate_query = "SELECT * FROM Cart_Items WHERE tshirt_id = '$prod_id' AND customer_id = '$customer_id'";
+        $check_duplicate_result = mysqli_query($conn, $check_duplicate_query);
+
+        if(mysqli_num_rows($check_duplicate_result) > 0) {
+            // Product already exists in the cart, update the quantity
+            $row = mysqli_fetch_assoc($check_duplicate_result);
+            $existing_quantity = $row['quantity'];
+            $new_quantity = $existing_quantity + $prod_quantity;
+            
+            // Update the quantity in the Cart_Items table
+            $update_quantity_query = "UPDATE Cart_Items SET quantity = '$new_quantity' WHERE tshirt_id = '$prod_id' AND customer_id = '$customer_id'";
+            if(mysqli_query($conn, $update_quantity_query)) {
+                header("location: CartPage.php");
+                exit; // Exit the script after redirection
+            } else {
+                // Error updating quantity
+                echo "Error updating quantity: " . mysqli_error($conn);
+            }
         } else {
-            // Error inserting cart item
-            echo "Error inserting cart item: " . mysqli_error($conn);
+            // Insert cart item into Cart_Items table
+            $prod_name = isset($_POST['atc_name_of_product']) ? $_POST['atc_name_of_product'] : null;
+            $prod_price = isset($_POST['atc_baseprice_of_product']) ? $_POST['atc_baseprice_of_product'] : null;
+            $prod_img = isset($_POST['atc_product_img']) ? $_POST['atc_product_img'] : null;
+            $prod_size = isset($_POST['atc_size_of_product']) ? $_POST['atc_size_of_product'] : null;
+            
+            $insert_cart_item_query = "INSERT INTO Cart_Items (customer_id, image_url, name, size, quantity, price, tshirt_id) VALUES
+                                      ('$customer_id', '$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$prod_id')";
+            
+            if(mysqli_query($conn, $insert_cart_item_query)) {
+                // Cart item inserted successfully
+                header("location: CartPage.php");
+                exit; // Exit the script after redirection
+            } else {
+                // Error inserting cart item
+                echo "Error inserting cart item: " . mysqli_error($conn);
+            }
         }
-    } else {
-        // Error inserting order
-        echo "Error inserting order: " . mysqli_error($conn);
+    }
+} else {
+    // Handle the case where customer ID is not set in the session
+    $display_message = "You're not logged in! Press here to login!";
+
+    if(isset($_POST['goto_login'])) {
+      header("Location: loginpage.php"); // Corrected: added "Location:"
+      exit(); // Added to stop further script execution
     }
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -95,7 +106,7 @@ if (isset($_POST['add_to_cart'])) {
             </div>
             <div class="dropdown-content">
               <a href="ProfilePage.html">MY ACCOUNT</a>
-              <a href="loginpage.html">LOG IN</a>
+              <a href="loginpage.php">LOG IN</a>
               <a href="CartPage.html">CART</a>
             </div>
           </div>
@@ -113,88 +124,89 @@ if (isset($_POST['add_to_cart'])) {
 <!--  SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION    SECTION   -->
       <main>
 
-        <?php 
+        <?php
+          if (isset($_GET['product_select'])) {
+              $update_id = $_GET['product_select'];
+              $update_query = "SELECT * FROM Tshirts WHERE tshirt_id = $update_id";
+              $update_result = mysqli_query($conn, $update_query);
 
-          if (isset($_GET['product_select'])){
-            $update_id = $_GET['product_select'];
-            // echo $update_id;
-            
-            $update_query = "SELECT * FROM t_shirts WHERE tshirt_id = $update_id";
-            $update_result = mysqli_query($conn, $update_query);
-    
-            if(mysqli_num_rows($update_result) > 0) {
-    
-              $fetch_data = mysqli_fetch_assoc($update_result);
-              
-              // $row_fetched = $fetch_data['name'];
-              // echo $row_fetched;
-
-        ?>
+              if(mysqli_num_rows($update_result) > 0) {
+                  $fetch_data = mysqli_fetch_assoc($update_result);
+          ?>
         <form method="post" action="PreviewPage.php">
-            <section class="section1">
+          <section class="section1">
+            <!-- <?php echo $customer_id?> -->
             <div class="img-div">
-              <input type="hidden" name="atc_prod_id" value="<?php echo $fetch_data['tshirt_id']?>">
-              <img class="product-img-preview" name="atc_product_img" src="../images/<?php echo$fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
+                <input type="hidden" name="atc_prod_id" value="<?php echo $fetch_data['tshirt_id']?>">
+                <img class="product-img-preview" src="../images/<?php echo $fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
+                <input type="hidden" name="atc_product_img" value="<?php echo $fetch_data['image_url']?>">
             </div>
             <div class="product-info">
-              <h1 class="product-name" name="atc_name_of_product"><?php echo $fetch_data['name'] ?></h1>
-              <p class="product-price" name="atc_baseprice_of_product">
-                &#8369;<?php echo $fetch_data['price'] ?> <span class="prev-price" name="atc_baseprice_of_product">&#8369;<?php echo $fetch_data['price'] ?></span>
+              <h1 class="product-name"><?php echo $fetch_data['name'] ?></h1>
+              <input type="hidden" name="atc_name_of_product" value="<?php echo $fetch_data['name'] ?>">
+              <p class="product-price">
+                  &#8369;<?php echo $fetch_data['price'] ?> <span class="prev-price">&#8369;<?php echo $fetch_data['price'] ?></span>
               </p>
+              <input type="hidden" name="atc_baseprice_of_product" value="<?php echo $fetch_data['price'] ?>">
               <p class="product-description" name="atc_desc_of_product"><?php echo $fetch_data['description'] ?></p>
               <div class="input-div">
                 <div class="size-container">
-                  <p class="size">Size</p>
-                  <div class="size-select-container">
-                    <select class="size-select" name="atc_size_of_product">
-                      <option value="small">Small</option>
-                      <option value="medium">Medium</option>
-                      <option value="large">Large</option>
-                      <option value="x-large">X-Large</option>
-                    </select>
-                    <i class="fi fi-rs-angle-small-down"></i>
-                  </div>
-                  
+                    <p class="size">Size</p>
+                    <div class="size-select-container">
+                      <select class="size-select" name="atc_size_of_product">
+                          <option value="small">Small</option>
+                          <option value="medium">Medium</option>
+                          <option value="large">Large</option>
+                          <option value="x-large">X-Large</option>
+                      </select>
+                        <i class="fi fi-rs-angle-small-down"></i>
+                    </div>
                 </div>
                 <div class="quantity-container">
-                  <p class="quantity">Quantity</p>
-                  <input class="quantity-input" name="atc_quantity_of_products" type="number" value="1" min="1" max="10">
+                    <p class="quantity">Quantity</p>
+                    <input class="quantity-input" name="atc_quantity_of_products" type="number" value="1" min="1" max="10">
                 </div>
               </div>
-              <a href="CartPage.php">
-                <input type="submit" value="Add to Cart" name="add_to_cart" class="add-to-cart">  
-              </a>
+
+      <?php 
+        
+      if(isset($display_message)) {
+        echo "<button type='submit' name='goto_login' class='add-to-cart'>$display_message</button>";
+      } else {
+      ?>
+      <button type="submit" name="add_to_cart" class="add-to-cart">Add to Cart</button>
+      <?php 
+        } 
+      ?>
+        <?php } ?>
+
               <div class="tags-container">
-                <p class="tags-title">Tag/s:</p>
-                <a class="tags-link" href="Productpage.php"><?php echo $fetch_data['category'] ?></a>
+                  <p class="tags-title">Tag/s:</p>
+                  <a class="tags-link" href="Productpage.php"><?php echo $fetch_data['category'] ?></a>
               </div>
               <div class="free-shipping-container">
-                <p class="free-shipping">
-                  Free shipping on orders over &#8369;800!
-                </p>  
+                  <p class="free-shipping">
+                      Free shipping on orders over &#8369;800!
+                  </p>  
               </div>
               <div class="check-container">
-                <img src="../PreviewPageImg/checked.png" alt="check">
-                <p>No-Risk Money Back Guarantee!</p>
+                  <img src="../PreviewPageImg/checked.png" alt="check">
+                  <p>No-Risk Money Back Guarantee!</p>
               </div>
               <div class="check-container">
-                <img src="../PreviewPageImg/checked.png" alt="check">
-                <p>No Hassle Refunds</p>
+                  <img src="../PreviewPageImg/checked.png" alt="check">
+                  <p>No Hassle Refunds</p>
               </div>
               <div class="check-container">
-                <img src="../PreviewPageImg/checked.png" alt="check">
-                <p>Secure Payments</p>
+                  <img src="../PreviewPageImg/checked.png" alt="check">
+                  <p>Secure Payments</p>
               </div>
             </div>
-
           </section>
         </form>
         <?php
-        
         }
-      }
-    
-    ?>
+        ?>
       </main>
 
   <!-- FOOOOOOOOOOOOOTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRR -->

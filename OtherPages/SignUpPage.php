@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '<script>alert("Please re-enter your password!");</script>';
     } else {
         // Insert customer data into database
-        $sql = "INSERT INTO customers (username, password) VALUES ('$username', '$pass')";
+        $sql = "INSERT INTO Customers (username, password) VALUES ('$username', '$pass')";
         
         if (mysqli_query($conn, $sql)) {
             // Registration successful, fetch the customer_id
@@ -91,19 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </nav>
 </header>
 <!--  FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM  -->
-      <!-- <div class="secret-container">
-        <div class="secret-box">
-          <a href="../admin/Admin.html">
-            <button>
-              BUTTON TO ADMIN . .
-              BUTTON TO ADMIN . .
-              BUTTON TO ADMIN . .
-              BUTTON TO ADMIN . .
-              BUTTON TO ADMIN . .
-            </button>
-          </a>
-        </div> -->
-
         <section class="signup-container">
           <form class="sign-up-form" action="SignUpPage.php" method="post">
             <p class="sign-up-title">
@@ -189,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="question-div">
               <p class="question">
                 Already have an account?
-                <a href="loginpage.html">
+                <a href="loginpage.php">
                   <span class="login-link">Log in Here</span>.
                 </a>
               </p>
@@ -204,19 +191,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>     
           </div>
         </section>
-
-        <!-- <div class="secret-box">
-          <a href="../moderator/moderator.html">
-            <button>
-              BUTTON TO MODERATOR . .
-              BUTTON TO MODERATOR . .
-              BUTTON TO MODERATOR . .
-              BUTTON TO MODERATOR . .
-              BUTTON TO MODERATOR . .
-            </button>
-          </a>
-        </div>
-      </div> -->
       <!-- FOOOOOOOOOOOOOTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRR -->
       <footer class="footer-container">
         <div class="link-container-parent">

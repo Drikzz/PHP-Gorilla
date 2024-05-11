@@ -18,7 +18,7 @@
       $prod_picture_temp_name = $_FILES['update_product_img']['tmp_name'];
       $prod_picture_folder = '../../images/'.$prod_picture;
 
-      $update_query = "UPDATE t_shirts SET name = '$prod_name', description = '$prod_description', size = '$prod_size', gender = '$prod_gender', 
+      $update_query = "UPDATE Tshirts SET name = '$prod_name', description = '$prod_description', size = '$prod_size', gender = '$prod_gender', 
                       price = '$prod_baseprice', quantity = '$prod_quantity', discount = '$prod_discount', category = '$prod_category',
                       image_url = '$prod_picture' WHERE tshirt_id = $prod_id";
 
@@ -285,7 +285,7 @@
         $update_id = $_GET['update'];
         // echo $update_id;
         
-        $update_query = "SELECT * FROM t_shirts WHERE tshirt_id = $update_id";
+        $update_query = "SELECT * FROM Tshirts WHERE tshirt_id = $update_id";
         $update_result = mysqli_query($conn, $update_query);
 
         if(mysqli_num_rows($update_result) > 0) {

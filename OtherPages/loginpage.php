@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif (empty($pass)) {
         echo '<script>alert("Please type a password!");</script>';
     } else {
-        $sql = "SELECT customer_id, username, password FROM customers WHERE username = '$username' AND password = '$pass'";
+        $sql = "SELECT customer_id, username, password FROM Customers WHERE username = '$username' AND password = '$pass'";
         $result_query = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result_query) > 0) {
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="menu-div">
             <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
-            <a href="Productpage.html" class="menu-links">PRODUCTS</a>
+            <a href="Productpage.php" class="menu-links">PRODUCTS</a>
             <a href="AboutUs.html" class="menu-links">ABOUT US</a>
             <a href="ContactUs.html" class="menu-links">CONTACT</a>
             <div class="dropdown">
@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="question-div">
             <p class="question">
               Don't have an account yet?
-              <a href="SignUpPage.html">
+              <a href="SignUpPage.php">
                 <span class="sign-up-link">Sign up here</span>.
               </a>
             </p>

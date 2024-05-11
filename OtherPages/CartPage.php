@@ -1,3 +1,60 @@
+<?php 
+include("../PHP/database.php");
+session_start();
+if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+  $customer_id = $_SESSION['customer_id'];
+
+  if(isset($_POST['submit_btn'])) {
+    // Retrieve customer ID from session
+    if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+        $customer_id = $_SESSION['customer_id'];
+        
+        
+        // Retrieve cart items for the customer
+        $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
+        $select_result = mysqli_query($conn, $select_query);
+        
+        if(mysqli_num_rows($select_result) > 0) {
+          
+          // Loop through each cart item
+          while($fetch_data = mysqli_fetch_assoc($select_result)) {
+
+            // Insert each cart item into Orders table
+            $cart_id = $fetch_data['cart_id'];
+            $prod_price = $fetch_data['price'];
+            $city = ''; // Update with user input or default
+            $country = ''; // Update with user input or default
+            $street_address = ''; // Update with user input or default
+            $status = 'Pending'; // Update with appropriate status
+
+            $insert_order_query = "INSERT INTO Orders (customer_id, cart_id, total_price, order_date, status)
+                                    VALUES ('$customer_id', '$cart_id', '$prod_price', NOW(), '$status')";
+
+            $insert_order_result = mysqli_query($conn, $insert_order_query);
+              
+              if($insert_order_result) {
+
+                  // Order inserted successfully, proceed to remove cart item
+                  $cart_item_id = $fetch_data['cart_id'];
+                  $delete_cart_item_query = "DELETE FROM cart_items WHERE cart_id = '$cart_item_id'";
+                  mysqli_query($conn, $delete_cart_item_query);
+
+              } else {
+                  // Error inserting order
+                  echo "Error inserting order: " . mysqli_error($conn);
+              }
+            }
+        }
+    } else {
+        // Handle the case where customer ID is not set in the session
+        echo "Customer ID not set in session.";
+    }
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +71,7 @@
   <link rel="stylesheet" href="../CartPageCss/header.css">
   <link rel="stylesheet" href="../CartPageCss/general.css">
   <link rel="stylesheet" href="../CartPageCss/footer.css">
-  <link rel="stylesheet" href="../CartPageCss/cartpage.css">
+  <link rel="stylesheet" href="../CartPageCss/cartpage.css?v=<?php echo time(); ?>">
 
 
 </head>
@@ -32,7 +89,7 @@
       </div>
       <div class="menu-div">
           <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
-          <a href="Productpage.html" class="menu-links">PRODUCTS</a>
+          <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
@@ -41,8 +98,8 @@
               <i class="fi fi-rs-angle-down"></i>
             </div>
             <div class="dropdown-content">
-              <a href="ProfilePage.html">MY ACCOUNT</a>
-              <a href="loginpage.html">LOG IN</a>
+              <a href="ProfilePage.php">MY ACCOUNT</a>
+              <a href="loginpage.php">LOG IN</a>
               <a href="CartPage.html">CART</a>
             </div>
           </div>
@@ -61,132 +118,55 @@
       <main>
         <section class="section1">
           <div class="cart-div">
-            <div class="item-list-container">
-              <p class="title">Cart</p>
-              <p class="num-of-items">You have 4 items in your cart</p>
 
+              <?php   
+              
+              $select_query = "SELECT * FROM cart_items";
+              $select_result = mysqli_query($conn, $select_query);
+
+              if (mysqli_num_rows($select_result) > 0) {
+                
+                $num_rows = mysqli_num_rows($select_result);
+
+                echo "<div class='item-list-container'>";
+                
+                echo "<p class='title'>Cart</p>
+                <p class='num-of-items'>You have $num_rows items in your cart</p>";
+
+                while ($fetch_data = mysqli_fetch_assoc($select_result)) {
+                  // echo $customer_id;
+                
+                ?>
+              
               <div class="item-preview-container">
                 <div class="left">
-                  <img class="item-photo" src="../img/section2 img/plain-black-shirt.jpg" alt="photo">
+                  <img class="item-photo" src="../images/<?php echo $fetch_data['image_url']?>" alt="photo">
                   <div class="item-info">
-                    <p class="item-name">Plain Black Shirt</p>
-                    <p class="item-size">Size: Small</p>
+                    <p class="item-name"><?php echo $fetch_data['name']?></p>
+                    <input type="hidden" name="name">
+                    <p class="item-size">Size: <?php echo $fetch_data['size']?></p>
+
                   </div>
                 </div>
                 <div class="middle">
 
                 </div>
                 <div class="right">
-                  <p class="item-num">2</p>
-                  <p class="item-price">&#8369;998</p>
+                  <p class="item-num"><?php echo $fetch_data['quantity']?></p>
+                  <p class="item-price">&#8369;<?php echo $fetch_data['price']?></p>
                   <i class="fi fi-rr-trash"></i>
                 </div>
               </div>
+                  
+                <?php
+                }
+                echo "</div> ";
+              }
+              else{
+                echo "<div class='header-notif'>No items in cart to place order.</div>";
+              }
 
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/oversized-white-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Oversized White Shirt</p>
-                    <p class="item-size">Size: X-Large</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">2</p>
-                  <p class="item-price">&#8369;798</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-              
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/biege-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Plain Biege Shirt</p>
-                    <p class="item-size">Size: Large</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">1</p>
-                  <p class="item-price">&#8369;399</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/grey-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Plain Grey Shirt</p>
-                    <p class="item-size">Size: Medium</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">3</p>
-                  <p class="item-price">&#8369;1,497</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/biege-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Plain Biege Shirt</p>
-                    <p class="item-size">Size: Medium</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">1</p>
-                  <p class="item-price">&#8369;399</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-              
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/oversized-white-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Oversized White Shirt</p>
-                    <p class="item-size">Size: X-Large</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">2</p>
-                  <p class="item-price">&#8369;798</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-
-              <div class="item-preview-container">
-                <div class="left">
-                  <img class="item-photo" src="../img/section2 img/oversized-white-shirt.jpg" alt="photo">
-                  <div class="item-info">
-                    <p class="item-name">Oversized White Shirt</p>
-                    <p class="item-size">Size: Large</p>
-                  </div>
-                </div>
-                
-                <div class="right">
-                  <p class="item-num">2</p>
-                  <p class="item-price">&#8369;798</p>
-                  <i class="fi fi-rr-trash"></i>
-                </div>
-              </div>
-
-
-            </div>
-
-            
-
-            
-
-            
+            ?>
             <div class="order-summary-container">
               <p class="order-title">
                 Order Summary
@@ -239,11 +219,9 @@
                 <input type="checkbox">
               </div>
 
-              <a href="OrderPage.html">
-                <button>
-                  Place your order
-                </button>
-              </a>
+              <form action="CartPage.php" method="post" enctype="multipart/form-data">
+                <button type="submit" name="submit_btn">Place your order</button>
+              </form>
             </div>
           
           </div>

@@ -2,10 +2,8 @@
   include("../PHP/database.php");
   session_start(); // Start the session
   
-  if(isset($_SESSION['customer_id'])) {
-    echo $_SESSION['customer_id'];
-  } else {
-    echo "Customer ID not set in session";
+  if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+    $customer_id = $_SESSION['customer_id'];
   }
 ?>
 
@@ -25,7 +23,7 @@
   <link rel="stylesheet" href="../ProductPageCss/header.css">
   <link rel="stylesheet" href="../ProductPageCss/general.css">
   <link rel="stylesheet" href="../ProductPageCss/footer.css">
-  <link rel="stylesheet" href="../ProductPageCss/productpage.css">
+  <link rel="stylesheet" href="../ProductPageCss/productpage.css?v=<?php echo time(); ?>">
 
 </head>
 <body>
@@ -52,7 +50,7 @@
             </div>
             <div class="dropdown-content">
               <a href="ProfilePage.html">MY ACCOUNT</a>
-              <a href="loginpage.html">LOG IN</a>
+              <a href="loginpage.php">LOG IN</a>
               <a href="CartPage.html">CART</a>
             </div>
           </div>
@@ -157,12 +155,13 @@
           </div>
 
           <?php
-      
-          $select_query = "SELECT * from t_shirts";
+        
+          $select_query = "SELECT * from Tshirts";
           $display_product = mysqli_query($conn, $select_query);
 
           if(mysqli_num_rows($display_product) > 0) {
 
+            // echo $customer_id;
             echo "<div class='main-products-container'>";
             // fetch data from database
             $num = 1;
@@ -220,6 +219,9 @@
             $num++; //increment id
             } 
             echo "</div>";
+          }
+          else{
+            echo "<div class='header-notif'><p>No products yet! Coming soon!.</p></div>";
           }
           ?>
 
