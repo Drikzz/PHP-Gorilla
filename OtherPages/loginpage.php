@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </a>
         </div>
         <div class="menu-div">
-            <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
+            <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
             <a href="Productpage.php" class="menu-links">PRODUCTS</a>
             <a href="AboutUs.html" class="menu-links">ABOUT US</a>
             <a href="ContactUs.html" class="menu-links">CONTACT</a>
@@ -76,11 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
               <div class="dropdown-content">
                 <!-- <a href="#">MY ACCOUNT</a> -->
-                <a href="SignUpPage.html">SIGN UP</a>
-                <a href="CartPage.html">CART</a>
+                <a href="SignUpPage.php">SIGN UP</a>
+                <a href="CartPage.php">CART</a>
               </div>
             </div>
-            <a href="CartPage.html" class="shopping-cart-container">
+            <a href="CartPage.php" class="shopping-cart-container">
               <p class="total-price">₱0.00</p>
               <div class="cart-parent-div">
                 <i class="fi fi-rs-shopping-cart"></i>

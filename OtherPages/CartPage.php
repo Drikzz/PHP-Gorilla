@@ -1,55 +1,57 @@
 <?php 
 include("../PHP/database.php");
-session_start();
+session_start();  
+
 if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
   $customer_id = $_SESSION['customer_id'];
 
   if(isset($_POST['submit_btn'])) {
-    // Retrieve customer ID from session
-    if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-        $customer_id = $_SESSION['customer_id'];
+
+    // Retrieve cart items for the customer
+    $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
+    $select_result = mysqli_query($conn, $select_query);
+        
+    // $limit = mysqli_num_rows($select_result);
+    // echo $limit;
+
+    if(mysqli_num_rows($select_result) > 0) {
+      
+      // Loop through each cart item
+      while($fetch_data = mysqli_fetch_assoc($select_result)) {
+
+        // Insert each cart item into Orders table
+        $tshirt_id = $fetch_data['tshirt_id'];
+        
+        // Calculation of total price
+        $prod_baseprice = $fetch_data['price']; // Retrieve price from cart_items table
+        $prod_quantity = $fetch_data['quantity'];
+        $total_price = $prod_baseprice * $prod_quantity;
+        $status = 'Pending';
         
         
-        // Retrieve cart items for the customer
-        $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
-        $select_result = mysqli_query($conn, $select_query);
-        
-        if(mysqli_num_rows($select_result) > 0) {
+        $insert_order_query = "INSERT INTO customerorders (customer_id, tshirt_id, quantity, total_price, order_date, status)
+                                VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_price, NOW(), '$status')";
+
+        $insert_result = mysqli_query($conn, $insert_order_query);
+
+        if ($insert_result) {
+
+          // Get the last inserted order ID
+          $order_id = mysqli_insert_id($conn);
+
+          // Use the variables from the current order being processed
+          $insert_into_allorder = "INSERT INTO allorders (order_id, tshirt_id, quantity, total_price, order_date, status) 
+                                    VALUES ('$order_id', '$tshirt_id', '$prod_quantity', '$total_price', NOW(), '$status')";
           
-          // Loop through each cart item
-          while($fetch_data = mysqli_fetch_assoc($select_result)) {
+          mysqli_query($conn, $insert_into_allorder);
 
-            // Insert each cart item into Orders table
-            $cart_id = $fetch_data['cart_id'];
-            $prod_price = $fetch_data['price'];
-            $city = ''; // Update with user input or default
-            $country = ''; // Update with user input or default
-            $street_address = ''; // Update with user input or default
-            $status = 'Pending'; // Update with appropriate status
-
-            $insert_order_query = "INSERT INTO Orders (customer_id, cart_id, total_price, order_date, status)
-                                    VALUES ('$customer_id', '$cart_id', '$prod_price', NOW(), '$status')";
-
-            $insert_order_result = mysqli_query($conn, $insert_order_query);
-              
-              if($insert_order_result) {
-
-                  // Order inserted successfully, proceed to remove cart item
-                  $cart_item_id = $fetch_data['cart_id'];
-                  $delete_cart_item_query = "DELETE FROM cart_items WHERE cart_id = '$cart_item_id'";
-                  mysqli_query($conn, $delete_cart_item_query);
-
-              } else {
-                  // Error inserting order
-                  echo "Error inserting order: " . mysqli_error($conn);
-              }
-            }
+          // Clear the cart for the current customer
+          $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
+          mysqli_query($conn, $clear_cart_query);
         }
-    } else {
-        // Handle the case where customer ID is not set in the session
-        echo "Customer ID not set in session.";
+      }
     }
-  }
+  } 
 }
 
 ?>
@@ -121,7 +123,12 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
 
               <?php   
               
-              $select_query = "SELECT * FROM cart_items";
+              if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+
+              // Initialize total price items
+              $total_price_items = 0;
+              
+              $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
               $select_result = mysqli_query($conn, $select_query);
 
               if (mysqli_num_rows($select_result) > 0) {
@@ -134,7 +141,6 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                 <p class='num-of-items'>You have $num_rows items in your cart</p>";
 
                 while ($fetch_data = mysqli_fetch_assoc($select_result)) {
-                  // echo $customer_id;
                 
                 ?>
               
@@ -159,24 +165,41 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
               </div>
                   
                 <?php
-                }
-                echo "</div> ";
-              }
-              else{
-                echo "<div class='header-notif'>No items in cart to place order.</div>";
-              }
 
-            ?>
-            <div class="order-summary-container">
+                //fetch cart items price and quantity
+                $fetch_price = $fetch_data['price'];
+                $fetch_quantity = $fetch_data['quantity'];
+                $total_price_items += $fetch_price * $fetch_quantity;
+
+                
+                }
+
+                echo "</div> ";
+
+                // Constant values
+                $shipping_price = 100;
+                $tax_percentage = 0.10;
+                
+                // Calculate total price with shipping
+                $total_with_shipping = $total_price_items + $shipping_price;
+                
+                // Calculate tax amount
+                $tax_value = $total_with_shipping * $tax_percentage;
+                
+                // Calculate total price with tax
+                $total_with_tax = $total_with_shipping + $tax_value;
+              
+                ?>
+                <div class="order-summary-container">
               <p class="order-title">
                 Order Summary
               </p>
               <div class="order-details-div">
                 <p>
-                  Items(8):
+                  Items(<?php echo $num_rows?>):
                 </p>
                 <p class="price">
-                  &#8369;5,687
+                  &#8369;<?php echo number_format($total_price_items, 2)?>
                 </p>
               </div>
               <div class="order-details-div">
@@ -184,7 +207,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                   Shipping:
                 </p>
                 <p class="shipping price">
-                  &#8369;100
+                  &#8369;<?php echo number_format($shipping_price, 2)?>
                 </p>
               </div>
               <div class="order-details-div">
@@ -192,15 +215,15 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                   Total before tax:
                 </p>
                 <p class="price">
-                  &#8369;5,787
+                  &#8369;<?php echo number_format($total_with_shipping, 2)?>
                 </p>
               </div>
               <div class="order-details-div last-order">
                 <p>
-                  Estimated Tax(1%):
+                    Estimated Tax(<?php echo $tax_percentage * 100; ?>%):
                 </p>
                 <p class="price">
-                  &#8369;57.87
+                    &#8369;<?php echo number_format($tax_value, 2); ?>
                 </p>
               </div>
               <div class="order-total order-details-div">
@@ -208,7 +231,133 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                   Order Total:
                 </p>
                 <p>
-                  &#8369;5,844.87
+                  &#8369;<?php echo number_format($total_with_tax, 2); ?>
+                </p>
+              </div>
+
+              <div class="gcash-container">
+                <p>
+                  Use GCash
+                </p>
+                <input type="checkbox">
+              </div>
+
+              <form action="CartPage.php" method="post" enctype="multipart/form-data">
+                <button type="submit" name="submit_btn">Place your order</button>
+              </form>
+                </div>
+               <?php
+
+              } else {
+              ?>
+
+              <div class='header-notif'>No items in cart to place order.</div>
+              <div class="order-summary-container">
+                <p class="order-title">
+                  Order Summary
+                </p>
+                <div class="order-details-div">
+                  <p>
+                    Items(0):
+                  </p>
+                  <p class="price">
+                    &#8369;0.00
+                  </p>
+                </div>
+                <div class="order-details-div">
+                  <p>
+                    Shipping:
+                  </p>
+                  <p class="shipping price">
+                    &#8369;0.00
+                  </p>
+                </div>
+                <div class="order-details-div">
+                  <p>
+                    Total before tax:
+                  </p>
+                  <p class="price">
+                    &#8369;0.00
+                  </p>
+                </div>
+                <div class="order-details-div last-order">
+                  <p>
+                      Estimated Tax(0):
+                  </p>
+                  <p class="price">
+                      &#8369;0.00
+                  </p>
+                </div>
+                <div class="order-total order-details-div">
+                  <p>
+                    Order Total:
+                  </p>
+                  <p>
+                    &#8369;0.00
+                  </p>
+                </div>
+
+                <div class="gcash-container">
+                  <p>
+                    Use GCash
+                  </p>
+                  <input type="checkbox">
+                </div>
+
+                <form action="CartPage.php" method="post" enctype="multipart/form-data">
+                  <button type="submit" name="submit_btn">Place your order</button>
+                </form>
+              </div>
+
+                <?php
+                }
+            }
+            else {
+            ?>
+            
+            <div class='header-notif'>No items in cart to place order.</div>   
+            <div class="order-summary-container">
+              <p class="order-title">
+                Order Summary
+              </p>
+              <div class="order-details-div">
+                <p>
+                  Items(0):
+                </p>
+                <p class="price">
+                  &#8369;0.00
+                </p>
+              </div>
+              <div class="order-details-div">
+                <p>
+                  Shipping:
+                </p>
+                <p class="shipping price">
+                  &#8369;0.00
+                </p>
+              </div>
+              <div class="order-details-div">
+                <p>
+                  Total before tax:
+                </p>
+                <p class="price">
+                  &#8369;0.00
+                </p>
+              </div>
+              <div class="order-details-div last-order">
+                <p>
+                    Estimated Tax(0):
+                </p>
+                <p class="price">
+                    &#8369;0.00
+                </p>
+              </div>
+              <div class="order-total order-details-div">
+                <p>
+                  Order Total:
+                </p>
+                <p>
+                  &#8369;0.00
                 </p>
               </div>
 
@@ -223,7 +372,11 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                 <button type="submit" name="submit_btn">Place your order</button>
               </form>
             </div>
-          
+            
+            <?php
+            }
+            ?>
+            
           </div>
         </section>
       </main>

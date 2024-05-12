@@ -51,12 +51,12 @@
                 <i class="fi fi-rs-angle-down"></i>
               </div>
               <div class="dropdown-content">
-                <a href="OtherPages/ProfilePage.html">MY ACCOUNT</a>
-                <a href="OtherPages/loginpage.html">LOG IN</a>
-                <a href="OtherPages/CartPage.html">CART</a>
+                <a href="OtherPages/ProfilePage.php">MY ACCOUNT</a>
+                <a href="OtherPages/loginpage.php">LOG IN</a>
+                <a href="OtherPages/CartPage.php">CART</a>
               </div>
             </div>
-            <a href="OtherPages/CartPage.html" class="shopping-cart-container">
+            <a href="OtherPages/CartPage.php" class="shopping-cart-container">
               <p class="total-price">₱0.00</p>
               <div class="cart-parent-div">
                 <i class="fi fi-rs-shopping-cart"></i>

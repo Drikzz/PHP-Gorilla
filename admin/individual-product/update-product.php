@@ -1,43 +1,47 @@
 <?php 
-  session_start();
-  include("../../PHP/database.php");
+session_start();
+include("../../PHP/database.php");
 
-  if (isset($_POST['submit_btn'])) {
+if (isset($_POST['submit_btn'])) {
     $prod_id = $_POST['update_id_product'];
     $prod_name = $_POST['update_name_of_product'];
     $prod_description = $_POST['update_desc_of_product'];
     $prod_size = $_POST['update_size_of_product'];
     $prod_gender = $_POST['update_gender_of_product'];
-    $prod_baseprice  = $_POST['update_baseprice_of_product'];
-    $prod_quantity = $_POST['update_quantity_of_products'];
+
+    // Calculation of discount
+    $prod_baseprice = $_POST['update_baseprice_of_product'];
     $prod_discount = $_POST['update_discount_of_products'];
+    $prod_discounted_price = $prod_baseprice - ($prod_baseprice * ($prod_discount / 100));
+
+    $prod_quantity = $_POST['update_quantity_of_products'];
     $prod_category = $_POST['update_color_of_product'];
 
     if(isset($_FILES['update_product_img']) && !empty($_FILES['update_product_img']['name'])) {
-      $prod_picture = $_FILES['update_product_img']['name'];
-      $prod_picture_temp_name = $_FILES['update_product_img']['tmp_name'];
-      $prod_picture_folder = '../../images/'.$prod_picture;
+        $prod_picture = $_FILES['update_product_img']['name'];
+        $prod_picture_temp_name = $_FILES['update_product_img']['tmp_name'];
+        $prod_picture_folder = '../../images/'.$prod_picture;
 
-      $update_query = "UPDATE Tshirts SET name = '$prod_name', description = '$prod_description', size = '$prod_size', gender = '$prod_gender', 
-                      price = '$prod_baseprice', quantity = '$prod_quantity', discount = '$prod_discount', category = '$prod_category',
-                      image_url = '$prod_picture' WHERE tshirt_id = $prod_id";
+        // Update query with discounted price
+        $update_query = "UPDATE Tshirts SET name = '$prod_name', description = '$prod_description', size = '$prod_size', gender = '$prod_gender', 
+                        baseprice = '$prod_baseprice', discounted_price = '$prod_discounted_price', quantity = '$prod_quantity', discount = '$prod_discount', 
+                        category = '$prod_category', image_url = '$prod_picture' WHERE tshirt_id = $prod_id";
 
-      $update_result = mysqli_query($conn, $update_query) or die("Insert query failed!");
+        $update_result = mysqli_query($conn, $update_query) or die("Insert query failed!");
 
-      if ($update_result) {
-        move_uploaded_file($prod_picture_temp_name, $prod_picture_folder);
-        // $display_message = "Product updated successfully!";
-        header('location: ../all-product/products.php');
-      }
-      else {
-        $display_message = "Product update failed!";
-      }
+        if ($update_result) {
+            move_uploaded_file($prod_picture_temp_name, $prod_picture_folder);
+            // $display_message = "Product updated successfully!";
+            header('location: ../all-product/products.php');
+        } else {
+            $display_message = "Product update failed!";
+        }
     } else {
-      $display_message = "Please select an image file.";
+        $display_message = "Please select an image file.";
     }
-
-  }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -227,7 +231,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.html" class="sidebar-button-anchor">
+          <a href="../../OtherPages/loginpage.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>
@@ -425,7 +429,7 @@
                     Base Pricing
                   </p>
 
-                  <input type="text" name="update_baseprice_of_product" class="edit-form" placeholder="<?php echo$fetch_data['price']?>" required>
+                  <input type="text" name="update_baseprice_of_product" class="edit-form" placeholder="<?php echo$fetch_data['baseprice']?>" required>
                   <!-- <div class="edit-form">
                     Oversized White Shirt
                   </div> -->

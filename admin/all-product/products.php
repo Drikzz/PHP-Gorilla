@@ -190,7 +190,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.html" class="sidebar-button-anchor">
+          <a href="../../OtherPages/loginpage.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>
@@ -286,13 +286,13 @@
     <div class="tshirt-price-container">
       <div class="original-price-container">
         <p class="original-price">
-        <?php echo $row['price'] ?>
+        <?php echo $row['baseprice'] ?>
         </p>
       </div>
       
       <div class="sale-price-container">
         <p class="sale-price">
-        <?php echo $row['price'] ?>
+        <?php echo $row['discounted_price'] ?>
         </p>
       </div>
     </div>

@@ -39,7 +39,7 @@
         </a>
       </div>
       <div class="menu-div">
-          <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
+          <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
           <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
@@ -51,10 +51,10 @@
             <div class="dropdown-content">
               <a href="ProfilePage.html">MY ACCOUNT</a>
               <a href="loginpage.php">LOG IN</a>
-              <a href="CartPage.html">CART</a>
+              <a href="CartPage.php">CART</a>
             </div>
           </div>
-          <a href="CartPage.html" class="shopping-cart-container">
+          <a href="CartPage.php" class="shopping-cart-container">
             <p class="total-price">₱0.00</p>
             <div class="cart-parent-div">
               <i class="fi fi-rs-shopping-cart"></i>
@@ -200,13 +200,13 @@
               
                   <div class="original-price-container">
                     <p class="original-price">
-                      &#8369;<?php echo $row['price'] ?>
+                      &#8369;<?php echo $row['baseprice'] ?>
                     </p>
                   </div>
               
                   <div class="sale-price-container">
                     <p class="sale-price">
-                      &#8369;<?php echo $row['price'] ?>
+                      &#8369;<?php echo $row['discounted_price'] ?>
                     </p>
                   </div>
                   

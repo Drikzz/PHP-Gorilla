@@ -23,6 +23,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
             
             // Update the quantity in the Cart_Items table
             $update_quantity_query = "UPDATE Cart_Items SET quantity = '$new_quantity' WHERE tshirt_id = '$prod_id' AND customer_id = '$customer_id'";
+            
             if(mysqli_query($conn, $update_quantity_query)) {
                 header("location: CartPage.php");
                 exit; // Exit the script after redirection
@@ -37,8 +38,8 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
             $prod_img = isset($_POST['atc_product_img']) ? $_POST['atc_product_img'] : null;
             $prod_size = isset($_POST['atc_size_of_product']) ? $_POST['atc_size_of_product'] : null;
             
-            $insert_cart_item_query = "INSERT INTO Cart_Items (customer_id, image_url, name, size, quantity, price, tshirt_id) VALUES
-                                      ('$customer_id', '$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$prod_id')";
+            $insert_cart_item_query = "INSERT INTO Cart_Items (image_url, name, size, quantity, price, tshirt_id, customer_id) VALUES
+                                      ('$prod_img', '$prod_name', '$prod_size', '$prod_quantity', '$prod_price', '$prod_id', '$customer_id')";
             
             if(mysqli_query($conn, $insert_cart_item_query)) {
                 // Cart item inserted successfully
@@ -52,12 +53,10 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
     }
 } else {
     // Handle the case where customer ID is not set in the session
-    $display_message = "You're not logged in! Press here to login!";
+    $display_message = "You're not logged in!";
 
-    if(isset($_POST['goto_login'])) {
-      header("Location: loginpage.php"); // Corrected: added "Location:"
-      exit(); // Added to stop further script execution
-    }
+    // header("location: PreviewPage.php");
+    // exit();
 }
 ?>
 
@@ -78,7 +77,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
   <link rel="stylesheet" href="../PreviewPageCss/header.css">
   <link rel="stylesheet" href="../PreviewPageCss/general.css">
   <link rel="stylesheet" href="../PreviewPageCss/footer.css">
-  <link rel="stylesheet" href="../PreviewPageCss/previewpage.css">
+  <link rel="stylesheet" href="../PreviewPageCss/previewpage.css?v=<?php echo time(); ?> ">
 
 
 </head>
@@ -105,12 +104,12 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
               <i class="fi fi-rs-angle-down"></i>
             </div>
             <div class="dropdown-content">
-              <a href="ProfilePage.html">MY ACCOUNT</a>
+              <a href="ProfilePage.php">MY ACCOUNT</a>
               <a href="loginpage.php">LOG IN</a>
-              <a href="CartPage.html">CART</a>
+              <a href="CartPage.php">CART</a>
             </div>
           </div>
-          <a href="CartPage.html" class="shopping-cart-container">
+          <a href="CartPage.php" class="shopping-cart-container">
             <p class="total-price">₱0.00</p>
             <div class="cart-parent-div">
               <i class="fi fi-rs-shopping-cart"></i>
@@ -125,6 +124,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
       <main>
 
         <?php
+
           if (isset($_GET['product_select'])) {
               $update_id = $_GET['product_select'];
               $update_query = "SELECT * FROM Tshirts WHERE tshirt_id = $update_id";
@@ -135,7 +135,6 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
           ?>
         <form method="post" action="PreviewPage.php">
           <section class="section1">
-            <!-- <?php echo $customer_id?> -->
             <div class="img-div">
                 <input type="hidden" name="atc_prod_id" value="<?php echo $fetch_data['tshirt_id']?>">
                 <img class="product-img-preview" src="../images/<?php echo $fetch_data['image_url']?>" alt="<?php echo $fetch_data['name'] ?>">
@@ -145,9 +144,9 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
               <h1 class="product-name"><?php echo $fetch_data['name'] ?></h1>
               <input type="hidden" name="atc_name_of_product" value="<?php echo $fetch_data['name'] ?>">
               <p class="product-price">
-                  &#8369;<?php echo $fetch_data['price'] ?> <span class="prev-price">&#8369;<?php echo $fetch_data['price'] ?></span>
+                  &#8369;<?php echo $fetch_data['discounted_price'] ?> <span class="prev-price">&#8369;<?php echo $fetch_data['baseprice'] ?></span>
               </p>
-              <input type="hidden" name="atc_baseprice_of_product" value="<?php echo $fetch_data['price'] ?>">
+              <input type="hidden" name="atc_baseprice_of_product" value="<?php echo $fetch_data['baseprice'] ?>">
               <p class="product-description" name="atc_desc_of_product"><?php echo $fetch_data['description'] ?></p>
               <div class="input-div">
                 <div class="size-container">
@@ -167,19 +166,18 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                     <input class="quantity-input" name="atc_quantity_of_products" type="number" value="1" min="1" max="10">
                 </div>
               </div>
-
-      <?php 
-        
-      if(isset($display_message)) {
-        echo "<button type='submit' name='goto_login' class='add-to-cart'>$display_message</button>";
-      } else {
-      ?>
-      <button type="submit" name="add_to_cart" class="add-to-cart">Add to Cart</button>
-      <?php 
-        } 
-      ?>
-        <?php } ?>
-
+              
+            <?php 
+            
+            if(isset($display_message)) {
+              echo "<div class='warning_text'>$display_message &nbsp;<a href='loginpage.php'>Click here to login</a></div>";
+            } else {
+              ?>
+              <button type="submit" name="add_to_cart" class="add-to-cart">Add to Cart</button>
+            <?php 
+              } 
+                } 
+                ?>
               <div class="tags-container">
                   <p class="tags-title">Tag/s:</p>
                   <a class="tags-link" href="Productpage.php"><?php echo $fetch_data['category'] ?></a>
@@ -201,7 +199,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                   <img src="../PreviewPageImg/checked.png" alt="check">
                   <p>Secure Payments</p>
               </div>
-            </div>
+            </>
           </section>
         </form>
         <?php

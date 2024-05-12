@@ -8,7 +8,13 @@
     $prod_description = $_POST['desc_of_product'];
     $prod_size = $_POST['size_of_product'];
     $prod_gender = $_POST['gender_of_product'];
-    $prod_baseprice  = $_POST['baseprice_of_product'];
+
+    // Calculation of discount
+    $prod_baseprice = $_POST['baseprice_of_product'];
+    $prod_discount = $_POST['discount_of_products'];
+    $prod_discounted_price = $prod_baseprice - ($prod_baseprice * ($prod_discount / 100));
+
+
     $prod_quantity = $_POST['quantity_of_products'];
     $prod_discount = $_POST['discount_of_products'];
     $prod_category = $_POST['color_of_product'];
@@ -19,9 +25,9 @@
       $prod_picture_temp_name = $_FILES['product_img']['tmp_name'];
       $prod_picture_folder = '../../images/'.$prod_picture;
 
-      $insert_query = "INSERT INTO Tshirts (name, description, size, gender, price, quantity, discount, category, image_url)
-                      VALUES ('$prod_name', '$prod_description', '$prod_size', '$prod_gender', '$prod_baseprice', '$prod_quantity', '$prod_discount',
-                      '$prod_category', '$prod_picture')";
+      $insert_query = "INSERT INTO Tshirts (name, description, baseprice, discounted_price, image_url, size, gender, quantity, discount, category)
+                      VALUES ('$prod_name', '$prod_description', '$prod_baseprice', '$prod_discounted_price', '$prod_picture', '$prod_size', '$prod_gender', '$prod_quantity', '$prod_discount',
+                      '$prod_category')";
 
       $insert = mysqli_query($conn, $insert_query) or die("Insert query failed!");
 
@@ -228,7 +234,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.html" class="sidebar-button-anchor">
+          <a href="../../OtherPages/loginpage.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>
