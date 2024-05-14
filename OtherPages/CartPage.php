@@ -3,58 +3,60 @@ include("../PHP/database.php");
 session_start();  
 
 if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-  $customer_id = $_SESSION['customer_id'];
+    $customer_id = $_SESSION['customer_id'];
 
-  if(isset($_POST['submit_btn'])) {
+    if(isset($_POST['submit_btn'])) {
+        // Retrieve cart items for the customer
+        $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
+        $select_result = mysqli_query($conn, $select_query);
 
-    // Retrieve cart items for the customer
-    $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
-    $select_result = mysqli_query($conn, $select_query);
-        
-    // $limit = mysqli_num_rows($select_result);
-    // echo $limit;
+        if(mysqli_num_rows($select_result) > 0) {
+            // Generate a new order_group_id for this order session
+            $order_group_id = time(); // Using current timestamp as a unique identifier
 
-    if(mysqli_num_rows($select_result) > 0) {
-      
-      // Loop through each cart item
-      while($fetch_data = mysqli_fetch_assoc($select_result)) {
+            // Loop through each cart item
+            while($fetch_data = mysqli_fetch_assoc($select_result)) {
+                $tshirt_id = $fetch_data['tshirt_id'];
+                $prod_quantity = $fetch_data['quantity'];
+                $prod_baseprice = $fetch_data['price'];
+                $total_price = $prod_baseprice * $prod_quantity;
+                $status = 'Pending';
 
-        // Insert each cart item into Orders table
-        $tshirt_id = $fetch_data['tshirt_id'];
-        
-        // Calculation of total price
-        $prod_baseprice = $fetch_data['price']; // Retrieve price from cart_items table
-        $prod_quantity = $fetch_data['quantity'];
-        $total_price = $prod_baseprice * $prod_quantity;
-        $status = 'Pending';
-        
-        
-        $insert_order_query = "INSERT INTO customerorders (customer_id, tshirt_id, quantity, total_price, order_date, status)
-                                VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_price, NOW(), '$status')";
+                $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
+                                       VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_price, NOW(), '$status', '$order_group_id')";
 
-        $insert_result = mysqli_query($conn, $insert_order_query);
+                if (!mysqli_query($conn, $insert_order_query)) {
+                    echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
+                }
+            }
 
-        if ($insert_result) {
+            // Insert aggregated orders into AllOrders table
+            $insert_into_allorder = "INSERT INTO AllOrders (customer_id, tshirt_ids, quantities, total_prices, order_date, status, order_group_id)
+                                     SELECT 
+                                         co.customer_id,
+                                         GROUP_CONCAT(co.tshirt_id) AS tshirt_ids,
+                                         GROUP_CONCAT(co.quantity) AS quantities,
+                                         SUM(co.total_price) AS total_prices,
+                                         MAX(co.order_date) AS order_date,
+                                         MAX(co.status) AS status,
+                                         '$order_group_id' AS order_group_id
+                                     FROM CustomerOrders co
+                                     WHERE co.customer_id = '$customer_id' AND co.order_group_id = '$order_group_id'
+                                     GROUP BY co.customer_id, co.order_group_id";
 
-          // Get the last inserted order ID
-          $order_id = mysqli_insert_id($conn);
-
-          // Use the variables from the current order being processed
-          $insert_into_allorder = "INSERT INTO allorders (order_id, tshirt_id, quantity, total_price, order_date, status) 
-                                    VALUES ('$order_id', '$tshirt_id', '$prod_quantity', '$total_price', NOW(), '$status')";
-          
-          mysqli_query($conn, $insert_into_allorder);
-
-          // Clear the cart for the current customer
-          $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
-          mysqli_query($conn, $clear_cart_query);
+            if (!mysqli_query($conn, $insert_into_allorder)) {
+                // Optionally log the error or handle it gracefully
+            }
+            
+            // Clear the cart for the current customer
+            $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
+            mysqli_query($conn, $clear_cart_query);
         }
-      }
-    }
-  } 
+    } 
 }
-
 ?>
+
+
 
 
 <!DOCTYPE html>
