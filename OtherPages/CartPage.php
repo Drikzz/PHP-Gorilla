@@ -35,7 +35,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                                      SELECT 
                                          co.customer_id,
                                          GROUP_CONCAT(co.tshirt_id) AS tshirt_ids,
-                                         GROUP_CONCAT(co.quantity) AS quantities,
+                                         SUM(co.quantity) AS quantities,
                                          SUM(co.total_price) AS total_prices,
                                          MAX(co.order_date) AS order_date,
                                          MAX(co.status) AS status,
@@ -45,7 +45,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                                      GROUP BY co.customer_id, co.order_group_id";
 
             if (!mysqli_query($conn, $insert_into_allorder)) {
-                // Optionally log the error or handle it gracefully
+                echo "Error inserting into AllOrders: " . mysqli_error($conn);
             }
             
             // Clear the cart for the current customer
@@ -55,6 +55,8 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
     } 
 }
 ?>
+
+
 
 
 
@@ -85,14 +87,14 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
   <nav>
     <div class="container">
       <div class="logo-div">
-        <a href="../index.html">
+        <a href="../index.php">
           <p class="LOGO">
             GO<span class="rilla">RILLA</span>
           </p>
         </a>
       </div>
       <div class="menu-div">
-          <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
+          <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
           <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
@@ -104,7 +106,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
             <div class="dropdown-content">
               <a href="ProfilePage.php">MY ACCOUNT</a>
               <a href="loginpage.php">LOG IN</a>
-              <a href="CartPage.html">CART</a>
+              <a href="CartPage.php">CART</a>
             </div>
           </div>
           <a href="#" class="shopping-cart-container">

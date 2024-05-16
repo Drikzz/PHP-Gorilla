@@ -345,3 +345,11 @@
   font-weight: 700;
   text-decoration: underline;
 }
+
+.no_orders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25% 25%;
+  font-weight: 500;
+}

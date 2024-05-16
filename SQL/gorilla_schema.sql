@@ -53,7 +53,7 @@ CREATE TABLE CustomerOrders (
     city VARCHAR(255) NOT NULL,
     country VARCHAR(50) NOT NULL,
     street_address VARCHAR(255) NOT NULL,
-    order_group_id INT -- New column
+    order_group_id INT, -- New column
     CONSTRAINT fk_customer_order_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
     CONSTRAINT fk_customer_order_tshirt FOREIGN KEY (tshirt_id) REFERENCES Tshirts(tshirt_id)
 );
