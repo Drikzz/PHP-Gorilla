@@ -1,3 +1,51 @@
+<?php
+include("../PHP/database.php");
+session_start();
+
+if (!isset($_GET['get_id']) || empty($_GET['get_id'])) {
+    die("Invalid request. get_id is not set or empty.");
+}
+
+$allorder_id = filter_input(INPUT_GET, 'get_id', FILTER_SANITIZE_NUMBER_INT);
+
+// echo $allorder_id;
+if ($allorder_id) {
+    // Fetch the order details from AllOrders table
+    $order_query = "SELECT * FROM AllOrders WHERE allorder_id = '$allorder_id'";
+    $order_result = mysqli_query($conn, $order_query);
+
+    if ($order_result && mysqli_num_rows($order_result) > 0) {
+        $order_details = mysqli_fetch_assoc($order_result);
+
+        $tshirt_ids = explode(',', $order_details['tshirt_ids']);
+        $quantities = explode(',', $order_details['quantities']);
+        
+        // Fetch the T-shirt details from Tshirts table
+        $tshirt_ids_list = implode(',', array_map('intval', $tshirt_ids));
+        $tshirt_query = "SELECT * FROM Tshirts WHERE tshirt_id IN ($tshirt_ids_list)";
+        $tshirt_result = mysqli_query($conn, $tshirt_query);
+        
+        if ($tshirt_result && mysqli_num_rows($tshirt_result) > 0) {
+          $tshirts = [];
+          $quantities_per_tshirt = [];
+          foreach ($tshirt_ids as $tshirt_id) {
+              $quantities_per_tshirt[$tshirt_id] = array_shift($quantities);
+          }
+          while ($row = mysqli_fetch_assoc($tshirt_result)) {
+              $tshirts[] = $row;
+          }
+      } else {
+          die("Error retrieving T-shirt details: " . mysqli_error($conn));
+      }
+    } else {
+        die("Order not found.");
+    }
+} else {
+    die("Invalid order ID.");
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +62,7 @@
   <link rel="stylesheet" href="../OrderPageCss/header.css">
   <link rel="stylesheet" href="../OrderPageCss/general.css">
   <link rel="stylesheet" href="../OrderPageCss/footer.css">
-  <link rel="stylesheet" href="../OrderPageCss/orderpage2.css">
+  <link rel="stylesheet" href="../OrderPageCss/orderpage2.css?v=<?php echo time(); ?>">
 
 
 </head>
@@ -65,7 +113,28 @@
           <div class="sidebar-container">
             <div class="profile-pic-container">
               <img src="../ProfilePageImg/ProfilePic.jpg" alt="pp">
-              <p class="name">Art Michael Cadiz</p>
+
+              <?php 
+
+              if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+                $customer_id = $_SESSION['customer_id'];
+
+                // Select from customers table 
+                $select_customer_query = "SELECT * FROM customers WHERE customer_id = $customer_id";
+                $select_result = mysqli_query($conn, $select_customer_query);
+                
+                if ($select_result && mysqli_num_rows($select_result) > 0) {
+                  
+                  if ($customer_is = mysqli_fetch_assoc($select_result)) {
+                    ?>
+                      <p class="name"><?php echo $customer_is['username']?></p>
+                    <?php
+                  }
+                }
+              }
+              ?>
+
+
               <p class="location">Zamboanga, Philippines</p>
             </div>
             <div class="sidebar-links-container">
@@ -95,19 +164,20 @@
             </div>
           </div>
 
-          
           <div class="info-container">
             <p class="title" style="margin-bottom: 1%;">ORDER DETAILS</p>
             <br>
             <div class="order-container">
+
+              
               <div class="order-box">
                 <div>Order Placed</div>
-                <p>April 20, 2024</p>
+                <p><?php echo $order_details['order_date']?></p>
                 
               </div>
               <div class="order-box">
                 <div>Total Amount</div>
-                <p>&#8369;3,930.92</p>
+                <p>&#8369;<?php echo $order_details['total_prices']?></p>
                 
               </div>
               <div class="order-box">
@@ -117,7 +187,7 @@
               </div>
               <div class="order-box order-box2">
                 <div>Order ID</div>
-                <p>69420656</p>
+                <p><?php echo $order_details['allorder_id']?></p>
                 
               </div>
             </div>
@@ -140,34 +210,41 @@
                 <p>Ready for Delivery</p>
               </div>
             </div>
-
+            
             <div class="product-info-table">
-              <div class="tb-row">
+            <div class="tb-row">
                 <div>PRODUCT</div>
                 <div>QUANTITY</div>
                 <div>SUBTOTAL</div>
 
-                <p>Plain Black Shirt</p>
-                <p>2</p>
-                <p>₱998</p>
+                <?php 
+                foreach ($tshirts as $tshirt){
+                    // Get the T-shirt ID
+                    $tshirt_id = $tshirt['tshirt_id'];
+                    // Get the quantity for this T-shirt
+                    $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
+                    
+                    // Calculate the total price for the current T-shirt
+                    $total_price = $quantity * $tshirt['discounted_price'];
+                ?>
+                <div>
+                    <p><?php echo $tshirt['name']?></p>
+                </div>
 
-                <p>Oversized White Shirt</p>
-                <p>2</p>
-                <p>₱798</p>
+                <div>
+                    <p><?php echo $quantity?></p>
+                </div>
 
-                <p>Plain Biege Shirt</p>
-                <p>1</p>
-                <p>₱399</p>
-
-                <p>Plain Black Shirt</p>
-                <p>3</p>
-                <p>₱1,497</p>
-
+                <div>
+                    <p>&#8369;<?php echo number_format($total_price, 2)?></p>
+                </div>
+                <?php
+                }
+                ?>
                 <div>TOTAL</div>
                 <div></div>
-                <div>₱3,692</div>
+                <div>&#8369;<?php echo $order_details['total_prices']?></div>
               </div>
-              
             </div>
           </div>
 

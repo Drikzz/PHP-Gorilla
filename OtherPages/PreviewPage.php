@@ -146,7 +146,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
               <p class="product-price">
                   &#8369;<?php echo $fetch_data['discounted_price'] ?> <span class="prev-price">&#8369;<?php echo $fetch_data['baseprice'] ?></span>
               </p>
-              <input type="hidden" name="atc_baseprice_of_product" value="<?php echo $fetch_data['baseprice'] ?>">
+              <input type="hidden" name="atc_baseprice_of_product" value="<?php echo $fetch_data['discounted_price'] ?>">
               <p class="product-description" name="atc_desc_of_product"><?php echo $fetch_data['description'] ?></p>
               <div class="input-div">
                 <div class="size-container">

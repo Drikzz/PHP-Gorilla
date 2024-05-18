@@ -1,6 +1,35 @@
 <?php 
   include("../PHP/database.php");
   session_start();  
+
+  if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+
+    $customer_id = $_SESSION['customer_id'];
+
+    if (isset($_POST["submit_info"])) {
+      $customer_firstname = $_POST['firstname_customer'];
+      $customer_lastname = $_POST['lastname_customer'];
+      $customer_email = $_POST['email_customer'];
+      $customer_phone = $_POST['phone_customer'];
+      $customer_city = $_POST['city_customer'];
+      $customer_country = $_POST['country_customer'];
+      $customer_address = $_POST['address_customer'];
+
+      $update_query = "UPDATE customers SET first_name = '$customer_firstname', last_name = '$customer_lastname', email = '$customer_email', phone_number = '$customer_phone', 
+                      city = '$customer_city', country = '$customer_country', street_address = '$customer_address' WHERE customer_id = $customer_id";
+
+      $update_result = mysqli_query($conn, $update_query);
+
+      if ($update_result) {
+        header('location: ProfilePage.php');
+        exit();
+
+      } else {
+        echo "<p>Error updating information: " . mysqli_error($conn) . "</p>";
+      }
+    }
+
+  }
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +48,7 @@
   <link rel="stylesheet" href="../ProfilePageCss/header.css">
   <link rel="stylesheet" href="../ProfilePageCss/general.css">
   <link rel="stylesheet" href="../ProfilePageCss/footer.css">
-  <link rel="stylesheet" href="../ProfilePageCss/profilepage.css?v=<?php echo time(); ?>">
+  <link rel="stylesheet" href="../ProfilePageCss/profilepage2.css?v=<?php echo time(); ?>">
 
 
 </head>
@@ -29,7 +58,7 @@
   <nav>
     <div class="container">
       <div class="logo-div">
-        <a href="../index.php">
+        <a href="../index.html">
           <p class="LOGO">
             GO<span class="rilla">RILLA</span>
           </p>
@@ -38,7 +67,7 @@
       <div class="menu-div">
           <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
           <a href="Productpage.php" class="menu-links">PRODUCTS</a>
-          <a href="AboutUs.html" class="menu-links">ABOUT US</a>
+          <a href="AboutUs." class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
             <div class="menu-links dropbtn">
@@ -73,9 +102,6 @@
 
           <?php 
 
-          if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-            $customer_id = $_SESSION['customer_id'];
-
             // Select from customers table 
             $select_customer_query = "SELECT * FROM customers WHERE customer_id = $customer_id";
             $select_result = mysqli_query($conn, $select_customer_query);
@@ -84,51 +110,50 @@
               
               if ($customer_is = mysqli_fetch_assoc($select_result)) {
                 ?>
-                  <p class="name">@<?php echo $customer_is['username']?></p>
+                  <p class="name"><?php echo $customer_is['username']?></p>
                   <p class="location"><?php echo $customer_is['city']?></p>
                 <?php
-          
-          ?>
               
+          ?>
+            </div>
+            <div class="sidebar-links-container">
+              <a href="#" class="sidebar-links-act">
+                <div>
+                  <i class="fi fi-rs-user"></i>
+                  <p>Profile </p>
+                </div>
+              </a>
+
+              <a href="OrderPage.html" class="sidebar-links-una">
+                <div>
+                  <i class="fi fi-rr-shopping-basket"></i>
+                  <p>My orders</p>
+                </div>
+              </a>
+              
+              <br><br>
+              <a href="loginpage.html" class="sidebar-links-out">
+                <div>
+                  <i class="fi fi-rr-arrow-left"></i>
+                  <p>Log out </p>
+                </div>
+              </a>
+              
+            </div>
           </div>
-          <div class="sidebar-links-container">
-            <a href="#" class="sidebar-links-act">
-              <div>
-                <i class="fi fi-rs-user"></i>
-                <p>Profile </p>
-              </div>
-            </a>
 
-            <a href="OrderPage.php" class="sidebar-links-una">
-              <div>
-                <i class="fi fi-rr-shopping-basket"></i>
-                <p>My orders</p>
-              </div>
-            </a>
+          <div class="info-container">
+            <h1>WELCOME TO YOUR PROFILE!</h1>
+            <div class="box-container">
             
-            <br><br>
-            <a href="../PHP/destroy.php" class="sidebar-links-out">
-              <div>
-                <i class="fi fi-rr-arrow-left"></i>
-                <p>Log out </p>
-              </div>
-            </a>
+            <?php
             
-          </div>
-        </div>
-
-        <div class="info-container">
-          <h1>WELCOME TO YOUR PROFILE!</h1>
-          <div class="box-container">
-
-          <?php 
-
             $select_allorder = "SELECT * FROM allorders WHERE customer_id = '$customer_id'";
             $select_query = mysqli_query($conn, $select_allorder);
 
               if ($select_query && $num_of_rows = (mysqli_num_rows($select_query) > 0 )) {
 
-              ?>
+              ?> 
               <div class="box">
                 <i class="fi fi-rr-shopping-cart"></i>
                 <h1><?php echo $num_of_rows?></h1>
@@ -145,82 +170,58 @@
                 <p>Total Orders</p>
               </div>
 
+            </div>
+
+            <div class="personal-info-container">
+              <div class="personal-information">
+                <h1>PERSONAL INFORMATION</h1>
+              </div>
+              
+              <form action="ProfilePage2.php" method="post">
+              <div class="row-container">
+                <div class="pi-row1">
+                  <div>Name:</div>
+                  <input class="put-text" type="text" name="firstname_customer" placeholder="First Name">
+                  <input class="put-text" type="text" name="lastname_customer" placeholder="Last Name">
+                </div>
+                <div class="pi-row">
+                  <div>Email:</div>
+                  <input class="put-text" type="email" name="email_customer" placeholder="johndoe@gmail.com">
+                </div>
+                <div class="pi-row">
+                  <div>Phone:</div>
+                  <input class="put-text" type="text" name="phone_customer" placeholder="0912-345-6789">
+                </div>
+                <div class="pi-row">
+                  <div>City:</div>
+                  <input class="put-text" type="text" name="city_customer" placeholder="Zamboanga">
+                </div>
+                <div class="pi-row">
+                  <div>Country:</div>
+                  <input class="put-text" type="text" name="country_customer" placeholder="Philippines">
+                </div>
+                <div class="pi-row">
+                  <div>Address:</div>
+                  <input class="put-text" type="text" name="address_customer" placeholder="Sinunuc, Block 4, Emerald Drive">
+                </div>
+                <div>
+                    <a href="ProfilePage.php">
+                      <button class="save" type="submit" name="submit_info">SAVE</button>
+                    </a>  
+                    <a href="ProfilePage.php">
+                      <button class="cancel">CANCEL</button>
+                    </a>
+                  </div>
+                </div>
+              </form>
               </div>
 
-              <div class="personal-info-container">
-                <div class="personal-information">
-                  <h1>PERSONAL INFORMATION</h1>
-                  <a href="ProfilePage2.php">
-                    <button>Edit</button>
-                  </a>
-                </div>
-                <div class="row-container">
-                  <div class="pi-row">
-                    <div>Name:</div>
-                    <p><?php 
-                    if (!empty($customer_is['first_name'])) {
-                      echo htmlspecialchars($customer_is['first_name']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?>
-                    </p>
-                  </div>
-                  <div class="pi-row">
-                    <div>Email:</div>
-                    <p><?php 
-                    if (!empty($customer_is['email'])) {
-                      echo htmlspecialchars($customer_is['email']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?></p>
-                  </div>
-                  <div class="pi-row">
-                    <div>Phone:</div>
-                    <p><?php 
-                    if (!empty($customer_is['phone_number'])) {
-                      echo htmlspecialchars($customer_is['phone_number']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?></p>
-                  </div>
-                  <div class="pi-row">
-                    <div>City:</div>
-                    <p><?php 
-                    if (!empty($customer_is['city'])) {
-                      echo htmlspecialchars($customer_is['city']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?></p>
-                  </div>
-                  <div class="pi-row">
-                    <div>Country:</div>
-                    <p><?php 
-                    if (!empty($customer_is['country'])) {
-                      echo htmlspecialchars($customer_is['country']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?></p>
-                  </div>
-                  <div class="pi-row">
-                    <div>Address:</div>
-                    <p><?php 
-                    if (!empty($customer_is['street_address'])) {
-                      echo htmlspecialchars($customer_is['street_address']);
-                    } else {
-                      echo 'None'; // Default text if the column has no value
-                    } ?></p>
-                  </div>
-
-                </div>
-              </div>
-                <?php
-                }
+              <?php
               }
             }
           }
-          ?>
-
-        </div>
+        ?>
+          </div>
 
         </section>
       </main>

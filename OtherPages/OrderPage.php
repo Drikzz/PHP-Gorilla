@@ -84,15 +84,14 @@
                   
                   if ($customer_is = mysqli_fetch_assoc($select_result)) {
                     ?>
-                      <p class="name"><?php echo $customer_is['username']?></p>
+                      <p class="name">@<?php echo $customer_is['username']?></p>
+                      <p class="location"><?php echo $customer_is['city']?></p>
                     <?php
                   }
                 }
               }
               ?>
 
-              <!-- <p class="name">Art Michael Cadiz</p> -->
-              <p class="location">Tokyo, Japan</p>
             </div>
             <div class="sidebar-links-container">
               <a href="ProfilePage.php" class="sidebar-links-una">
@@ -166,7 +165,10 @@
                   while ($allorder = mysqli_fetch_assoc($orders_result)) {
                     $allorder_id = $allorder['allorder_id'];
                     $allorder_tshirt_ids = $allorder['tshirt_ids'];
+
                     $allorder_quantities = explode(',', $allorder['quantities']);
+                    $allorder_quantity_total = COUNT ($allorder_quantities);
+
                     $allorder_total_price = $allorder['total_prices'];
                     $allorder_order_date = $allorder['order_date'];
                     $allorder_status = $allorder['status'];
@@ -194,12 +196,12 @@
                             ?>
 
                             </p>
-                            <p><?php echo implode(', ', $allorder_quantities); ?></p>
+                            <p><?php echo $allorder_quantity_total; ?></p>
                             <p><?php echo $allorder_total_price; ?></p>
                             <p class="yes"><?php echo $allorder_status; ?></p>
                             <p><?php echo $allorder_order_date; ?></p>
                             <p class="green"><?php echo $allorder_status; ?></p>
-                            <a class="link" href="orderdetailpage.php?get=<?php echo $allorder['allorder_id']?>">View Details</a>
+                            <a class="link" href="orderdetailpage.php?get_id=<?php echo $allorder['allorder_id']?>">View Details</a>
                         </div>
 
                         <?php

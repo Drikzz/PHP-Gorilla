@@ -4,55 +4,6 @@ session_start();
 
 if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
     $customer_id = $_SESSION['customer_id'];
-
-    if(isset($_POST['submit_btn'])) {
-        // Retrieve cart items for the customer
-        $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
-        $select_result = mysqli_query($conn, $select_query);
-
-        if(mysqli_num_rows($select_result) > 0) {
-            // Generate a new order_group_id for this order session
-            $order_group_id = time(); // Using current timestamp as a unique identifier
-
-            // Loop through each cart item
-            while($fetch_data = mysqli_fetch_assoc($select_result)) {
-                $tshirt_id = $fetch_data['tshirt_id'];
-                $prod_quantity = $fetch_data['quantity'];
-                $prod_baseprice = $fetch_data['price'];
-                $total_price = $prod_baseprice * $prod_quantity;
-                $status = 'Pending';
-
-                $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
-                                       VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_price, NOW(), '$status', '$order_group_id')";
-
-                if (!mysqli_query($conn, $insert_order_query)) {
-                    echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
-                }
-            }
-
-            // Insert aggregated orders into AllOrders table
-            $insert_into_allorder = "INSERT INTO AllOrders (customer_id, tshirt_ids, quantities, total_prices, order_date, status, order_group_id)
-                                     SELECT 
-                                         co.customer_id,
-                                         GROUP_CONCAT(co.tshirt_id) AS tshirt_ids,
-                                         SUM(co.quantity) AS quantities,
-                                         SUM(co.total_price) AS total_prices,
-                                         MAX(co.order_date) AS order_date,
-                                         MAX(co.status) AS status,
-                                         '$order_group_id' AS order_group_id
-                                     FROM CustomerOrders co
-                                     WHERE co.customer_id = '$customer_id' AND co.order_group_id = '$order_group_id'
-                                     GROUP BY co.customer_id, co.order_group_id";
-
-            if (!mysqli_query($conn, $insert_into_allorder)) {
-                echo "Error inserting into AllOrders: " . mysqli_error($conn);
-            }
-            
-            // Clear the cart for the current customer
-            $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
-            mysqli_query($conn, $clear_cart_query);
-        }
-    } 
 }
 ?>
 
@@ -156,7 +107,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                     <input type="hidden" name="name">
                     <p class="item-size">Size: <?php echo $fetch_data['size']?></p>
 
-                  </div>
+                  </div>  
                 </div>
                 <div class="middle">
 
@@ -192,7 +143,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                 
                 // Calculate total price with tax
                 $total_with_tax = $total_with_shipping + $tax_value;
-              
+                
                 ?>
                 <div class="order-summary-container">
               <p class="order-title">
@@ -252,6 +203,60 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                 </div>
                <?php
 
+                if ($customer_id) {
+
+                  if(isset($_POST['submit_btn'])) {
+                    // Retrieve cart items for the customer
+                    $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
+                    $select_result = mysqli_query($conn, $select_query);
+
+                    if(mysqli_num_rows($select_result) > 0) {
+                      // Generate a new order_group_id for this order session
+                      $order_group_id = time(); // Using current timestamp as a unique identifier
+
+                      // Loop through each cart item
+                      while($fetch_data = mysqli_fetch_assoc($select_result)) {
+                          $tshirt_id = $fetch_data['tshirt_id'];
+                          $prod_quantity = $fetch_data['quantity'];
+                          $prod_baseprice = $fetch_data['price'];
+                          $total_price = $prod_baseprice * $prod_quantity;
+                          $status = 'Pending';
+
+                          $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
+                                                  VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_with_tax, NOW(), '$status', '$order_group_id')";
+
+                          if (!mysqli_query($conn, $insert_order_query)) {
+                              echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
+                          }
+                      }
+
+                      // Insert aggregated orders into AllOrders table
+                      $insert_into_allorder = "INSERT INTO AllOrders (customer_id, tshirt_ids, quantities, total_prices, order_date, status, order_group_id)
+                                                SELECT 
+                                                    co.customer_id,
+                                                    GROUP_CONCAT(co.tshirt_id) AS tshirt_ids,
+                                                    SUM(co.quantity) AS quantities,
+                                                    SUM(co.total_price) AS total_prices,
+                                                    MAX(co.order_date) AS order_date,
+                                                    MAX(co.status) AS status,
+                                                    '$order_group_id' AS order_group_id
+                                                FROM CustomerOrders co
+                                                WHERE co.customer_id = '$customer_id' AND co.order_group_id = '$order_group_id'
+                                                GROUP BY co.customer_id, co.order_group_id";
+
+                      if (!mysqli_query($conn, $insert_into_allorder)) {
+                          echo "Error inserting into AllOrders: " . mysqli_error($conn);
+                      }
+                      
+                      if ($insert_into_allorder) {
+                        // Clear the cart for the current customer
+                        $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
+                        mysqli_query($conn, $clear_cart_query);
+                        echo "<meta http-equiv='refresh' content='0'>";
+                      }
+                    }
+                  } 
+                }
               } else {
               ?>
 

@@ -229,6 +229,13 @@
   outline: none;
 }
 
+.pi-row1 {
+  display: grid;
+  grid-template-columns: 15% 25% 25%;
+  margin-bottom: 2%;
+  align-items: center;
+}
+
 .pi-row {
   display: grid;
   grid-template-columns: 15% 50%;

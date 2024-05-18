@@ -16,15 +16,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result_query = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result_query) > 0) {
-
+          
             // Fetch the customer data
             $customer_data = mysqli_fetch_assoc($result_query);
 
             // Store the customer_id in session
             $_SESSION['customer_id'] = $customer_data['customer_id'];
 
-            header("Location: ../index.php");
-            exit(); // Exit the script after redirection
+            //put in this logic to check if user is a admin or moderator
+            // admin creda('aldrikz', 'admin123'),
+            // ('art', 'moderator123');
+
+            if ($username === 'aldrikz' && $pass === 'admin123') {
+              header ("location: ../admin/Admin.php");
+              exit();
+            }
+            elseif ($username === 'art' && $pass === 'moderator123') {
+              header ("location: ../moderator/moderator.html");
+              exit();
+            }
+            else {
+              header("Location: ../index.php");
+              exit(); // Exit the script after redirection
+            }
+
         } else {
             echo '<script>alert("Wrong username/password!");</script>';
         }

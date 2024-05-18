@@ -1,5 +1,9 @@
 
 -- CUSTOMER TABLE INSERT QUERY
+INSERT INTO customers (username, password)
+VALUES
+('aldrikz', 'admin123'),
+('art', 'moderator123');
 
 INSERT INTO customers (first_name, last_name, username, password, email, phone_number, city, country, street_address) 
 VALUES 
