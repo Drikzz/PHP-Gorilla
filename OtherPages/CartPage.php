@@ -211,6 +211,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                     $select_result = mysqli_query($conn, $select_query);
 
                     if(mysqli_num_rows($select_result) > 0) {
+                      
                       // Generate a new order_group_id for this order session
                       $order_group_id = time(); // Using current timestamp as a unique identifier
 

@@ -129,6 +129,7 @@
               if ($select_query && $num_of_rows = (mysqli_num_rows($select_query) > 0 )) {
 
               ?>
+              
               <div class="box">
                 <i class="fi fi-rr-shopping-cart"></i>
                 <h1><?php echo $num_of_rows?></h1>
