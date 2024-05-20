@@ -1,7 +1,6 @@
 .section1 {
   /* height: 600px; */
   margin: 0 5%;
- 
 }
 
 .title {
@@ -16,13 +15,10 @@
   color: #005B41;
 }
 
-div.filter-container {
+.filter-container {
   display: flex;
   align-items: center;
-  
-  /* background-color: #005B41; */
-  /* height: 10%; */
-  margin: 0 5% ; 
+  margin: 0 5%;
   justify-content: space-between;
 }
 
@@ -37,16 +33,13 @@ div.filter-container {
   flex-direction: row;
   align-items: center;
   gap: 10px;
-
   border: none;
   padding: 10px 30px;
-  
   margin: 10px 0;
   cursor: pointer;
   border-top: solid 2px black;
   border-bottom: solid 2px black;
   background-color: rgb(243, 243, 243);
-
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -54,6 +47,7 @@ div.filter-container {
   background-color: rgba(0, 0, 0, 0.774);
   color: white;
 }
+
 .fi-rr-menu-burger {
   font-size: 15px;
   margin-top: 5px;
@@ -70,15 +64,7 @@ div.filter-container {
   margin-left: 10px;
 }
 
-.filter-container .Search-bar {
-  border: none;
-  outline: none;
-  padding: 1.5dvh 2dvh;
-  flex: 1;
-  max-width: 50dvh;
-  border-radius: 3px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
-}
+/* Search bar styles */
 .filter-container .Search-bar-container {
   position: relative;
   display: flex;
@@ -87,7 +73,23 @@ div.filter-container {
   margin-left: 20px;
 }
 
-.fi-rr-search {
+.filter-container .Search-bar {
+  border: none;
+  outline: none;
+  padding: 1.5dvh 2dvh;
+  flex: 1;
+  max-width: 100%;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
+}
+
+.search-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.search-btn i {
   position: absolute;
   right: 0;
   top: 0;
@@ -95,11 +97,11 @@ div.filter-container {
   padding: 1.4dvh 2dvh;
 }
 
-.fi-rr-search:hover {
+.search-btn i:hover {
   color: #11b98a;
 }
 
-.fi-rr-search:active {
+.search-btn i:active {
   color: #1c7a60;
 }
 
@@ -110,9 +112,7 @@ div.filter-container {
   width: auto;
   padding: 5dvh 8%;
   gap: 20px;
-
   row-gap: 50px;
-  /* margin: 0  5%; */
   align-items: center;
   justify-items: center;
 }
@@ -122,15 +122,10 @@ div.filter-container {
   flex-direction: column;
   align-items: center;
   width: 240px;
-  
   transition: box-shadow 0.7s, transform 0.7s;
   padding-bottom: 20px;
-  
   cursor: pointer;
 }
-
-
-
 
 .product-container:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -147,7 +142,6 @@ div.filter-container {
   width: 240px;
   height: 300px;
   overflow: hidden;
-  
   position: relative;
 }
 
@@ -157,7 +151,6 @@ div.filter-container {
   top: 10px;
   background-color: rgba(0, 0, 0, 0.678);
   color: white;
-
   font-size: 12px;
   padding: 5px;
 }
@@ -170,10 +163,8 @@ div.filter-container {
   padding: 5px 0;
   text-align: center;
   font-size: 12px;
-
   background-color: rgba(0, 0, 0, 0.678);
   color: white;
-
   opacity: 0;
   transition: opacity 0.5s;
 }
@@ -182,21 +173,19 @@ div.filter-container {
   opacity: 1;
 }
 
-
-.product-picture,.product-picture1 {
+.product-picture,
+.product-picture1 {
   height: 100%;
   width: 100%;
   object-fit: cover;
   object-position: 60%;
   cursor: pointer;
-  
   transition: transform 0.7s;
 }
 
 .product-picture1 {
   object-position: 50%;
 }
-
 
 .Tshirts-tag-container {
   display: flex;
@@ -221,7 +210,6 @@ div.filter-container {
   font-weight: bold;
   color: black;
   cursor: pointer;
-
 }
 
 .tshirt-price-container {
@@ -229,7 +217,6 @@ div.filter-container {
   justify-content: center;
   gap: 5px;
 }
-
 
 .original-price {
   color: rgba(128, 128, 128, 0.8);
@@ -240,7 +227,6 @@ div.filter-container {
   color: grey;
 }
 
-
 @media (max-width: 599px) {
   .section1 {
     display: flex;
@@ -248,10 +234,12 @@ div.filter-container {
     justify-content: center;
     align-items: center;
   }
+
   .main-products-container {
     grid-template-columns: 1fr;
     width: 270px;
   }
+
   .product-container {
     justify-content: center;
   }
@@ -260,12 +248,13 @@ div.filter-container {
     flex-direction: column;
     gap: 2dvh;
   }
+
+  .Search-bar-container {
+    margin-left: 0;
+  }
 }
 
-
-
-
-@media (min-width:600px) and (max-width: 899px) {
+@media (min-width: 600px) and (max-width: 899px) {
   .main-products-container {
     grid-template-columns: 1fr 1fr;
   }
@@ -277,19 +266,16 @@ div.filter-container {
   }
 }
 
-
 @media (min-width: 1300px) and (max-width: 1800px) {
   .main-products-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
-  
 }
 
 @media (min-width: 1801px) {
   .main-products-container {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
- 
 }
 
 .pages {
@@ -339,6 +325,7 @@ div.filter-container {
   gap: 1dvh;
   align-items: center;
 }
+
 .arrows .fi {
   margin-top: 0.5dvh;
   font-size: 2dvh;
@@ -353,7 +340,6 @@ div.filter-container {
   top: 9.5dvh;
   left: 0;
   background-color: rgb(255, 255, 255);
-  /* background-color: violet; */
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 5dvh;
@@ -362,35 +348,27 @@ div.filter-container {
 .sidebar p {
   font-size: 2.5dvh;
   font-weight: 600;
-  /* margin-left: 3dvh; */
   margin-bottom: 2dvh;
 }
-
 
 .sidebar .closebtn {
   position: absolute;
   top: 4dvh;
   right: 2dvh;
   font-size: 4dvh;
-  /* margin-left: 50px; */
 }
 
 input[type="range"] {
-  /* Removes default styles */
   -webkit-appearance: none;
   appearance: none;
-  
-  /* Define track styles */
   width: 100%;
   height: 0.3dvh;
   background: #ddd;
   border-radius: 5px;
   margin-bottom: 3dvh;
-  border-radius: 0;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  /* Define thumb styles */
   -webkit-appearance: none;
   appearance: none;
   width: 2dvh;
@@ -399,6 +377,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .sidebar-div {
   margin-left: 3dvh;
   margin-right: 3dvh;
@@ -413,24 +392,26 @@ input[type="range"]::-webkit-slider-thumb {
   border-bottom: 0.05dvh solid rgba(128, 128, 128, 0.507);
 }
 
-.price-container .min-price, .price-container .max-price
-, .price-container .category-name {
+.price-container .min-price,
+.price-container .max-price,
+.price-container .category-name {
   font-size: 2dvh;
   font-weight: 400;
 }
 
-.sidebar-div .color-category{
+.sidebar-div .color-category {
   font-size: 2dvh;
   color: grey;
   font-weight: 500;
 }
+
 #categoryRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2dvh;
-  /* background-color: rgb(214, 14, 14); */
 }
+
 .sidebar-div .category-name {
   font-size: 2dvh;
   font-weight: 400;
@@ -451,11 +432,12 @@ input[type="range"]::-webkit-slider-thumb {
   font-weight: 600;
 }
 
-
-
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
 }
-

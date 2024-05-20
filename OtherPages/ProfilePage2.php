@@ -164,7 +164,7 @@
               $select_query = mysqli_query($conn, $select_allorder);
 
                 if ($select_query && $num_of_rows = (mysqli_num_rows($select_query) > 0 )) {
-
+                  $num_of_rows = mysqli_num_rows($select_query);
                 ?> 
 
                 <div class="box-container">

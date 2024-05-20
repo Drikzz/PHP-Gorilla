@@ -239,7 +239,7 @@ if ($allorder_id) {
                     $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
                     
                     // Calculate the total price for the current T-shirt
-                    $total_price = $quantity * $tshirt['discounted_price'];
+                    $total_price = intval($quantity)* intval($tshirt['discounted_price']);
                 ?>
                 <div>
                     <p><?php echo $tshirt['name']?></p>
