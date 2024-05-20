@@ -49,7 +49,7 @@
               <i class="fi fi-rs-angle-down"></i>
             </div>
             <div class="dropdown-content">
-              <a href="ProfilePage.html">MY ACCOUNT</a>
+              <a href="ProfilePage.php">MY ACCOUNT</a>
               <a href="loginpage.php">LOG IN</a>
               <a href="CartPage.php">CART</a>
             </div>

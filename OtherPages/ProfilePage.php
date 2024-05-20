@@ -67,15 +67,17 @@
 
         <section class="section1">
 
-          <div class="sidebar-container">
-            <div class="profile-pic-container">
-              <img src="../ProfilePageImg/ProfilePic.jpg" alt="pp">
-
-          <?php 
+          <?php
 
           if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
             $customer_id = $_SESSION['customer_id'];
+            ?>
 
+          <div class="sidebar-container">
+            <div class="profile-pic-container">
+              <img src="../ProfilePageImg/ProfilePic.jpg" alt="pp">
+            
+            <?php
             // Select from customers table 
             $select_customer_query = "SELECT * FROM customers WHERE customer_id = $customer_id";
             $select_result = mysqli_query($conn, $select_customer_query);
@@ -83,43 +85,49 @@
             if ($select_result && mysqli_num_rows($select_result) > 0) {
               
               if ($customer_is = mysqli_fetch_assoc($select_result)) {
-                ?>
+                 ?>
                   <p class="name">@<?php echo $customer_is['username']?></p>
-                  <p class="location"><?php echo $customer_is['city']?></p>
                 <?php
-          
-          ?>
+                if ($customer_is['city'] && $customer_is['country']) {
+                  ?>
+                  <p class="location"><?php echo $customer_is['city'] . ', ' .  $customer_is['country']?></p>
+                  <?php
+                  } else {
+                    ?>
+                    <p class="location">None</p>
+                    <?php
+                  }
+                ?>  
               
-          </div>
-          <div class="sidebar-links-container">
-            <a href="#" class="sidebar-links-act">
-              <div>
-                <i class="fi fi-rs-user"></i>
-                <p>Profile </p>
-              </div>
-            </a>
+            </div>
+            <div class="sidebar-links-container">
+              <a href="#" class="sidebar-links-act">
+                <div>
+                  <i class="fi fi-rs-user"></i>
+                  <p>Profile </p>
+                </div>
+              </a>
 
-            <a href="OrderPage.php" class="sidebar-links-una">
-              <div>
-                <i class="fi fi-rr-shopping-basket"></i>
-                <p>My orders</p>
-              </div>
-            </a>
-            
-            <br><br>
-            <a href="../PHP/destroy.php" class="sidebar-links-out">
-              <div>
-                <i class="fi fi-rr-arrow-left"></i>
-                <p>Log out </p>
-              </div>
-            </a>
-            
+              <a href="OrderPage.php" class="sidebar-links-una">
+                <div>
+                  <i class="fi fi-rr-shopping-basket"></i>
+                  <p>My orders</p>
+                </div>
+              </a>
+              
+              <br><br>
+              <a href="../PHP/destroy.php" class="sidebar-links-out">
+                <div>
+                  <i class="fi fi-rr-arrow-left"></i>
+                  <p>Log out </p>
+                </div>
+              </a>
+              
+            </div>
           </div>
-        </div>
 
-        <div class="info-container">
-          <h1>WELCOME TO YOUR PROFILE!</h1>
-          <div class="box-container">
+            <div class="info-container">
+              <h1>WELCOME TO YOUR PROFILE!</h1>
 
           <?php 
 
@@ -129,26 +137,126 @@
               if ($select_query && $num_of_rows = (mysqli_num_rows($select_query) > 0 )) {
 
               ?>
+              <div class="box-container">
               
-              <div class="box">
-                <i class="fi fi-rr-shopping-cart"></i>
-                <h1><?php echo $num_of_rows?></h1>
-                <p>Order Active</p>
-              </div>
-              <div class="box">
-                <i class="fi fi-rr-time-fast"></i>
-                <h1><?php echo $num_of_rows?></h1>
-                <p>Order Completed</p>
-              </div>
-              <div class="box">
-                <i class="fi fi-rr-ballot"></i>
-                <h1><?php echo $num_of_rows?></h1>
-                <p>Total Orders</p>
-              </div>
+                <div class="box">
+                  <i class="fi fi-rr-shopping-cart"></i>
+                  <h1><?php echo $num_of_rows?></h1>
+                  <p>Order Active</p>
+                </div>
+                <div class="box">
+                  <i class="fi fi-rr-time-fast"></i>
+                  <h1><?php echo $num_of_rows?></h1>
+                  <p>Order Completed</p>
+                </div>
+                <div class="box">
+                  <i class="fi fi-rr-ballot"></i>
+                  <h1><?php echo $num_of_rows?></h1>
+                  <p>Total Orders</p>
+                </div>
 
               </div>
 
               <div class="personal-info-container">
+                <div class="personal-information">
+                  <h1>PERSONAL INFORMATION</h1>
+                  <a href="ProfilePage2.php">
+                    <button>Edit</button>
+                  </a>
+                </div>
+                <div class="row-container">
+                  <div class="pi-row">
+                    <div>Name:</div>
+                    <p><?php 
+                    if (!empty($customer_is['first_name'])) {
+                      echo htmlspecialchars($customer_is['first_name']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?>
+                    </p>
+                  </div>
+                  <div class="pi-row">
+                    <div>Username:</div>
+                    <p><?php 
+                    if (!empty($customer_is['username'])) {
+                      echo htmlspecialchars($customer_is['username']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+                  <div class="pi-row">
+                    <div>Email:</div>
+                    <p><?php 
+                    if (!empty($customer_is['email'])) {
+                      echo htmlspecialchars($customer_is['email']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+                  <div class="pi-row">
+                    <div>Phone:</div>
+                    <p><?php 
+                    if (!empty($customer_is['phone_number'])) {
+                      echo htmlspecialchars($customer_is['phone_number']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+                  <div class="pi-row">
+                    <div>City:</div>
+                    <p><?php 
+                    if (!empty($customer_is['city'])) {
+                      echo htmlspecialchars($customer_is['city']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+                  <div class="pi-row">
+                    <div>Country:</div>
+                    <p><?php 
+                    if (!empty($customer_is['country'])) {
+                      echo htmlspecialchars($customer_is['country']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+                  <div class="pi-row">
+                    <div>Address:</div>
+                    <p><?php 
+                    if (!empty($customer_is['street_address'])) {
+                      echo htmlspecialchars($customer_is['street_address']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?></p>
+                  </div>
+
+                </div>
+              </div>
+                <?php
+                }
+                else {
+                  // echo "no order for customer";
+                  ?>
+
+                  <div class="box-container">
+                    <div class="box">
+                      <i class="fi fi-rr-shopping-cart"></i>
+                      <h1>0</h1>
+                      <p>Order Active</p>
+                    </div>
+                    <div class="box">
+                      <i class="fi fi-rr-time-fast"></i>
+                      <h1>0</h1>
+                      <p>Order Completed</p>
+                    </div>
+                    <div class="box">
+                      <i class="fi fi-rr-ballot"></i>
+                      <h1>0</h1>
+                      <p>Total Orders</p>
+                    </div>
+                  </div>
+
+                <div class="personal-info-container">
                 <div class="personal-information">
                   <h1>PERSONAL INFORMATION</h1>
                   <a href="ProfilePage2.php">
@@ -214,10 +322,102 @@
 
                 </div>
               </div>
-                <?php
+                  <?php
                 }
               }
             }
+          } else {
+            ?>
+            <div class="sidebar-container">
+            <div class="profile-pic-container">
+              <img src="../ProfilePageImg/ProfilePic.jpg" alt="pp">
+              <p class="name">None</p>
+              <p class="location">None</p>
+            </div>
+            <div class="sidebar-links-container">
+              <a href="#" class="sidebar-links-act">
+                <div>
+                  <i class="fi fi-rs-user"></i>
+                  <p>Profile </p>
+                </div>
+              </a>
+
+              <a href="OrderPage.php" class="sidebar-links-una">
+                <div>
+                  <i class="fi fi-rr-shopping-basket"></i>
+                  <p>My orders</p>
+                </div>
+              </a>
+              
+              <br><br>
+              <a href="../PHP/destroy.php" class="sidebar-links-out">
+                <div>
+                  <i class="fi fi-rr-arrow-left"></i>
+                  <p>Log out </p>
+                </div>
+              </a>
+              
+            </div>
+          </div>
+
+          <div class="info-container">
+            <h1>WELCOME TO YOUR PROFILE!</h1>
+            <div class="box-container">
+              <div class="box">
+                <i class="fi fi-rr-shopping-cart"></i>
+                <h1>0</h1>
+                <p>Order Active</p>
+              </div>
+              <div class="box">
+                <i class="fi fi-rr-time-fast"></i>
+                <h1>0</h1>
+                <p>Order Completed</p>
+              </div>
+              <div class="box">
+                <i class="fi fi-rr-ballot"></i>
+                <h1>0</h1>
+                <p>Total Orders</p>
+              </div>
+            </div>
+
+            <div class="personal-info-container">
+              <div class="personal-information">
+                <h1>PERSONAL INFORMATION</h1>
+                <a href="loginpage.php">
+                  <button>You're logged out! Click to log in</button>
+                </a>
+              </div>
+              <div class="row-container">
+                <div class="pi-row">
+                  <div>Name:</div>
+                  <p>None</p>
+                </div>
+                <div class="pi-row">
+                  <div>Email:</div>
+                  <p>None</p>
+                </div>
+                <div class="pi-row">
+                  <div>Phone:</div>
+                  <p>None</p>
+                </div>
+                <div class="pi-row">
+                  <div>City:</div>
+                  <p>None</p>
+                </div>
+                <div class="pi-row">
+                  <div>Country:</div>
+                  <p>None</p>
+                </div>
+                <div class="pi-row">
+                  <div>Address:</div>
+                  <p>None</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+            <?php
           }
           ?>
 
@@ -230,14 +430,14 @@
   <footer class="footer-container">
     <div class="link-container-parent">
       <div class="link-container">
-        <a href="../index.html">Home</a>
+        <a href="../index.php">Home</a>
         <a href="AboutUs.html">About Us</a>
-        <a href="loginpage.html">My Account</a>
+        <a href="loginpage.php">My Account</a>
       </div>
       <div class="link-container">
-        <a href="Productpage.html">Products</a>
-        <a href="ContactUs.html">Contact</a>
-        <a href="SignUpPage.html">Sign Up</a>
+        <a href="Productpage.php">Products</a>
+        <a href="ContactUs.">Contact</a>
+        <a href="SignUpPage.php">Sign Up</a>
       </div>
       
     </div>

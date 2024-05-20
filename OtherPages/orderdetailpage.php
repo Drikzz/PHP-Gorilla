@@ -127,15 +127,29 @@ if ($allorder_id) {
                   
                   if ($customer_is = mysqli_fetch_assoc($select_result)) {
                     ?>
-                      <p class="name"><?php echo $customer_is['username']?></p>
+
+                    <p class="name">@<?php echo $customer_is['username']?></p>
+
+                    <?php
+
+                    if ($customer_is['city'] && $customer_is['country']) {
+
+                    ?>
+                    <p class="location"><?php echo $customer_is['city'] . ', ' .  $customer_is['country']?></p>
+                    <?php
+                    
+                    } else {
+                    ?>
+                    <p class="location">None</p>
+                    <?php
+                    }
+                    ?>
                     <?php
                   }
                 }
               }
               ?>
 
-
-              <p class="location">Zamboanga, Philippines</p>
             </div>
             <div class="sidebar-links-container">
               <a href="ProfilePage.php" class="sidebar-links-una">

@@ -167,7 +167,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2%;
-  margin: 2% 0 5% 0;
+  margin: 2% 0 0 0;
+  /* background-color: red; */
 }
 
 .box {
@@ -202,8 +203,9 @@
 }
 
 .personal-info-container {
-  margin-top: 10%;
+  margin-top: 0;
 }
+
 .personal-info-container h1 {
   font-weight: 600;
   font-size: 20px;
@@ -216,12 +218,9 @@
 }
 
 .put-text {
-  width: 100%;
   padding: 2% 5%;
-  /* background-color: red; */
   border: 1px solid lightgray;
   border-radius: 1px;
-
 }
 
 .put-text:focus {
@@ -229,16 +228,10 @@
   outline: none;
 }
 
-.pi-row1 {
-  display: grid;
-  grid-template-columns: 15% 25% 25%;
-  margin-bottom: 2%;
-  align-items: center;
-}
-
 .pi-row {
   display: grid;
-  grid-template-columns: 15% 50%;
+  grid-template-columns: 3dvw auto;
+  gap: 2ch;
   margin-bottom: 2%;
   align-items: center;
 }

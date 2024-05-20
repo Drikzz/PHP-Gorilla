@@ -84,11 +84,29 @@
                   
                   if ($customer_is = mysqli_fetch_assoc($select_result)) {
                     ?>
-                      <p class="name">@<?php echo $customer_is['username']?></p>
-                      <p class="location"><?php echo $customer_is['city']?></p>
+
+                    <p class="name">@<?php echo $customer_is['username']?></p>
+                    
                     <?php
+
+                    if ($customer_is['city'] && $customer_is['country']) {
+                    ?>
+
+                    <p class="location"><?php echo $customer_is['city'] . ', ' .  $customer_is['country']?></p>
+                    
+                    <?php
+                    } else {
+                      ?>
+                      <p class="location">None</p>
+                      <?php
+                    }
                   }
                 }
+              } else {
+              ?>
+                <p class="name">None</p>
+                <p class="location">None</p>
+              <?php
               }
               ?>
 
@@ -214,7 +232,7 @@
                     echo "<div class='no_orders'><p>No orders found for this customer.</p></div>";
                 }
               } else {
-                  echo "<p>You need to log in to view your orders.</p>";
+                  echo "<div class='no_orders'><p>You need to log in to view your orders.</p></div>";
               }
               ?>
 

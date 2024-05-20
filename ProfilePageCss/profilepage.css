@@ -167,7 +167,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2%;
-  margin: 2% 0 5% 0;
+  margin: 2% 0 0 0;
 }
 
 .box {
@@ -202,21 +202,30 @@
 }
 
 .personal-info-container {
-  margin-top: 10%;
+  margin-top: 0;
 }
+
 .personal-info-container h1 {
   font-weight: 600;
   font-size: 20px;
-
 }
 
 .row-container {
   margin-top: 5%;
 }
+
+.put-text {
+  padding: 2% 5%;
+  border: 1px solid lightgray;
+  border-radius: 1px;
+}
+
 .pi-row {
   display: grid;
-  grid-template-columns: 15% 1fr;
-  margin-bottom: 4%;
+  grid-template-columns: 5dvw auto;
+  gap: 2ch;
+  margin-bottom: 5%;
+  align-items: center;
 }
 
 .pi-row div {
