@@ -224,7 +224,7 @@
 
                         <?php
                       } else {
-                          echo "<p>Error retrieving T-shirt details: " . mysqli_error($conn) . "</p>";
+                          echo "<div class='no_orders'><p>Your order/s has been removed due to product/s unavailability! " . mysqli_error($conn) . "</p></div>";
                       }
                       $num_order++;
                     }

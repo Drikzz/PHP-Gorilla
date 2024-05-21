@@ -7,11 +7,6 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
 }
 ?>
 
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,3 +1,7 @@
+<?php
+  include("../PHP/database.php");
+  session_start();  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +123,7 @@
             </div>
           </a>
   
-          <a href="../admin/all-order/all-order1.html" class="sidebar-button-anchor">
+          <a href="../admin/all-order/all-order1.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
               
               <div>
@@ -185,7 +189,7 @@
         
         <div>
 
-          <a href="../OtherPages/loginpage.php" class="sidebar-button-anchor">
+          <a href="../PHP/destroy.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>
@@ -206,543 +210,552 @@
     </div>
 
   </div>
-  
-  <div class="put-in-middle-container">
 
-    <div class="WHOLE-STATISTICS-CONTAINER">
+  <?php
+    if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+      $customer_id = $_SESSION['customer_id'];
 
-      <div class="MAIN-BOXES-CONTAINER">
-  
-        <div class="THREE-BOXES-CONTAINER">
-    
-          <div class="BOX">
-    
-            <div class="title-column-container">
-    
-              <div class="title-row">
-                <i class="fi fi-rr-warehouse-alt"></i>
-    
-                <p class="title">Total Clothes on Inventory</p>
+      ?>
+      <div class="put-in-middle-container">
+
+        <div class="WHOLE-STATISTICS-CONTAINER">
+
+          <div class="MAIN-BOXES-CONTAINER">
+      
+            <div class="THREE-BOXES-CONTAINER">
+        
+              <div class="BOX">
+        
+                <div class="title-column-container">
+        
+                  <div class="title-row">
+                    <i class="fi fi-rr-warehouse-alt"></i>
+        
+                    <p class="title">Total Clothes on Inventory</p>
+                  </div>
+        
+                </div>
+        
+                <div class="total-amount-column-container">
+                    
+                  <div class="total-amount-row">
+        
+                    <p class="total-amount">
+                      123, 000 pcs
+                    </p>
+        
+                  </div>
+                  
+                </div>
+        
+        
+                <div class="description-column-container">
+        
+                  <div class="description-row">
+        
+                    <p class="description">
+                      The number of manufactured clothes.
+                    </p>
+        
+                  </div>
+        
+                </div>
+        
               </div>
-    
-            </div>
-    
-            <div class="total-amount-column-container">
-                
-              <div class="total-amount-row">
-    
-                <p class="total-amount">
-                  123, 000 pcs
-                </p>
-    
+        
+              <div class="BOX">
+        
+                <div class="title-column-container">
+        
+                  <div class="title-row">
+                    <i class="fi fi-rr-usd-circle"></i>    
+                    <p class="title">Total Sales </p>
+                  </div>
+        
+                </div>
+        
+                <div class="total-amount-column-container">
+                    
+                  <div class="total-amount-row">
+        
+                    <p class="total-amount">
+                      &#8369; 56, 680.00
+                    </p>
+        
+                  </div>
+                  
+                </div>
+        
+        
+                <div class="description-column-container">
+        
+                  <div class="description-row">
+        
+                    <p class="description">
+                      This is the # of orders from the last 24hrs.
+                    </p>
+        
+                  </div>
+        
+                </div>
+        
               </div>
-              
-            </div>
-    
-    
-            <div class="description-column-container">
-    
-              <div class="description-row">
-    
-                <p class="description">
-                  The number of manufactured clothes.
-                </p>
-    
+        
+              <div class="BOX">
+        
+                <div class="title-column-container">
+        
+                  <div class="title-row">
+                    <i class="fi fi-rr-shopping-cart"></i>    
+                    <p class="title">Total Orders</p>
+                  </div>
+        
+                </div>
+        
+                <div class="total-amount-column-container">
+                    
+                  <div class="total-amount-row">
+        
+                    <p class="total-amount">
+                      40, 123.00 pcs
+                    </p>
+        
+                  </div>
+                  
+                </div>
+        
+        
+                <div class="description-column-container"> 
+        
+                  <div class="description-row">
+        
+                    <p class="description">
+                      The # of numbers of orders now.
+                    </p>
+        
+                  </div>
+        
+                </div>
+        
               </div>
-    
+        
             </div>
-    
+        
           </div>
-    
-          <div class="BOX">
-    
-            <div class="title-column-container">
-    
-              <div class="title-row">
-                <i class="fi fi-rr-usd-circle"></i>    
-                <p class="title">Total Sales </p>
-              </div>
-    
-            </div>
-    
-            <div class="total-amount-column-container">
+      
+          <div class="MAIN-GRAPH-CONTAINER">
+      
+            <div class="revenue-column-container">
+      
+              <div class="revenue-row">
                 
-              <div class="total-amount-row">
-    
-                <p class="total-amount">
-                  &#8369; 56, 680.00
+                <p class="REVENUE-CHART">
+                  REVENUE CHART
                 </p>
-    
+      
+                <button class="this-year-btn">
+      
+                  <div class="this-year-btn-container">
+                    <p class="this-year">
+                      This year
+                    </p>
+                    <i class="fi fi-rr-angle-small-down"></i>              
+                  </div>
+                  
+                </button>
+      
+      
               </div>
-              
+      
+              <div></div>
             </div>
-    
-    
-            <div class="description-column-container">
-    
-              <div class="description-row">
-    
-                <p class="description">
-                  This is the # of orders from the last 24hrs.
-                </p>
-    
+      
+            <div class="MAIN-graph-column-container">
+      
+              <div class="MAIN-graph-row-container">
+      
+                <div class="graph-row-label-container">
+      
+                  <div class="graph-label">
+        
+                    <p class="label">
+                      50k
+                    </p>
+        
+                    <p class="label">
+                      40k
+                    </p>
+        
+                    <p class="label">
+                      30k
+                    </p>
+        
+                    <p class="label">
+                      20k
+                    </p>
+        
+                    <p class="label">
+                      10k
+                    </p>
+        
+                    <p class="label">
+                      0
+                    </p>
+        
+                  </div>
+        
+                </div>
+      
+                <div class="graph-row-container">
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage1">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Jan
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage2">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Feb
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage3">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Mar
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage4">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Apr
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage5">
+                      
+                    </div>
+        
+                    <div class="month">
+                      May
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage6">
+                      
+                    </div>
+        
+                    <div class="month">
+                      June
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage7">
+                      
+                    </div>
+        
+                    <div class="month">
+                      July
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage8">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Aug
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage3">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Sept
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage7">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Oct
+                    </div>
+        
+                  </div>
+      
+                  <div class="graph-container">
+      
+                    <div class="percentage1">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Nov
+                    </div>
+        
+                  </div>
+        
+                  <div class="graph-container">
+      
+                    <div class="percentage8">
+                      
+                    </div>
+        
+                    <div class="month">
+                      Dec
+                    </div>
+        
+                  </div>
+      
+                </div>
+      
               </div>
-    
+      
             </div>
-    
+      
           </div>
-    
-          <div class="BOX">
-    
-            <div class="title-column-container">
-    
-              <div class="title-row">
-                <i class="fi fi-rr-shopping-cart"></i>    
-                <p class="title">Total Orders</p>
-              </div>
-    
-            </div>
-    
-            <div class="total-amount-column-container">
-                
-              <div class="total-amount-row">
-    
-                <p class="total-amount">
-                  40, 123.00 pcs
-                </p>
-    
-              </div>
-              
-            </div>
-    
-    
-            <div class="description-column-container"> 
-    
-              <div class="description-row">
-    
-                <p class="description">
-                  The # of numbers of orders now.
-                </p>
-    
-              </div>
-    
-            </div>
-    
-          </div>
-    
+      
         </div>
-    
-      </div>
-  
-      <div class="MAIN-GRAPH-CONTAINER">
-  
-        <div class="revenue-column-container">
-  
-          <div class="revenue-row">
-            
-            <p class="REVENUE-CHART">
-              REVENUE CHART
-            </p>
-  
-            <button class="this-year-btn">
-  
+      
+        <div class="separator">
+          
+        </div>
+      
+        <div class="WHOLE-TRANSACTIONS-CONTAINER">
+      
+          <div class="transaction-row-container">
+      
+              <p class="transactions">
+                Transactions History
+              </p>
+      
+              <button class="this-year-btn">
+      
               <div class="this-year-btn-container">
                 <p class="this-year">
-                  This year
+                  Filter
                 </p>
-                <i class="fi fi-rr-angle-small-down"></i>              
+                <i class="fi fi-rr-angle-small-down"></i>          
               </div>
-              
-            </button>
-  
-  
-          </div>
-  
-          <div></div>
-        </div>
-  
-        <div class="MAIN-graph-column-container">
-  
-          <div class="MAIN-graph-row-container">
-  
-            <div class="graph-row-label-container">
-  
-              <div class="graph-label">
-    
-                <p class="label">
-                  50k
-                </p>
-    
-                <p class="label">
-                  40k
-                </p>
-    
-                <p class="label">
-                  30k
-                </p>
-    
-                <p class="label">
-                  20k
-                </p>
-    
-                <p class="label">
-                  10k
-                </p>
-    
-                <p class="label">
-                  0
-                </p>
-    
-              </div>
-    
-            </div>
-  
-            <div class="graph-row-container">
-  
-              <div class="graph-container">
-  
-                <div class="percentage1">
                   
-                </div>
-    
-                <div class="month">
-                  Jan
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage2">
-                  
-                </div>
-    
-                <div class="month">
-                  Feb
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage3">
-                  
-                </div>
-    
-                <div class="month">
-                  Mar
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage4">
-                  
-                </div>
-    
-                <div class="month">
-                  Apr
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage5">
-                  
-                </div>
-    
-                <div class="month">
-                  May
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage6">
-                  
-                </div>
-    
-                <div class="month">
-                  June
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage7">
-                  
-                </div>
-    
-                <div class="month">
-                  July
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage8">
-                  
-                </div>
-    
-                <div class="month">
-                  Aug
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage3">
-                  
-                </div>
-    
-                <div class="month">
-                  Sept
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage7">
-                  
-                </div>
-    
-                <div class="month">
-                  Oct
-                </div>
-    
-              </div>
-  
-              <div class="graph-container">
-  
-                <div class="percentage1">
-                  
-                </div>
-    
-                <div class="month">
-                  Nov
-                </div>
-    
-              </div>
-    
-              <div class="graph-container">
-  
-                <div class="percentage8">
-                  
-                </div>
-    
-                <div class="month">
-                  Dec
-                </div>
-    
-              </div>
-  
-            </div>
-  
-          </div>
-  
-        </div>
-  
-      </div>
-  
-    </div>
-  
-    <div class="separator">
+              </button>
       
-    </div>
-  
-    <div class="WHOLE-TRANSACTIONS-CONTAINER">
-  
-      <div class="transaction-row-container">
-  
-          <p class="transactions">
-            Transactions History
-          </p>
-  
-          <button class="this-year-btn">
-  
-          <div class="this-year-btn-container">
-            <p class="this-year">
-              Filter
-            </p>
-            <i class="fi fi-rr-angle-small-down"></i>          
           </div>
-              
-          </button>
-  
-      </div>
-  
-      <div class="column-ROW-container">
-  
-        <div class="column-name">
-          <p>
-            Name
-          </p>
-        </div>
-  
-        <div class="column-status">
-          <p>
-            Status
-          </p>
-        </div>
-  
-        <div class="column-date">
-          <p>
-            Date
-          </p>
-        </div>
-  
-        <div class="column-amount">
-          <p>
-            Amount
-          </p>
-        </div>
-  
-      </div>
       
-      <div class="separator-line">
+          <div class="column-ROW-container">
+      
+            <div class="column-name">
+              <p>
+                Name
+              </p>
+            </div>
+      
+            <div class="column-status">
+              <p>
+                Status
+              </p>
+            </div>
+      
+            <div class="column-date">
+              <p>
+                Date
+              </p>
+            </div>
+      
+            <div class="column-amount">
+              <p>
+                Amount
+              </p>
+            </div>
+      
+          </div>
+          
+          <div class="separator-line">
+
+          </div>
+
+          <div class="customer-ROW-container">
+            
+            <div class="customer-name-container">
+              <img src="../img/admin img/341584562_623756319184194_7217777239301055088_n.jpg" class="customer-picture">
+              
+              <p class="customer-name">
+                Art Cadiz
+              </p>
+      
+            </div>
+      
+            <div class="customer-status-container">
+              <p class="customer-status">
+                Pending
+              </p>
+            </div>
+      
+            <div class="customer-date-container">
+              <p class="customer-date">
+                March 19, 2024
+              </p>
+            </div>
+      
+            <div class="customer-amount-container">
+              <p class="customer-amount">
+                &#43; &#8369;123.00
+              </p>
+            </div>
+      
+          </div>
+      
+          <div class="customer-ROW-container">
+            
+            <div class="customer-name-container">
+              <img src="../img/admin img/358107523_1754712894979427_3739884092625049883_n.jpg" class="customer-picture">
+              
+              <p class="customer-name">
+                Aldrikz Suarez
+              </p>
+      
+            </div>
+      
+            <div class="customer-status-container">
+              <p class="customer-status">
+                Completed
+              </p>
+            </div>
+      
+            <div class="customer-date-container">
+              <p class="customer-date">
+                March 19, 2024
+              </p>
+            </div>
+      
+            <div class="customer-amount-container">
+              <p class="customer-amount">
+                &#8722; &#8369;594.00
+              </p>
+            </div>
+      
+          </div>
+      
+          <div class="customer-ROW-container">
+            
+            <div class="customer-name-container">
+              <img src="../img/admin img/341584562_623756319184194_7217777239301055088_n.jpg" class="customer-picture">
+              
+              <p class="customer-name">
+                Art Cadiz
+              </p>
+      
+            </div>
+      
+            <div class="customer-status-container">
+              <p class="customer-status">
+                Pending
+              </p>
+            </div>
+      
+            <div class="customer-date-container">
+              <p class="customer-date">
+                March 19, 2024
+              </p>
+            </div>
+      
+            <div class="customer-amount-container">
+              <p class="customer-amount">
+                &#43; &#8369;123.00
+              </p>
+            </div>
+      
+          </div>
+      
+          <div class="customer-ROW-container">
+            
+            <div class="customer-name-container">
+              <img src="../img/admin img/358107523_1754712894979427_3739884092625049883_n.jpg" class="customer-picture">
+              
+              <p class="customer-name">
+                Aldrikz Suarez
+              </p>
+      
+            </div>
+      
+            <div class="customer-status-container">
+              <p class="customer-status">
+                Completed
+              </p>
+            </div>
+      
+            <div class="customer-date-container">
+              <p class="customer-date">
+                March 19, 2024
+              </p>
+            </div>
+      
+            <div class="customer-amount-container">
+              <p class="customer-amount">
+                &#8722; &#8369;594.00
+              </p>
+            </div>
+      
+          </div>
+
+          <a href="../admin/history/history.html" class="view-more-link">
+            <div class="view-more">
+                View More
+            </div>
+          </a>
+      
+        </div>
 
       </div>
-
-      <div class="customer-ROW-container">
-        
-        <div class="customer-name-container">
-          <img src="../img/admin img/341584562_623756319184194_7217777239301055088_n.jpg" class="customer-picture">
-          
-          <p class="customer-name">
-            Art Cadiz
-          </p>
+      <?php
+    }
+  ?>
   
-        </div>
-  
-        <div class="customer-status-container">
-          <p class="customer-status">
-            Pending
-          </p>
-        </div>
-  
-        <div class="customer-date-container">
-          <p class="customer-date">
-            March 19, 2024
-          </p>
-        </div>
-  
-        <div class="customer-amount-container">
-          <p class="customer-amount">
-            &#43; &#8369;123.00
-          </p>
-        </div>
-  
-      </div>
-  
-      <div class="customer-ROW-container">
-        
-        <div class="customer-name-container">
-          <img src="../img/admin img/358107523_1754712894979427_3739884092625049883_n.jpg" class="customer-picture">
-          
-          <p class="customer-name">
-            Aldrikz Suarez
-          </p>
-  
-        </div>
-  
-        <div class="customer-status-container">
-          <p class="customer-status">
-            Completed
-          </p>
-        </div>
-  
-        <div class="customer-date-container">
-          <p class="customer-date">
-            March 19, 2024
-          </p>
-        </div>
-  
-        <div class="customer-amount-container">
-          <p class="customer-amount">
-            &#8722; &#8369;594.00
-          </p>
-        </div>
-  
-      </div>
-  
-      <div class="customer-ROW-container">
-        
-        <div class="customer-name-container">
-          <img src="../img/admin img/341584562_623756319184194_7217777239301055088_n.jpg" class="customer-picture">
-          
-          <p class="customer-name">
-            Art Cadiz
-          </p>
-  
-        </div>
-  
-        <div class="customer-status-container">
-          <p class="customer-status">
-            Pending
-          </p>
-        </div>
-  
-        <div class="customer-date-container">
-          <p class="customer-date">
-            March 19, 2024
-          </p>
-        </div>
-  
-        <div class="customer-amount-container">
-          <p class="customer-amount">
-            &#43; &#8369;123.00
-          </p>
-        </div>
-  
-      </div>
-  
-      <div class="customer-ROW-container">
-        
-        <div class="customer-name-container">
-          <img src="../img/admin img/358107523_1754712894979427_3739884092625049883_n.jpg" class="customer-picture">
-          
-          <p class="customer-name">
-            Aldrikz Suarez
-          </p>
-  
-        </div>
-  
-        <div class="customer-status-container">
-          <p class="customer-status">
-            Completed
-          </p>
-        </div>
-  
-        <div class="customer-date-container">
-          <p class="customer-date">
-            March 19, 2024
-          </p>
-        </div>
-  
-        <div class="customer-amount-container">
-          <p class="customer-amount">
-            &#8722; &#8369;594.00
-          </p>
-        </div>
-  
-      </div>
-
-      <a href="../admin/history/history.html" class="view-more-link">
-        <div class="view-more">
-            View More
-        </div>
-      </a>
-  
-    </div>
-
-  </div>
 
 </body>
 </html>

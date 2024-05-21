@@ -41,11 +41,11 @@ CREATE TABLE Cart_Items (
     CONSTRAINT fk_cartitems_2 FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
--- CustomerOrders table with the new order_group_id column
+-- CustomerOrders table with ON DELETE SET NULL
 CREATE TABLE CustomerOrders (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT NOT NULL,
-    tshirt_id INT NOT NULL,
+    tshirt_id INT,
     quantity INT NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
     order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -53,12 +53,12 @@ CREATE TABLE CustomerOrders (
     city VARCHAR(255) NOT NULL,
     country VARCHAR(50) NOT NULL,
     street_address VARCHAR(255) NOT NULL,
-    order_group_id INT, -- New column
+    order_group_id INT,
     CONSTRAINT fk_customer_order_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
-    CONSTRAINT fk_customer_order_tshirt FOREIGN KEY (tshirt_id) REFERENCES Tshirts(tshirt_id)
+    CONSTRAINT fk_customer_order_tshirt FOREIGN KEY (tshirt_id) REFERENCES Tshirts(tshirt_id) ON DELETE SET NULL
 );
 
--- AllOrders table schema remains the same
+-- AllOrders table with ON DELETE SET NULL
 CREATE TABLE AllOrders (
     allorder_id INT PRIMARY KEY AUTO_INCREMENT,
     customer_id INT NOT NULL,

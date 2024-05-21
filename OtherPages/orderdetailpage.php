@@ -10,6 +10,7 @@ $allorder_id = filter_input(INPUT_GET, 'get_id', FILTER_SANITIZE_NUMBER_INT);
 
 // echo $allorder_id;
 if ($allorder_id) {
+  
     // Fetch the order details from AllOrders table
     $order_query = "SELECT * FROM AllOrders WHERE allorder_id = '$allorder_id'";
     $order_result = mysqli_query($conn, $order_query);
@@ -235,22 +236,17 @@ if ($allorder_id) {
                 foreach ($tshirts as $tshirt){
                     // Get the T-shirt ID
                     $tshirt_id = $tshirt['tshirt_id'];
-                    // Get the quantity for this T-shirt
-                    $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
-                    
-                    // Calculate the total price for the current T-shirt
-                    $total_price = intval($quantity)* intval($tshirt['discounted_price']);
                 ?>
                 <div>
                     <p><?php echo $tshirt['name']?></p>
                 </div>
 
                 <div>
-                    <p><?php echo $quantity?></p>
+                    <p><?php echo $tshirt['quantity']?></p>
                 </div>
 
                 <div>
-                    <p>&#8369;<?php echo number_format($total_price, 2)?></p>
+                    <p>&#8369;<?php echo number_format($tshirt['discounted_price'], 2)?></p>
                 </div>
                 <?php
                 }

@@ -106,7 +106,7 @@
       <div class="sidebar-buttons-container">
 
         <div>
-          <a href="../Admin.html" class="sidebar-button-anchor">
+          <a href="../Admin.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
               
               <div>
@@ -122,7 +122,7 @@
             </div>
           </a>
   
-          <a href="../all-order/all-order1.html" class="sidebar-button-anchor">
+          <a href="../all-order/all-order1.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
               
               <div>

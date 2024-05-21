@@ -1,7 +1,7 @@
 .section1 {
   display: grid;
   
-  grid-template-columns: 1fr ;
+  grid-template-columns: 1fr;
 }
 
 .cart-div {
@@ -22,8 +22,7 @@
     grid-template-columns: 1fr;
     width: auto;
   }
-  
-  
+
 }
 
 .title {

@@ -186,13 +186,13 @@
               
                 <div class="Tshirts-tag-container">
                   <p class="Tshirts-tag">
-                    <?php echo 'Category: '.$row['category'] ?>
+                    <?php echo 'Category: '.$row['category']?>
                   </p>
                 </div>
               
                 <div class="tshirt-name-container">
                   <p class="tshirt-name">
-                    <?php echo $row['name'] ?>
+                    <?php echo $row['name']?>
                   </p>
                 </div>
               
@@ -200,13 +200,13 @@
               
                   <div class="original-price-container">
                     <p class="original-price">
-                      &#8369;<?php echo $row['baseprice'] ?>
+                      &#8369;<?php echo $row['baseprice']?>
                     </p>
                   </div>
               
                   <div class="sale-price-container">
                     <p class="sale-price">
-                      &#8369;<?php echo $row['discounted_price'] ?>
+                      &#8369;<?php echo $row['discounted_price']?>
                     </p>
                   </div>
                   
@@ -221,7 +221,7 @@
             echo "</div>";
           }
           else{
-            echo "<div class='header-notif'><p>No products yet! Coming soon!.</p></div>";
+            echo "<div class='header-notif'><p>No products yet! Coming soon!</p></div>";
           }
           ?>
 

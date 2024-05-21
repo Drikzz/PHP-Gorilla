@@ -88,6 +88,21 @@
   justify-items: center;
 }
 
+.no-product-notif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 200px;
+  padding: 15px;
+  /* background-color: lightpink; */
+}
+
+.no-product-notif p {
+  font-size: 30px;
+  font-weight: 600;
+}
+
 .product-container {
   display: flex;
   flex-direction: column;
