@@ -51,11 +51,6 @@
             while ($row = mysqli_fetch_assoc($tshirt_result)) {
                 $tshirts[] = $row;
             }
-
-            // // Print out the $tshirts array for debugging
-            // echo '<pre>';
-            // print_r($tshirts);
-            // echo '</pre>';
         } else {
             die("Error retrieving T-shirt details: " . mysqli_error($conn));
         }
@@ -397,16 +392,15 @@
             foreach ($tshirts as $tshirt) {
               // Get the T-shirt ID
               $tshirt_id = $tshirt['tshirt_id'];
-              // Debugging: Output the current row data
-              //   echo '<pre>';
-              //   print_r($tshirt);
-              //   echo '</pre>';
-                      
-              //   if (isset($tshirt['name'])) {
-              //     echo "T-shirt Name: " . $tshirt['name'] . "<br>";
-              // } else {
-              //     echo "Name not found<br>";
-              // }
+              
+              if (array_key_exists($tshirt_id, $quantities_per_tshirt)) {
+
+                // Get the quantity for this T-shirt
+                $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
+
+                // Calculate the total price for the current T-shirt
+                $total_price = intval($quantity) * floatval($tshirt['discounted_price']);
+
               ?>
                 <div class="item-preview-container">
                   <div class="left">
@@ -417,13 +411,14 @@
                     </div>
                   </div>
                   <div class="middle">
-                    <p class="item-num"><?php echo $tshirt['quantity']?></p>
+                    <p class="item-num"><?php echo $quantity?></p>
                   </div>
                   <div class="right">
-                    <p class="item-price">&#8369;<?php echo number_format($tshirt['discounted_price'], 2)?></p>
+                    <p class="item-price">&#8369;<?php echo number_format($total_price, 2)?></p>
                   </div>
                 </div>
               <?php
+              }
             }
             ?>
             <div class="item-total-container">

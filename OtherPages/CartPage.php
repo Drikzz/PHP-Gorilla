@@ -25,7 +25,6 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
   <link rel="stylesheet" href="../CartPageCss/footer.css">
   <link rel="stylesheet" href="../CartPageCss/cartpage.css?v=<?php echo time(); ?>">
 
-
 </head>
 <body>
 <!-- HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER  HEADER HEADER -->
@@ -128,18 +127,18 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
 
                 echo "</div> ";
 
-                // Constant values
-                $shipping_price = 100;
-                $tax_percentage = 0.01;
-                
-                // Calculate total price with shipping
-                $total_with_shipping = $total_price_items + $shipping_price;
-                
-                // Calculate tax amount
-                $tax_value = $total_with_shipping * $tax_percentage;
-                
-                // Calculate total price with tax
-                $total_with_tax = $total_with_shipping + $tax_value;
+                  // Constant values
+                  $shipping_price = 100;
+                  $tax_percentage = 0.01;
+                  
+                  // Calculate total price with shipping
+                  $total_with_shipping = $total_price_items + $shipping_price;
+                  
+                  // Calculate tax amount
+                  $tax_value = $total_with_shipping * $tax_percentage;
+                  
+                  // Calculate total price with tax
+                  $total_with_tax = $total_with_shipping + $tax_value;
                 
                 ?>
                 <div class="order-summary-container">
@@ -207,11 +206,12 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                     $select_query = "SELECT * FROM cart_items WHERE customer_id = '$customer_id'";
                     $select_result = mysqli_query($conn, $select_query);
 
-                    if(mysqli_num_rows($select_result) > 0) {
+                    if($num_loop = mysqli_num_rows($select_result) > 0) {
                       
                       // Generate a new order_group_id for this order session
                       $order_group_id = time(); // Using current timestamp as a unique identifier
 
+                      
                       // Loop through each cart item
                       while($fetch_data = mysqli_fetch_assoc($select_result)) {
                         $tshirt_id = $fetch_data['tshirt_id'];
@@ -219,20 +219,18 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                         $prod_baseprice = $fetch_data['price'];
                         $total_price = $prod_baseprice * $prod_quantity;
                         
-                        // Calculate total price with shipping
+                        // Calculate total with tax consistently
+                        $shipping_price = 100;
+                        $tax_percentage = 0.01;
                         $total_with_shipping = $total_price + $shipping_price;
-                        
-                        // Calculate tax amount for each item
                         $tax_value = $total_with_shipping * $tax_percentage;
-                        
-                        // Calculate total price with tax for each item
                         $total_with_tax = $total_with_shipping + $tax_value;
-                        
+
                         $status = 'Pending';
-                    
+                        
                         $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
-                                                VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', '$total_with_tax', NOW(), '$status', '$order_group_id')";
-                    
+                                          VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', '$total_with_tax', NOW(), '$status', '$order_group_id')";
+              
                         if (!mysqli_query($conn, $insert_order_query)) {
                             echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
                         }

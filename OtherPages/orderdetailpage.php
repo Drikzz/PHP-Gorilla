@@ -245,26 +245,27 @@ if ($allorder_id) {
 
                     // Check if this T-shirt ID exists in quantities_per_tshirt array
                     if (array_key_exists($tshirt_id, $quantities_per_tshirt)) {
-                        // Get the quantity for this T-shirt
-                        $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
+                      
+                      // Get the quantity for this T-shirt
+                      $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
 
-                        // Calculate the total price for the current T-shirt
-                        $total_price = intval($quantity) * floatval($tshirt['discounted_price']);
+                      // Calculate the total price for the current T-shirt
+                      $total_price = intval($quantity) * floatval($tshirt['discounted_price']);
 
-                        // Display the T-shirt details
-                ?>
-                <div>
-                    <p><?php echo $tshirt['name']?></p>
-                </div>
+                      // Display the T-shirt details
+                    ?>
+                    <div>
+                        <p><?php echo $tshirt['name']?></p>
+                    </div>
 
-                <div>
-                    <p><?php echo $quantity?></p>
-                </div>
+                    <div>
+                        <p><?php echo $quantity?></p>
+                    </div>
 
-                <div>
-                    <p>&#8369;<?php echo number_format($total_price, 2)?></p>
-                </div>
-                <?php
+                    <div>
+                        <p>&#8369;<?php echo number_format($total_price, 2)?></p>
+                    </div>
+                    <?php
                     } else {
                         // If the quantity for this T-shirt is not set, display a message or handle it accordingly
                         echo "<div>Quantity not available</div>";
