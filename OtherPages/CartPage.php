@@ -110,7 +110,9 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                 <div class="right">
                   <p class="item-num"><?php echo $fetch_data['quantity']?></p>
                   <p class="item-price">&#8369;<?php echo $fetch_data['price']?></p>
-                  <i class="fi fi-rr-trash"></i>
+                  <button class="trash-button">
+                    <i class="fi fi-rr-trash"></i>
+                  </button>
                 </div>
               </div>
                   
@@ -128,7 +130,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
 
                 // Constant values
                 $shipping_price = 100;
-                $tax_percentage = 0.10;
+                $tax_percentage = 0.01;
                 
                 // Calculate total price with shipping
                 $total_with_shipping = $total_price_items + $shipping_price;
@@ -181,7 +183,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                   Order Total:
                 </p>
                 <p>
-                  &#8369;<?php echo number_format($total_with_tax, 2); ?>
+                &#8369;<?php echo number_format($total_with_tax, 2); ?>
                 </p>
               </div>
 
@@ -212,18 +214,28 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
 
                       // Loop through each cart item
                       while($fetch_data = mysqli_fetch_assoc($select_result)) {
-                          $tshirt_id = $fetch_data['tshirt_id'];
-                          $prod_quantity = $fetch_data['quantity'];
-                          $prod_baseprice = $fetch_data['price'];
-                          $total_price = $prod_baseprice * $prod_quantity;
-                          $status = 'Pending';
-
-                          $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
-                                                  VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', $total_with_tax, NOW(), '$status', '$order_group_id')";
-
-                          if (!mysqli_query($conn, $insert_order_query)) {
-                              echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
-                          }
+                        $tshirt_id = $fetch_data['tshirt_id'];
+                        $prod_quantity = $fetch_data['quantity'];
+                        $prod_baseprice = $fetch_data['price'];
+                        $total_price = $prod_baseprice * $prod_quantity;
+                        
+                        // Calculate total price with shipping
+                        $total_with_shipping = $total_price + $shipping_price;
+                        
+                        // Calculate tax amount for each item
+                        $tax_value = $total_with_shipping * $tax_percentage;
+                        
+                        // Calculate total price with tax for each item
+                        $total_with_tax = $total_with_shipping + $tax_value;
+                        
+                        $status = 'Pending';
+                    
+                        $insert_order_query = "INSERT INTO CustomerOrders (customer_id, tshirt_id, quantity, total_price, order_date, status, order_group_id)
+                                                VALUES ('$customer_id', '$tshirt_id', '$prod_quantity', '$total_with_tax', NOW(), '$status', '$order_group_id')";
+                    
+                        if (!mysqli_query($conn, $insert_order_query)) {
+                            echo "Error inserting into CustomerOrders: " . mysqli_error($conn);
+                        }
                       }
 
                       // Insert aggregated orders into AllOrders table
@@ -231,7 +243,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                                                 SELECT 
                                                     co.customer_id,
                                                     GROUP_CONCAT(co.tshirt_id) AS tshirt_ids,
-                                                    SUM(co.quantity) AS quantities,
+                                                    GROUP_CONCAT(co.quantity) AS quantities,
                                                     SUM(co.total_price) AS total_prices,
                                                     MAX(co.order_date) AS order_date,
                                                     MAX(co.status) AS status,
@@ -248,6 +260,7 @@ if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
                         // Clear the cart for the current customer
                         $clear_cart_query = "DELETE FROM cart_items WHERE customer_id = '$customer_id'";
                         mysqli_query($conn, $clear_cart_query);
+                        // TRUE REFRESH
                         echo "<meta http-equiv='refresh' content='0'>";
                       }
                     }

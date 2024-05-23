@@ -8,9 +8,7 @@ if (!isset($_GET['get_id']) || empty($_GET['get_id'])) {
 
 $allorder_id = filter_input(INPUT_GET, 'get_id', FILTER_SANITIZE_NUMBER_INT);
 
-// echo $allorder_id;
 if ($allorder_id) {
-  
     // Fetch the order details from AllOrders table
     $order_query = "SELECT * FROM AllOrders WHERE allorder_id = '$allorder_id'";
     $order_result = mysqli_query($conn, $order_query);
@@ -20,24 +18,28 @@ if ($allorder_id) {
 
         $tshirt_ids = explode(',', $order_details['tshirt_ids']);
         $quantities = explode(',', $order_details['quantities']);
-        
-        // Fetch the T-shirt details from Tshirts table
-        $tshirt_ids_list = implode(',', array_map('intval', $tshirt_ids));
-        $tshirt_query = "SELECT * FROM Tshirts WHERE tshirt_id IN ($tshirt_ids_list)";
-        $tshirt_result = mysqli_query($conn, $tshirt_query);
-        
-        if ($tshirt_result && mysqli_num_rows($tshirt_result) > 0) {
-          $tshirts = [];
-          $quantities_per_tshirt = [];
-          foreach ($tshirt_ids as $tshirt_id) {
-              $quantities_per_tshirt[$tshirt_id] = array_shift($quantities);
-          }
-          while ($row = mysqli_fetch_assoc($tshirt_result)) {
-              $tshirts[] = $row;
-          }
-      } else {
-          die("Error retrieving T-shirt details: " . mysqli_error($conn));
-      }
+
+        if (!empty($tshirt_ids) && !empty($quantities)) {
+            // Fetch the T-shirt details from Tshirts table
+            $tshirt_ids_list = implode(',', array_map('intval', $tshirt_ids));
+            $tshirt_query = "SELECT * FROM Tshirts WHERE tshirt_id IN ($tshirt_ids_list)";
+            $tshirt_result = mysqli_query($conn, $tshirt_query);
+
+            if ($tshirt_result && mysqli_num_rows($tshirt_result) > 0) {
+                $tshirts = [];
+                $quantities_per_tshirt = [];
+                foreach ($tshirt_ids as $tshirt_id) {
+                    $quantities_per_tshirt[$tshirt_id] = array_shift($quantities);
+                }
+                while ($row = mysqli_fetch_assoc($tshirt_result)) {
+                    $tshirts[] = $row;
+                }
+            } else {
+                die("Error retrieving T-shirt details: " . mysqli_error($conn));
+            }
+        } else {
+            die("T-shirt IDs or quantities are empty.");
+        }
     } else {
         die("Order not found.");
     }
@@ -227,35 +229,57 @@ if ($allorder_id) {
             </div>
             
             <div class="product-info-table">
-            <div class="tb-row">
+              <div class="tb-row">
                 <div>PRODUCT</div>
                 <div>QUANTITY</div>
                 <div>SUBTOTAL</div>
 
                 <?php 
-                foreach ($tshirts as $tshirt){
+                foreach ($tshirts as $tshirt) {
+                  // echo '<pre>';
+                  // print_r($tshirt);
+                  // echo '</pre>';
+
                     // Get the T-shirt ID
                     $tshirt_id = $tshirt['tshirt_id'];
+
+                    // Check if this T-shirt ID exists in quantities_per_tshirt array
+                    if (array_key_exists($tshirt_id, $quantities_per_tshirt)) {
+                        // Get the quantity for this T-shirt
+                        $quantity = htmlspecialchars($quantities_per_tshirt[$tshirt_id]);
+
+                        // Calculate the total price for the current T-shirt
+                        $total_price = intval($quantity) * floatval($tshirt['discounted_price']);
+
+                        // Display the T-shirt details
                 ?>
                 <div>
                     <p><?php echo $tshirt['name']?></p>
                 </div>
 
                 <div>
-                    <p><?php echo $tshirt['quantity']?></p>
+                    <p><?php echo $quantity?></p>
                 </div>
 
                 <div>
-                    <p>&#8369;<?php echo number_format($tshirt['discounted_price'], 2)?></p>
+                    <p>&#8369;<?php echo number_format($total_price, 2)?></p>
                 </div>
                 <?php
-                }
+                    } else {
+                        // If the quantity for this T-shirt is not set, display a message or handle it accordingly
+                        echo "<div>Quantity not available</div>";
+                        echo "<div></div>";
+                        echo "<div></div>";
+                    }
+                } // end foreach
                 ?>
+
                 <div>TOTAL</div>
                 <div></div>
                 <div>&#8369;<?php echo $order_details['total_prices']?></div>
               </div>
             </div>
+
           </div>
 
         </section>

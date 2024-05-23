@@ -190,7 +190,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.php" class="sidebar-button-anchor">
+          <a href="../../PHP/destroy.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>

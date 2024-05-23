@@ -123,7 +123,7 @@
             </div>
           </a>
   
-          <a href="../all-order/all-order1.php" class="sidebar-button-anchor">
+          <a href="#" class="sidebar-button-anchor">
             <div class="sidebar-button">
               
               <div>
@@ -191,7 +191,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.html" class="sidebar-button-anchor">
+          <a href="../../PHP/destroy.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>

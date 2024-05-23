@@ -169,71 +169,65 @@
               </div>
 
               <?php
-              if (isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-                $customer_id = $_SESSION['customer_id'];
+                if (isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+                  $customer_id = $_SESSION['customer_id'];
 
-                // Select all orders for the logged-in customer from the AllOrders table
-                $select_orders_query = "SELECT * FROM AllOrders WHERE customer_id = '$customer_id'";
-                $orders_result = mysqli_query($conn, $select_orders_query);
+                  // Select all orders for the logged-in customer from the AllOrders table
+                  $select_orders_query = "SELECT * FROM AllOrders WHERE customer_id = '$customer_id'";
+                  $orders_result = mysqli_query($conn, $select_orders_query);
 
-                if ($orders_result && mysqli_num_rows($orders_result) > 0) {
-                  $num_order = 1;
+                  if ($orders_result && mysqli_num_rows($orders_result) > 0) {
+                    $num_order = 1;
 
-                  // Loop through each order and display the details
-                  while ($allorder = mysqli_fetch_assoc($orders_result)) {
-                    $allorder_id = $allorder['allorder_id'];
-                    $allorder_tshirt_ids = $allorder['tshirt_ids'];
+                    // Loop through each order and display the details
+                    while ($allorder = mysqli_fetch_assoc($orders_result)) {
+                      $allorder_id = $allorder['allorder_id'];
+                      $allorder_tshirt_ids = $allorder['tshirt_ids'];
+                      $allorder_quantities = explode(',', $allorder['quantities']);
+                      $allorder_quantity_total = array_sum($allorder_quantities);  // Calculate the total quantity
+                      $allorder_total_price = $allorder['total_prices'];
+                      $allorder_order_date = $allorder['order_date'];
+                      $allorder_status = $allorder['status'];
 
-                    $allorder_quantities = explode(',', $allorder['quantities']);
-                    $allorder_quantity_total = COUNT ($allorder_quantities);
-
-                    $allorder_total_price = $allorder['total_prices'];
-                    $allorder_order_date = $allorder['order_date'];
-                    $allorder_status = $allorder['status'];
-
-                    // Use the tshirt_ids to fetch and display T-shirt details from the Tshirts table
-                    $tshirt_ids_array = explode(',', $allorder_tshirt_ids);
-                    $tshirt_ids_list = implode(',', array_map('intval', $tshirt_ids_array));
-                    $tshirt_details_query = "SELECT * FROM Tshirts WHERE tshirt_id IN ($tshirt_ids_list)";
-                    $tshirt_details_result = mysqli_query($conn, $tshirt_details_query);
+                      // Use the tshirt_ids to fetch and display T-shirt details from the Tshirts table
+                      $tshirt_ids_array = explode(',', $allorder_tshirt_ids);
+                      $tshirt_ids_list = implode(',', array_map('intval', $tshirt_ids_array));
+                      $tshirt_details_query = "SELECT * FROM Tshirts WHERE tshirt_id IN ($tshirt_ids_list)";
+                      $tshirt_details_result = mysqli_query($conn, $tshirt_details_query);
 
                       if ($tshirt_details_result && mysqli_num_rows($tshirt_details_result) > 0) {
                         ?>
-
                         <div class="table-row">
-                            <div class="num"><?php echo $num_order; ?></div>
-                            <p><?php echo $allorder_id; ?></p>
-                            <p class="product">
-
+                          <div class="num"><?php echo $num_order; ?></div>
+                          <p><?php echo $allorder_id; ?></p>
+                          <p class="product">
                             <?php
                             $tshirt_names = [];
                             while ($tshirt = mysqli_fetch_assoc($tshirt_details_result)) {
-                                $tshirt_names[] = $tshirt['name'];
+                              $tshirt_names[] = $tshirt['name'];
                             }
                             echo implode(', ', $tshirt_names);
                             ?>
-
-                            </p>
-                            <p><?php echo $allorder_quantity_total; ?></p>
-                            <p><?php echo $allorder_total_price; ?></p>
-                            <p class="yes"><?php echo $allorder_status; ?></p>
-                            <p><?php echo $allorder_order_date; ?></p>
-                            <p class="green"><?php echo $allorder_status; ?></p>
-                            <a class="link" href="orderdetailpage.php?get_id=<?php echo $allorder['allorder_id']?>">View Details</a>
+                          </p>
+                          <p><?php echo $allorder_quantity_total; ?></p>
+                          <p><?php echo $allorder_total_price; ?></p>
+                          <p class="yes"><?php echo $allorder_status; ?></p>
+                          <p><?php echo $allorder_order_date; ?></p>
+                          <p class="green"><?php echo $allorder_status; ?></p>
+                          <a class="link" href="orderdetailpage.php?get_id=<?php echo $allorder['allorder_id']?>">View Details</a>
                         </div>
-
                         <?php
                       } else {
-                          echo "<div class='no_orders'><p>Your order/s has been removed due to product/s unavailability! " . mysqli_error($conn) . "</p></div>";
+                        echo "<div class='no_orders'><p>Error retrieving product details: " . mysqli_error($conn) . "</p></div>";
                       }
                       $num_order++;
                     }
-                } else {
+                  } else {
                     echo "<div class='no_orders'><p>No orders found for this customer.</p></div>";
-                }
-              } else {
+                  }
+                } else {
                   echo "<div class='no_orders'><p>You need to log in to view your orders.</p></div>";
-              }
+                }
               ?>
 
 

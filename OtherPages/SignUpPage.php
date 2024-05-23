@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </a>
       </div>
       <div class="menu-div">
-          <a href="../index.html" class="menu-links" style="color: #005B41;">HOME</a>
-          <a href="Productpage.html" class="menu-links">PRODUCTS</a>
+          <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
+          <a href="Productpage.php" class="menu-links">PRODUCTS</a>
           <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
@@ -75,11 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="dropdown-content">
               <!-- <a href="ProfilePage.html">MY ACCOUNT</a> -->
-              <a href="loginpage.html">LOG IN</a>
-              <a href="CartPage.html">CART</a>
+              <a href="loginpage.php">LOG IN</a>
+              <a href="CartPage.php">CART</a>
             </div>
           </div>
-          <a href="CartPage.html" class="shopping-cart-container">
+          <a href="CartPage.php" class="shopping-cart-container">
             <p class="total-price">₱0.00</p>
             <div class="cart-parent-div">
               <i class="fi fi-rs-shopping-cart"></i>
@@ -195,12 +195,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <footer class="footer-container">
         <div class="link-container-parent">
           <div class="link-container">
-            <a href="../index.html">Home</a>
+            <a href="../index.php">Home</a>
             <a href="AboutUs.html">About Us</a>
-            <a href="loginpage.html">My Account</a>
+            <a href="loginpage.php">My Account</a>
           </div>
           <div class="link-container">
-            <a href="Productpage.html">Products</a>
+            <a href="Productpage.php">Products</a>
             <a href="ContactUs.html">Contact</a>
             <a href="#">Sign Up</a>
           </div>

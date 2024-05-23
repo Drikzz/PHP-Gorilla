@@ -11,21 +11,24 @@
       // Fetch the order details from AllOrders table
       $order_query = "SELECT * FROM AllOrders WHERE allorder_id = '$view'";
       $order_result = mysqli_query($conn, $order_query);
-
+      
       if ($order_result && mysqli_num_rows($order_result) > 0) {
           $order_details = mysqli_fetch_assoc($order_result);
-          
+
+          $order_user_id =  $order_details['customer_id'];
+          // echo $order_user_id;
+
           //Fetch customer details
-          $customer_id_allorder = $order_details['customer_id'];
+          // $customer_id_allorder = $order_details[$order_user_id];
           
-          $select_customer = "SELECT * FROM customers WHERE customer_id = '$customer_id_allorder'";
+          $select_customer = "SELECT * FROM customers WHERE customer_id = '$order_user_id'";
           $select_query = mysqli_query($conn, $select_customer);
 
-          if ($select_query) {
-            if  ($fetch_row = mysqli_fetch_assoc($select_query))
+          if ($select_query && mysqli_num_rows($select_query) > 0) {
+            if ($fetch_row = mysqli_fetch_assoc($select_query))
               $customer_name = $fetch_row['first_name'];
           }
-
+          
           //variables for allorders
           $order_total = $order_details['total_prices'];
           $order_date = $order_details['order_date'];
@@ -251,7 +254,7 @@
         
         <div>
 
-          <a href="../../OtherPages/loginpage.html" class="sidebar-button-anchor">
+          <a href="../../PHP/destroy.php" class="sidebar-button-anchor">
             <div class="sidebar-button">
   
               <div>

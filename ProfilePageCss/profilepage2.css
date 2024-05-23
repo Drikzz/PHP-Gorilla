@@ -231,7 +231,7 @@
 .pi-row {
   display: grid;
   grid-template-columns: 3dvw auto;
-  gap: 2ch;
+  gap: 3dvw;
   margin-bottom: 2%;
   align-items: center;
 }

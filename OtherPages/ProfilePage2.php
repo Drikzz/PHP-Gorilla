@@ -1,12 +1,6 @@
 <?php 
   include("../PHP/database.php");
-  session_start();  
-
-  if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
-
-    
-
-  }
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -79,27 +73,40 @@
 
             $customer_id = $_SESSION['customer_id'];
 
-            if (isset($_POST["submit_info"])) {
-              $customer_firstname = $_POST['firstname_customer'];
-              $customer_lastname = $_POST['lastname_customer'];
-              $customer_username = $_POST['username_customer'];
-              $customer_email = $_POST['email_customer'];
-              $customer_phone = $_POST['phone_customer'];
-              $customer_city = $_POST['city_customer'];
-              $customer_country = $_POST['country_customer'];
-              $customer_address = $_POST['address_customer'];
-
-              $update_query = "UPDATE customers SET first_name = '$customer_firstname', last_name = '$customer_lastname', username = '$customer_username', email = '$customer_email', phone_number = '$customer_phone', 
-                              city = '$customer_city', country = '$customer_country', street_address = '$customer_address' WHERE customer_id = $customer_id";
-
-              $update_result = mysqli_query($conn, $update_query);
-
-              if ($update_result) {
-                header('location: ProfilePage.php');
-                exit();
-
-              } else {
-                echo "<p>Error updating information: " . mysqli_error($conn) . "</p>";
+            if(isset($_SESSION['customer_id']) && !empty($_SESSION['customer_id'])) {
+              $customer_id = $_SESSION['customer_id'];
+            
+              if (isset($_POST["submit_info"])) {
+                $customer_firstname = $_POST['firstname_customer'];
+                $customer_lastname = $_POST['lastname_customer'];
+                $customer_username = $_POST['username_customer'];
+                $customer_email = $_POST['email_customer'];
+                $customer_phone = $_POST['phone_customer'];
+                $customer_city = $_POST['city_customer'];
+                $customer_country = $_POST['country_customer'];
+                $customer_address = $_POST['address_customer'];
+            
+                // SQL injection prevention
+                $customer_firstname = mysqli_real_escape_string($conn, $customer_firstname);
+                $customer_lastname = mysqli_real_escape_string($conn, $customer_lastname);
+                $customer_username = mysqli_real_escape_string($conn, $customer_username);
+                $customer_email = mysqli_real_escape_string($conn, $customer_email);
+                $customer_phone = mysqli_real_escape_string($conn, $customer_phone);
+                $customer_city = mysqli_real_escape_string($conn, $customer_city);
+                $customer_country = mysqli_real_escape_string($conn, $customer_country);
+                $customer_address = mysqli_real_escape_string($conn, $customer_address);
+            
+                $update_query = "UPDATE customers SET first_name = '$customer_firstname', last_name = '$customer_lastname', username = '$customer_username', email = '$customer_email',
+                phone_number = '$customer_phone', city = '$customer_city', country = '$customer_country', street_address = '$customer_address' WHERE customer_id = $customer_id";
+            
+                $update_result = mysqli_query($conn, $update_query);
+            
+                if ($update_result) {
+                  header('location: ProfilePage.php');
+                  exit();
+                } else {
+                  echo "<p>Error updating information: " . mysqli_error($conn) . "</p>";
+                }
               }
             }
 
@@ -195,7 +202,7 @@
                     <div class="pi-row">
                       <div>Name:</div>
                         <div style="display: flex; gap: 2ch; justify-content: space-between;">
-                          <input style="flex: 1;" class="put-text" type="text" name="firstname_customer" placeholder="<?php 
+                        <input style="flex: 1;" class="put-text" type="text" name="firstname_customer" placeholder="<?php 
                           if (!empty($customer_is['first_name'])) {
                             echo htmlspecialchars($customer_is['first_name']);
                           } else {
@@ -261,14 +268,14 @@
                             echo htmlspecialchars($customer_is['street_address']);
                           } else {
                             echo 'None'; // Default text if the column has no value
-                          }?>a">
+                          }?>">
                     </div>
                     <div>
                         <a href="ProfilePage.php">
                           <button class="save" type="submit" name="submit_info">SAVE</button>
                         </a>  
-                        <a href="ProfilePage.php">
-                          <button class="cancel">CANCEL</button>
+                        <a href="ProfilePage.php" class="cancel">
+                          CANCEL
                         </a>
                       </div>
                     </div>
@@ -305,38 +312,82 @@
                 <form action="ProfilePage2.php" method="post">
                 <div class="row-container">
                   <div class="pi-row">
-                    <div>Nam:</div>
+                    <div>Name:</div>
                     <div style="display: flex; gap: 2ch; justify-content: space-between;">
-                    <input style="flex: 1;" class="put-text" type="text" name="lastname_customer" placeholder="First Name">
-                      <input style="flex: 1;" class="put-text" type="text" name="lastname_customer" placeholder="Last Name">
+                    <input style="flex: 1;" class="put-text" type="text" name="firstname_customer" placeholder="<?php 
+                          if (!empty($customer_is['first_name'])) {
+                            echo htmlspecialchars($customer_is['first_name']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
+                      <input style="flex: 1;" class="put-text" type="text" name="lastname_customer" placeholder="<?php 
+                          if (!empty($customer_is['last_name'])) {
+                            echo htmlspecialchars($customer_is['last_name']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                     </div>
                   </div>
                   <div class="pi-row">
+                      <div>Username:</div>
+                      <input class="put-text" type="text" name="username_customer" placeholder="<?php 
+                          if (!empty($customer_is['username'])) {
+                            echo htmlspecialchars($customer_is['username']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
+                    </div>
+                  <div class="pi-row">
                     <div>Email:</div>
-                    <input class="put-text" type="email" name="email_customer" placeholder="johndoe@gmail.com">
+                    <input class="put-text" type="email" name="email_customer" placeholder="<?php 
+                          if (!empty($customer_is['email'])) {
+                            echo htmlspecialchars($customer_is['email']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                   </div>
                   <div class="pi-row">
                     <div>Phone:</div>
-                    <input class="put-text" type="text" name="phone_customer" placeholder="0912-345-6789">
+                    <input class="put-text" type="text" name="phone_customer" placeholder="<?php 
+                          if (!empty($customer_is['phone_number'])) {
+                            echo htmlspecialchars($customer_is['phone_number']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                   </div>
                   <div class="pi-row">
                     <div>City:</div>
-                    <input class="put-text" type="text" name="city_customer" placeholder="Zamboanga">
+                    <input class="put-text" type="text" name="city_customer" placeholder="<?php 
+                          if (!empty($customer_is['city'])) {
+                            echo htmlspecialchars($customer_is['city']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                   </div>
                   <div class="pi-row">
                     <div>Country:</div>
-                    <input class="put-text" type="text" name="country_customer" placeholder="Philippines">
+                    <input class="put-text" type="text" name="country_customer" placeholder="<?php 
+                          if (!empty($customer_is['country'])) {
+                            echo htmlspecialchars($customer_is['country']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                   </div>
                   <div class="pi-row">
                     <div>Address:</div>
-                    <input class="put-text" type="text" name="address_customer" placeholder="Sinunuc, Block 4, Emerald Drive">
+                    <input class="put-text" type="text" name="address_customer" placeholder="<?php 
+                          if (!empty($customer_is['street_address'])) {
+                            echo htmlspecialchars($customer_is['street_address']);
+                          } else {
+                            echo 'None'; // Default text if the column has no value
+                          }?>">
                   </div>
                   <div>
                       <a href="ProfilePage.php">
                         <button class="save" type="submit" name="submit_info">SAVE</button>
                       </a>  
-                      <a href="ProfilePage.php">
-                        <button class="cancel">CANCEL</button>
+                      <a href="ProfilePage.php" class="cancel">
+                        CANCEL
                       </a>
                   </div>
                   </div>

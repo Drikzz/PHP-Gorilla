@@ -70,3 +70,9 @@ CREATE TABLE AllOrders (
     order_group_id INT NOT NULL,
     CONSTRAINT fk_all_order_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
+
+-- CUSTOMER TABLE INSERT QUERY
+INSERT INTO customers (username, password)
+VALUES
+('aldrikz', 'admin123'),
+('art', 'moderator123');

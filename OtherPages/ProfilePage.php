@@ -275,6 +275,16 @@
                     </p>
                   </div>
                   <div class="pi-row">
+                    <div>Username:</div>
+                    <p><?php 
+                    if (!empty($customer_is['username'])) {
+                      echo htmlspecialchars($customer_is['username']);
+                    } else {
+                      echo 'None'; // Default text if the column has no value
+                    } ?>
+                    </p>
+                  </div>
+                  <div class="pi-row">
                     <div>Email:</div>
                     <p><?php 
                     if (!empty($customer_is['email'])) {

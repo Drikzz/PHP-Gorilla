@@ -1,6 +1,6 @@
 .section1 {
   display: grid;
-  
+  height: auto;
   grid-template-columns: 1fr;
 }
 
@@ -84,9 +84,20 @@
 
 .right {
   display: grid;
-  grid-template-columns: 20px 60px 20px;
+  align-items: center;
+  grid-template-columns: 20px 60px 35px;
   gap: 20px;
   padding: 10px;
+}
+
+.right .trash-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: rgb(92, 92, 92);
+  box-shadow: none;
+  font-size: 1.1rem;
 }
 
 .item-num, .item-price {
