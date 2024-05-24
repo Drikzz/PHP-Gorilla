@@ -32,7 +32,7 @@
   <nav>
     <div class="container">
       <div class="logo-div">
-        <a href="../index.html">
+        <a href="../index.php">
           <p class="LOGO">
             GO<span class="rilla">RILLA</span>
           </p>
@@ -231,9 +231,9 @@
               Back
             </a>
             <a href="#" class="page-nav act">1</a>
-            <a href="Productpage2.html" class="page-nav una">2</a>
-            <a href="Productpage3.html" class="page-nav una">3</a>
-            <a href="Productpage2.html" class="page-nav arrows">
+            <a href="Productpage.php" class="page-nav una">2</a>
+            <a href="Productpage.php" class="page-nav una">3</a>
+            <a href="Productpage.php" class="page-nav arrows">
               Next
               <i class="fi fi-rr-angle-right"></i>
             </a>
@@ -247,14 +247,14 @@
     <div class="footer-container">
       <div class="link-container-parent">
         <div class="link-container">
-          <a href="../index.html">Home</a>
+          <a href="../index.php">Home</a>
           <a href="AboutUs.html">About Us</a>
-          <a href="loginpage.html">My Account</a>
+          <a href="loginpage.php">My Account</a>
         </div>
         <div class="link-container">
           <a href="#">Products</a>
           <a href="ContactUs.html">Contact</a>
-          <a href="SignUpPage.html">Sign Up</a>
+          <a href="SignUpPage.php">Sign Up</a>
         </div>
         
       </div>

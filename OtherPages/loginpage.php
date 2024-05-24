@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav>
       <div class="container">
         <div class="logo-div">
-          <a href="../index.html">
+          <a href="../index.php">
             <p class="LOGO">
               GO<span class="rilla">RILLA</span>
             </p>
@@ -107,19 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
   </header>
 <!--  FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM    FORM FORM  -->
-    <div class="secret-container">
 
-      <div class="secret-box">
-        <a href="../admin/Admin.html">
-          <button>
-            BUTTON TO ADMIN . .
-            BUTTON TO ADMIN . .
-            BUTTON TO ADMIN . .
-            BUTTON TO ADMIN . .
-            BUTTON TO ADMIN . .
-          </button>
-        </a>
-      </div>
     
       <section class="login-container">
         
@@ -224,31 +212,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </section>
 
-      <div class="secret-box">
-        <a href="../moderator/moderator.html">
-          <button>
-            BUTTON TO MODERATOR . .
-            BUTTON TO MODERATOR . .
-            BUTTON TO MODERATOR . .
-            BUTTON TO MODERATOR . .
-            BUTTON TO MODERATOR . .
-          </button>
-        </a>
-      </div>
-    
-    </div>
+      
     <!-- FOOOOOOOOOOOOOTTTTTTTTTEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRR -->
       <footer class="footer-container">
         <div class="link-container-parent">
           <div class="link-container">
-            <a href="../index.html">Home</a>
+            <a href="../index.php">Home</a>
             <a href="AboutUs.html">About Us</a>
             <a href="#">My Account</a>
           </div>
           <div class="link-container">
-            <a href="Productpage.html">Products</a>
+            <a href="Productpage.php">Products</a>
             <a href="ContactUs.html">Contact</a>
-            <a href="SignUpPage.html">Sign Up</a>
+            <a href="SignUpPage.php">Sign Up</a>
           </div>
           
         </div>

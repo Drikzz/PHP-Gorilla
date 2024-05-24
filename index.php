@@ -78,7 +78,7 @@
       <div class="section-description">
           Unleash your style. Discover clothes that reflect your unique spirit. Explore Now!
       </div>
-      <a href="OtherPages/Productpage.html">
+      <a href="OtherPages/Productpage.php">
         <button class="shop-now-button">
           Shop now
         </button>
@@ -182,12 +182,12 @@
       <div class="link-container">
         <a href="#">Home</a>
         <a href="OtherPages/AboutUs.html">About Us</a>
-        <a href="OtherPages/loginpage.html">My Account</a>
+        <a href="OtherPages/loginpage.php">My Account</a>
       </div>
       <div class="link-container">
-        <a href="OtherPages/Productpage.html">Products</a>
+        <a href="OtherPages/Productpage.php">Products</a>
         <a href="OtherPages/ContactUs.html">Contact</a>
-        <a href="OtherPages/SignUpPage.html">Sign Up</a>
+        <a href="OtherPages/SignUpPage.php">Sign Up</a>
       </div>
       
     </div>

@@ -38,7 +38,7 @@
       <div class="menu-div">
           <a href="../index.php" class="menu-links" style="color: #005B41;">HOME</a>
           <a href="Productpage.php" class="menu-links">PRODUCTS</a>
-          <a href="AboutUs." class="menu-links">ABOUT US</a>
+          <a href="AboutUs.html" class="menu-links">ABOUT US</a>
           <a href="ContactUs.html" class="menu-links">CONTACT</a>
           <div class="dropdown">
             <div class="menu-links dropbtn">
@@ -153,7 +153,7 @@
                 </a>
                 
                 <br><br>
-                <a href="loginpage.php" class="sidebar-links-out">
+                <a href="../PHP/destroy.php" class="sidebar-links-out">
                   <div>
                     <i class="fi fi-rr-arrow-left"></i>
                     <p>Log out </p>

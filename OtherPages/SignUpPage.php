@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <nav>
     <div class="container">
       <div class="logo-div">
-        <a href="../index.html">
+        <a href="../index.php">
           <p class="LOGO">
             GO<span class="rilla">RILLA</span>
           </p>

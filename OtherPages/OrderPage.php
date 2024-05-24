@@ -244,10 +244,10 @@
                 </a>
 
                 <a class="navnav navnum acti" href="#">1</a>
-                <a class="navnav navnum" href="OrderPage2.html">2</a>
-                <a class="navnav navnum" href="OrderPage3.html">3</a>
+                <a class="navnav navnum" href="OrderPage.php">2</a>
+                <a class="navnav navnum" href="OrderPage.php">3</a>
 
-                <a href="OrderPage2.html" class="arrows navnav">
+                <a href="OrderPage.php" class="arrows navnav">
                   <p>Next</p>
                   <i class="fi fi-rr-angle-right"></i>
                 </a>
@@ -263,14 +263,14 @@
   <footer class="footer-container">
     <div class="link-container-parent">
       <div class="link-container">
-        <a href="../index.html">Home</a>
+        <a href="../index.php">Home</a>
         <a href="AboutUs.html">About Us</a>
-        <a href="loginpage.html">My Account</a>
+        <a href="loginpage.php">My Account</a>
       </div>
       <div class="link-container">
-        <a href="Productpage.html">Products</a>
+        <a href="Productpage.php">Products</a>
         <a href="ContactUs.html">Contact</a>
-        <a href="SignUpPage.html">Sign Up</a>
+        <a href="SignUpPage.php">Sign Up</a>
       </div>
       
     </div>
